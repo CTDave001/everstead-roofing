@@ -1,8 +1,11 @@
 ---
-// CTA Section with background image
+import { getImage } from 'astro:assets';
+import ctaBg from '../../assets/images/cta_bg.png';
+
+const optimizedBg = await getImage({ src: ctaBg, format: 'webp', quality: 80, width: 1920 });
 ---
 
-<section class="cta">
+<section class="cta" style={`--cta-bg: url('${optimizedBg.src}')`}>
   <div class="container cta__inner">
     <div class="cta__content animate-on-scroll fade-up">
       <h2 class="cta__title">Ready for a roof done right?</h2>
@@ -22,7 +25,7 @@
 
 <style>
   .cta {
-    background-image: url('/images/cta_bg.png');
+    background-image: var(--cta-bg);
     background-size: cover;
     background-position: center;
     padding: var(--space-20) 0;

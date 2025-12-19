@@ -1,8 +1,11 @@
 ---
-// Hero section with full-width background image
+import { getImage } from 'astro:assets';
+import heroBg from '../../assets/images/hero-roof.png';
+
+const optimizedBg = await getImage({ src: heroBg, format: 'webp', quality: 80, width: 1920 });
 ---
 
-<section class="hero">
+<section class="hero" style={`--hero-bg: url('${optimizedBg.src}')`}>
   <div class="container hero__inner">
     <div class="hero__content">
       <h1 class="hero__title hero-animate hero-animate--1">Roofing Service<br>in Vancouver.</h1>
@@ -43,7 +46,7 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-image: url('/images/hero-roof.png');
+    background-image: var(--hero-bg);
     background-size: cover;
     background-position: right center;
     background-repeat: no-repeat;

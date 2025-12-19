@@ -1,25 +1,29 @@
 ---
+import { Image } from 'astro:assets';
 import NewsCard from '../NewsCard.astro';
+import news1 from '../../assets/images/news-1.jpg';
+import news2 from '../../assets/images/news-2.jpg';
+import news3 from '../../assets/images/news-3.jpg';
 
 const newsItems = [
   {
     title: 'Exploring different roofing materials',
     excerpt: "We'll ensure that you focus on the opportunities that maximize competitive advantage.",
-    image: '/images/news-1.jpg',
+    image: news1,
     date: 'August 10, 2024',
     href: '/blog/exploring-roofing-materials',
   },
   {
     title: 'Protecting your home from damage',
     excerpt: 'Regular roof maintenance is essential for prolonging the life of your roof and preventing costly repairs.',
-    image: '/images/news-2.jpg',
+    image: news2,
     date: 'July 1, 2024',
     href: '/blog/protecting-home-from-damage',
   },
   {
     title: 'We will make your old roof to new.',
     excerpt: 'With so many roofing materials available, choosing the right one can be overwhelming.',
-    image: '/images/news-3.jpg',
+    image: news3,
     date: 'June 17, 2024',
     href: '/blog/old-roof-to-new',
   },

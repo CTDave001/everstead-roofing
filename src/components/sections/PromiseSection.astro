@@ -1,4 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import promise1 from '../../assets/images/promise-1.jpg';
+import promise2 from '../../assets/images/promise-2.jpg';
+import promise3 from '../../assets/images/promise-3.jpg';
+
 // Our Promise section
 const promises = [
   {
@@ -23,14 +28,14 @@ const promises = [
   <div class="container promise__inner">
     <div class="promise__gallery animate-on-scroll slide-left">
       <div class="promise__img promise__img--main">
-        <img src="/images/promise-1.jpg" alt="Modern A-frame home with metal roof installation by Everstead Roofing">
+        <Image src={promise1} alt="Modern A-frame home with metal roof installation by Everstead Roofing" width={480} height={300} quality={80} format="webp" />
       </div>
       <div class="promise__bottom-row">
         <div class="promise__img promise__img--bottom-left">
-          <img src="/images/promise-2.jpg" alt="Aerial view of residential roof replacement in Southwest Washington">
+          <Image src={promise2} alt="Aerial view of residential roof replacement in Southwest Washington" width={321} height={404} quality={80} format="webp" />
         </div>
         <div class="promise__img promise__img--bottom-right">
-          <img src="/images/promise-3.jpg" alt="Commercial flat roof installation services Vancouver WA">
+          <Image src={promise3} alt="Commercial flat roof installation services Vancouver WA" width={294} height={290} quality={80} format="webp" />
         </div>
       </div>
       <div class="promise__badge">

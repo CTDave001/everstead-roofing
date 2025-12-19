@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import workersImg from '../../assets/images/workers.jpg';
+
 // Why Homeowners Trust Everstead Roofing section
 const trustPoints = [
   {
@@ -19,7 +22,7 @@ const trustPoints = [
 <section class="trust section section--cream">
   <div class="container trust__inner">
     <div class="trust__image animate-on-scroll slide-left">
-      <img src="/images/workers.jpg" alt="Everstead Roofing professional installing residential roof in Vancouver WA">
+      <Image src={workersImg} alt="Everstead Roofing professional installing residential roof in Vancouver WA" width={600} height={580} quality={80} format="webp" />
     </div>
     <div class="trust__content animate-on-scroll slide-right">
       <h2 class="trust__title">Why Homeowners Trust Everstead Roofing</h2>

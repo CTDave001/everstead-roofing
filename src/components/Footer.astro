@@ -1,4 +1,9 @@
 ---
+import { getImage } from 'astro:assets';
+import footerBg from '../assets/images/footer-bg.png';
+
+const optimizedBg = await getImage({ src: footerBg, format: 'webp', quality: 80, width: 1920 });
+
 // Footer component - appears on all pages
 const serviceLinks = [
   { label: 'Roofing Services', href: '/services/roofing' },
@@ -16,7 +21,7 @@ const quickLinks = [
 ];
 ---
 
-<footer class="footer">
+<footer class="footer" style={`--footer-bg: url('${optimizedBg.src}')`}>
   <div class="container">
     <div class="footer__top">
       <a href="/" class="footer__logo">
@@ -71,7 +76,7 @@ const quickLinks = [
 
 <style>
   .footer {
-    background-image: url('/images/footer-bg.png');
+    background-image: var(--footer-bg);
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
