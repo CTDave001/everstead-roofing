@@ -1,0 +1,254 @@
+---
+// Footer component - appears on all pages
+const serviceLinks = [
+  { label: 'Roofing Services', href: '/services/roofing' },
+  { label: 'Attic Services', href: '/services/attic' },
+  { label: 'Gutter Services', href: '/services/gutter' },
+  { label: 'Skylight Services', href: '/services/skylight' },
+];
+
+const quickLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Appointment', href: '/contact' },
+  { label: 'License', href: '/license' },
+];
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <a href="/" class="footer__logo">
+        <img src="/eversteadlogo.svg" alt="Everstead Roofing Co - Professional Roofers in Vancouver Washington" width="200" height="100">
+      </a>
+
+      <div class="footer__right">
+        <p class="footer__tagline">
+          Here, at Everstead Roofing, we are Building Trust Through Precision, Quality, and Care
+        </p>
+
+        <hr class="footer__divider">
+
+        <div class="footer__links">
+        <div class="footer__col">
+          <h4 class="footer__col-title">Our Services</h4>
+          {serviceLinks.map((link) => (
+            <a href={link.href} class="footer__link">{link.label}</a>
+          ))}
+        </div>
+
+        <div class="footer__col">
+          <h4 class="footer__col-title">Quick Links</h4>
+          {quickLinks.map((link) => (
+            <a href={link.href} class="footer__link">{link.label}</a>
+          ))}
+        </div>
+
+        <div class="footer__col footer__contact">
+          <div class="footer__contact-item">
+            <span class="footer__contact-label">Call us:</span>
+            <a href="tel:+13603429525" class="footer__phone">(360) 342-9525</a>
+          </div>
+          <div class="footer__contact-item">
+            <span class="footer__contact-label">E-mail:</span>
+            <a href="mailto:hello@eversteadroofing.com" class="footer__email">hello@eversteadroofing.com</a>
+          </div>
+          <div class="footer__contact-item">
+            <span class="footer__contact-label">Address:</span>
+            <p class="footer__address">4200 SE Columbia Way suite f,<br>Vancouver, WA 98661</p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__credit">Website by <a href="https://dbdigitalco.com" target="_blank" rel="noopener">DB Digital Marketing</a></p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-image: url('/images/footer-bg.png');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    color: var(--color-white);
+    padding: var(--space-16) 0 var(--space-6);
+    min-height: 500px;
+  }
+
+  /* Top section */
+  .footer__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: var(--space-10);
+  }
+
+  .footer__logo img {
+    height: 100px;
+    width: auto;
+  }
+
+  .footer__right {
+    width: 600px;
+    margin-right: 80px;
+  }
+
+  .footer__tagline {
+    font-size: 1rem;
+    color: #152536;
+    line-height: 1.6;
+  }
+
+  /* Divider */
+  .footer__divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin: var(--space-10) 0 var(--space-12);
+  }
+
+  .footer__links {
+    display: grid;
+    grid-template-columns: 180px 180px 280px;
+    gap: var(--space-12);
+  }
+
+  .footer__col-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    margin-bottom: var(--space-5);
+    color: #f4f4eb;
+  }
+
+  .footer__link {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(244, 244, 235, 0.85);
+    margin-bottom: var(--space-2);
+    transition: color var(--transition-fast);
+    text-decoration: none;
+  }
+
+  .footer__link:hover {
+    color: #f4f4eb;
+  }
+
+  /* Contact section */
+  .footer__contact-item {
+    margin-bottom: var(--space-4);
+  }
+
+  .footer__contact-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #f4f4eb;
+    margin-bottom: var(--space-1);
+  }
+
+  .footer__phone,
+  .footer__email {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgba(244, 244, 235, 0.9);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer__phone:hover,
+  .footer__email:hover {
+    color: #f4f4eb;
+  }
+
+  .footer__address {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(244, 244, 235, 0.85);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Bottom credit */
+  .footer__bottom {
+    margin-top: var(--space-4);
+    text-align: center;
+  }
+
+  .footer__credit {
+    font-size: 0.8125rem;
+    color: rgba(244, 244, 235, 0.7);
+    margin: 0;
+  }
+
+  .footer__credit a {
+    color: rgba(244, 244, 235, 0.9);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer__credit a:hover {
+    color: #f4f4eb;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .footer__top {
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .footer__right {
+      width: 100%;
+      margin-right: 0;
+    }
+
+    .footer__links {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-8);
+    }
+
+    .footer__logo img {
+      height: 80px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      min-height: auto;
+      padding: var(--space-12) 0 var(--space-6);
+    }
+
+    .footer__links {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+
+    .footer__contact {
+      grid-column: span 2;
+    }
+
+    .footer__logo img {
+      height: 70px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer__links {
+      grid-template-columns: 1fr;
+    }
+
+    .footer__contact {
+      grid-column: auto;
+    }
+
+    .footer__divider {
+      margin: var(--space-6) 0 var(--space-8);
+    }
+  }
+</style>

@@ -1,0 +1,10 @@
+<svg width="180" height="40" viewBox="0 0 180 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Roof icon -->
+  <path d="M4 24L18 10L32 24" stroke="#1B2B4B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M8 21V32H28V21" stroke="#1B2B4B" stroke-width="2" fill="none"/>
+  <path d="M18 10L18 6" stroke="#E86F2C" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Text -->
+  <text x="42" y="22" font-family="Georgia, 'Playfair Display', serif" font-size="16" font-weight="600" fill="#1B2B4B">EVERSTEAD</text>
+  <text x="42" y="34" font-family="Arial, sans-serif" font-size="9" fill="#666" letter-spacing="1">ROOFING</text>
+</svg>

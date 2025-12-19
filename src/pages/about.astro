@@ -1,0 +1,400 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const missionPoints = [
+  {
+    title: 'Better Roofs:',
+    description: 'From free inspections, claim assistance, Roof replacements and home upgrades.',
+  },
+  {
+    title: 'Expert Engineers:',
+    description: 'Our experienced, knowledgeable team is here to guide you through every step of the process.',
+  },
+  {
+    title: 'Quality Materials:',
+    description: 'We understand the importance of protecting your family and investment, and we treat with care.',
+  },
+];
+---
+
+<BaseLayout title="About Us" description="Learn about Everstead Roofing - a local roofing company serving SW Washington and the greater Portland metro area with over 9 years of experience.">
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container about-hero__inner">
+      <div class="about-hero__content">
+        <h1 class="about-hero__title">Everstead<br>Story</h1>
+        <p class="about-hero__text">
+          We are a local roofing company servicing SW Washington and the greater Portland metro area. With over 9 years of experience, we bring value to the customer and value the local relationships that we have worked hard to build in the community.
+        </p>
+      </div>
+      <div class="about-hero__image">
+        <img src="/images/about-hero.jpg" alt="Aerial view of residential roof installation in Vancouver WA">
+        <div class="about-hero__badge">
+          <span class="about-hero__badge-number">9+</span>
+          <span class="about-hero__badge-text">Years of<br>Experience</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full Width Image -->
+  <section class="about-panorama">
+    <img src="/images/about-panorama.jpg" alt="Panoramic view of rooftops in Southwest Washington neighborhood">
+  </section>
+
+  <!-- Three Pillars Section -->
+  <section class="pillars">
+    <div class="container">
+      <div class="pillars__grid">
+        <div class="pillars__item">
+          <div class="pillars__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+          </div>
+          <span class="pillars__label">Our Mission</span>
+        </div>
+        <div class="pillars__item">
+          <div class="pillars__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+          </div>
+          <span class="pillars__label">Our Vision</span>
+        </div>
+        <div class="pillars__item">
+          <div class="pillars__icon pillars__icon--highlight">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <span class="pillars__label">Trusted<br>Services</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Details Section -->
+  <section class="mission section">
+    <div class="container mission__inner">
+      <div class="mission__image">
+        <img src="/images/about-mission.jpg" alt="New home construction with Everstead Roofing installation">
+      </div>
+      <div class="mission__content">
+        <h2 class="mission__title">We are on a mission.</h2>
+        <p class="mission__text">
+          We have been installing and replacing for over 9 years and we are proud to say we are experts in this field. We have a team of skilled & qualified members.
+        </p>
+        <ul class="mission__list">
+          {missionPoints.map((point) => (
+            <li class="mission__item">
+              <svg class="mission__check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <div>
+                <strong>{point.title}</strong> {point.description}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* About Hero */
+  .about-hero {
+    background-color: var(--color-cream);
+    padding: calc(var(--header-height) + var(--space-16)) 0 var(--space-16);
+  }
+
+  .about-hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .about-hero__title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.05;
+    margin-bottom: var(--space-6);
+  }
+
+  .about-hero__text {
+    font-size: 1.0625rem;
+    color: #5a5a50;
+    line-height: 1.7;
+    max-width: 440px;
+  }
+
+  .about-hero__image {
+    position: relative;
+  }
+
+  .about-hero__image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .about-hero__badge {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--space-5) var(--space-8);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    min-width: 140px;
+  }
+
+  .about-hero__badge-number {
+    display: block;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .about-hero__badge-text {
+    font-size: 0.875rem;
+    line-height: 1.3;
+  }
+
+  /* Panorama */
+  .about-panorama {
+    width: 100%;
+    margin-top: var(--space-16);
+  }
+
+  .about-panorama img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
+
+  /* Pillars */
+  .pillars {
+    background-color: var(--color-navy);
+    padding: var(--space-10) 0;
+  }
+
+  .pillars__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .pillars__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    color: var(--color-white);
+  }
+
+  .pillars__icon {
+    width: 64px;
+    height: 64px;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .pillars__icon--highlight {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  .pillars__label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* Mission Section */
+  .mission {
+    background-color: var(--color-cream);
+    padding: var(--space-20) 0;
+  }
+
+  .mission__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .mission__image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .mission__title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+  }
+
+  .mission__text {
+    font-size: 1.0625rem;
+    color: #5a5a50;
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+  }
+
+  .mission__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .mission__item {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+
+  .mission__check {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 4px;
+  }
+
+  .mission__item div {
+    font-size: 1rem;
+    color: #5a5a50;
+    line-height: 1.6;
+  }
+
+  .mission__item strong {
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .about-hero__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .about-hero__title {
+      font-size: 3.5rem;
+    }
+
+    .pillars__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .mission__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .mission__title {
+      font-size: 2.75rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-12);
+    }
+
+    .about-hero__title {
+      font-size: 2.75rem;
+    }
+
+    .about-hero__image img {
+      height: 300px;
+    }
+
+    .about-panorama {
+      margin-top: var(--space-12);
+    }
+
+    .about-panorama img {
+      height: 200px;
+    }
+
+    .mission__image img {
+      height: 350px;
+    }
+
+    .mission__title {
+      font-size: 2.25rem;
+    }
+
+    .pillars__icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    .pillars__icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .pillars__label {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .about-hero__title {
+      font-size: 2.25rem;
+    }
+
+    .about-hero__image img {
+      height: 250px;
+    }
+
+    .about-hero__badge {
+      padding: var(--space-4) var(--space-6);
+      min-width: 120px;
+    }
+
+    .about-hero__badge-number {
+      font-size: 2rem;
+    }
+
+    .about-hero__badge-text {
+      font-size: 0.75rem;
+    }
+
+    .mission__title {
+      font-size: 1.875rem;
+    }
+
+    .mission__image img {
+      height: 280px;
+    }
+  }
+</style>

@@ -1,0 +1,263 @@
+---
+// Hero section with full-width background image
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <h1 class="hero__title hero-animate hero-animate--1">Roofing Service<br>in Vancouver.</h1>
+      <p class="hero__text hero-animate hero-animate--2">
+        Everstead Roofing keeps your home <strong>safe, dry, and energy-efficient</strong> with premium roofing solutions built for durability.
+      </p>
+      <div class="hero__buttons hero-animate hero-animate--3">
+        <a href="/contact" class="btn btn--primary hero__btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Book A Free Consultation
+        </a>
+        <a href="/services" class="btn btn--outline-light hero__btn-secondary">
+          Explore Our Services
+        </a>
+      </div>
+
+      <div class="hero__social-proof hero-animate hero-animate--4">
+        <div class="hero__avatars">
+          <img src="/images/avatar-1.jpg" alt="Satisfied Vancouver roofing customer" class="hero__avatar">
+          <img src="/images/avatar-2.jpg" alt="Happy homeowner with new roof" class="hero__avatar">
+          <img src="/images/avatar-3.jpg" alt="Everstead Roofing client testimonial" class="hero__avatar">
+          <img src="/images/avatar-4.jpg" alt="Local Vancouver WA homeowner" class="hero__avatar">
+        </div>
+        <div class="hero__stats">
+          <span class="hero__stats-number">50+</span>
+          <span class="hero__stats-text">Satisfied Clients</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: url('/images/hero-roof.png');
+    background-size: cover;
+    background-position: right center;
+    background-repeat: no-repeat;
+  }
+
+  /* Gradient overlay for text readability */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(220, 220, 210, 0.97) 0%,
+      rgba(220, 220, 210, 0.9) 60%,
+      rgba(220, 220, 210, 0) 100%
+    );
+    z-index: 1;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 2;
+    padding-top: calc(var(--header-height) + var(--space-12));
+    padding-bottom: var(--space-12);
+  }
+
+  .hero__content {
+    max-width: 680px;
+  }
+
+  .hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: var(--font-bold);
+    line-height: 1.05;
+    color: var(--color-navy);
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__text {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-10);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .hero__text strong {
+    color: var(--color-navy);
+    font-weight: var(--font-semibold);
+  }
+
+  .hero__buttons {
+    display: flex;
+    gap: var(--space-5);
+    margin-bottom: var(--space-12);
+    flex-wrap: wrap;
+  }
+
+  .hero__btn-primary {
+    padding: var(--space-5) var(--space-10);
+    font-size: 1.0625rem;
+    gap: var(--space-3);
+  }
+
+  .hero__btn-secondary {
+    padding: var(--space-5) var(--space-10);
+    font-size: 1.0625rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: var(--color-gray-300);
+    color: var(--color-navy);
+  }
+
+  .hero__btn-secondary:hover {
+    background-color: var(--color-white);
+    border-color: var(--color-navy);
+  }
+
+  .hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hero__avatars {
+    display: flex;
+  }
+
+  .hero__avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--color-white);
+    margin-right: -14px;
+    object-fit: cover;
+  }
+
+  .hero__avatar:last-child {
+    margin-right: 0;
+  }
+
+  .hero__stats {
+    display: flex;
+    flex-direction: column;
+    margin-left: var(--space-2);
+  }
+
+  .hero__stats-number {
+    font-size: 1.75rem;
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    line-height: 1;
+  }
+
+  .hero__stats-text {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero::before {
+      width: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(220, 220, 210, 0.95) 0%,
+        rgba(220, 220, 210, 0.85) 70%,
+        rgba(220, 220, 210, 0.7) 100%
+      );
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      min-height: auto;
+      padding: var(--space-20) 0;
+    }
+
+    .hero__title {
+      font-size: 2.5rem;
+    }
+
+    .hero__text {
+      font-size: 1.125rem;
+    }
+
+    .hero__buttons {
+      flex-direction: column;
+    }
+
+    .hero__btn-primary,
+    .hero__btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .hero__avatar {
+      width: 44px;
+      height: 44px;
+      margin-right: -10px;
+    }
+
+    .hero__stats-number {
+      font-size: 1.5rem;
+    }
+
+    .hero__stats-text {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__title {
+      font-size: 2rem;
+    }
+
+    .hero__text {
+      font-size: 1rem;
+    }
+
+    .hero__btn-primary,
+    .hero__btn-secondary {
+      padding: var(--space-4) var(--space-6);
+      font-size: 1rem;
+    }
+  }
+
+  /* Hero entrance animations */
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeUp 0.8s ease forwards;
+  }
+
+  .hero-animate--1 { animation-delay: 0.1s; }
+  .hero-animate--2 { animation-delay: 0.25s; }
+  .hero-animate--3 { animation-delay: 0.4s; }
+  .hero-animate--4 { animation-delay: 0.55s; }
+
+  @keyframes heroFadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-animate {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

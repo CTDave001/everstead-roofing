@@ -1,0 +1,73 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon?: string;
+  href?: string;
+}
+
+const { title, description, icon, href } = Astro.props;
+---
+
+<div class="service-card">
+  {icon && <span class="service-card__icon">{icon}</span>}
+  <h3 class="service-card__title">{title}</h3>
+  <p class="service-card__description">{description}</p>
+  {href && (
+    <a href={href} class="service-card__link">
+      Learn more
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  )}
+</div>
+
+<style>
+  .service-card {
+    background-color: var(--color-gray-100);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .service-card__icon {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .service-card__title {
+    font-family: var(--font-body);
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-navy);
+  }
+
+  .service-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-4);
+  }
+
+  .service-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--color-primary);
+    transition: gap var(--transition-fast);
+  }
+
+  .service-card__link:hover {
+    gap: var(--space-3);
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq-list">
+  {items.map((item, index) => (
+    <div class="faq-item" data-faq-item>
+      <button class="faq-question" data-faq-toggle aria-expanded="false">
+        <span>{item.question}</span>
+        <span class="faq-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+      </button>
+      <div class="faq-answer" data-faq-answer>
+        <p>{item.answer}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .faq-question {
+    width: 100%;
+    padding: var(--space-6) 0;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #152536;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .faq-question:hover {
+    color: #c56125;
+  }
+
+  .faq-icon {
+    color: #c56125;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-base), padding var(--transition-base);
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-bottom: var(--space-6);
+  }
+
+  .faq-answer p {
+    font-size: 1.0625rem;
+    color: #5a5a50;
+    line-height: 1.7;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('[data-faq-toggle]').forEach(button => {
+    button.addEventListener('click', () => {
+      const item = button.closest('[data-faq-item]');
+      const isActive = item?.classList.contains('active');
+
+      // Close all items
+      document.querySelectorAll('[data-faq-item]').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('[data-faq-toggle]')?.setAttribute('aria-expanded', 'false');
+      });
+
+      // Open clicked item if it wasn't already open
+      if (!isActive && item) {
+        item.classList.add('active');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

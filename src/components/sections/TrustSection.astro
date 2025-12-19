@@ -1,0 +1,138 @@
+---
+// Why Homeowners Trust Everstead Roofing section
+const trustPoints = [
+  {
+    title: 'Affordable Prices:',
+    description: 'Free inspections, clear itemized estimates, no gimmicks.',
+  },
+  {
+    title: 'Guaranteed Satisfaction:',
+    description: '25-year lifetime warranty on new roofs, backed by our confidence and local support.',
+  },
+  {
+    title: 'Clean & Respectful Crews:',
+    description: 'Polite, professional, and leaving your property spotless.',
+  },
+];
+---
+
+<section class="trust section section--cream">
+  <div class="container trust__inner">
+    <div class="trust__image animate-on-scroll slide-left">
+      <img src="/images/workers.jpg" alt="Everstead Roofing professional installing residential roof in Vancouver WA">
+    </div>
+    <div class="trust__content animate-on-scroll slide-right">
+      <h2 class="trust__title">Why Homeowners Trust Everstead Roofing</h2>
+      <p class="trust__intro">
+        With over 9 years of experience, Everstead Roofing Co. serves homeowners and landlords across Southwest Washington. Our skilled crews deliver precise installs, spotless cleanups, and dependable results—every time.
+      </p>
+
+      <ul class="trust__list">
+        {trustPoints.map((point) => (
+          <li class="trust__item">
+            <svg class="trust__check" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <div>
+              <strong>{point.title}</strong> {point.description}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-24);
+  }
+
+  .trust__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .trust__image img {
+    width: 100%;
+    height: auto;
+    min-height: 580px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+  }
+
+  .trust__title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #434338;
+    line-height: 1.08;
+    margin-bottom: var(--space-8);
+  }
+
+  .trust__intro {
+    color: #5a5a50;
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-12);
+  }
+
+  .trust__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .trust__item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .trust__check {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 4px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .trust__item div {
+    font-family: var(--font-body);
+    font-size: 1.1875rem;
+    color: #5a5a50;
+    line-height: 1.5;
+  }
+
+  .trust__item strong {
+    color: var(--color-navy);
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .trust__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .trust__image {
+      order: -1;
+    }
+
+    .trust__title {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .trust__title {
+      font-size: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,120 @@
+---
+import TestimonialCard from '../TestimonialCard.astro';
+
+const testimonials = [
+  {
+    author: 'Dmitry Chebanenko',
+    text: 'Very positive experience with Everstead Roofing. The team showed up on time, answered all my questions, and presented a few ideas for the job and its completion. I am satisfied. They cleaned up before leaving. I was grateful to them. Cheers to a good roof for years to come! I would confidently recommend them to anyone in need of roofing!',
+    rating: 5,
+  },
+  {
+    author: 'Lyndsie J. Slone',
+    text: 'Everstead Roofing delivered excellent quality roofing at a great price. I appreciated the owner for coming out to personally inspect and communicate throughout. My house was quickly repaired, very happy in SW, was super pleased with Everstead Roofing! Completely recommended. Thank You!',
+    rating: 5,
+  },
+];
+---
+
+<section class="testimonials section">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">See what our clients say</h2>
+      <p class="section-subtitle">
+        We proudly employ the industry's most dedicated individuals, who are all professionally trained in roofing service standards for 5-star standards.
+      </p>
+    </div>
+
+    <div class="testimonials__grid animate-on-scroll fade-up">
+      {testimonials.map((testimonial) => (
+        <TestimonialCard
+          author={testimonial.author}
+          text={testimonial.text}
+          rating={testimonial.rating}
+        />
+      ))}
+
+      <div class="testimonials__badge">
+        <div class="testimonials__badge-stars">★★★★★</div>
+        <span class="testimonials__badge-number">25+</span>
+        <span class="testimonials__badge-text">Years of Combined<br>Experience</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials .section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #434338;
+    line-height: 1.08;
+  }
+
+  .testimonials .section-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: var(--space-6);
+    align-items: stretch;
+  }
+
+  .testimonials__badge {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    padding: var(--space-8) var(--space-6);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 160px;
+  }
+
+  .testimonials__badge-stars {
+    color: #FFB800;
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+    letter-spacing: 2px;
+  }
+
+  .testimonials__badge-number {
+    font-size: 3.5rem;
+    font-weight: var(--font-bold);
+    line-height: 1;
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  .testimonials__badge-text {
+    font-size: var(--text-xs);
+    opacity: 0.8;
+    line-height: var(--leading-snug);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .testimonials__badge {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testimonials__badge {
+      grid-column: auto;
+    }
+  }
+</style>

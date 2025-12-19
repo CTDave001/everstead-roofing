@@ -1,0 +1,47 @@
+---
+interface Props {
+  author: string;
+  text: string;
+  rating?: number;
+}
+
+const { author, text, rating = 5 } = Astro.props;
+---
+
+<div class="testimonial-card">
+  <div class="testimonial-card__stars">
+    {Array.from({ length: rating }).map(() => (
+      <span class="star">★</span>
+    ))}
+  </div>
+  <p class="testimonial-card__author">{author}</p>
+  <p class="testimonial-card__text">"{text}"</p>
+</div>
+
+<style>
+  .testimonial-card {
+    background-color: var(--color-gray-100);
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+  }
+
+  .testimonial-card__stars {
+    color: #FFB800;
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
+    letter-spacing: 2px;
+  }
+
+  .testimonial-card__author {
+    font-weight: var(--font-semibold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-3);
+  }
+
+  .testimonial-card__text {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--leading-loose);
+    font-style: italic;
+  }
+</style>

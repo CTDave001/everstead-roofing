@@ -1,0 +1,56 @@
+---
+import FAQ from '../FAQ.astro';
+
+const faqItems = [
+  {
+    question: 'How do I know if I need a roof replacement or just repairs?',
+    answer: 'Signs you may need a replacement include age (20+ years), widespread damage, multiple leaks, or significant shingle loss. We offer free inspections to assess your specific situation and provide honest recommendations.',
+  },
+  {
+    question: 'Do you provide free estimates?',
+    answer: 'Yes! We provide completely free, no-obligation estimates for all roofing services. Our team will inspect your roof and provide a detailed written quote with no pressure.',
+  },
+  {
+    question: 'What types of roofing do you install?',
+    answer: 'We install a wide variety of roofing materials including asphalt shingles, architectural shingles, metal roofing, slate, tile, and flat roofing systems. We can help you choose the best option for your home and budget.',
+  },
+  {
+    question: 'Do you offer warranties?',
+    answer: 'Yes, we offer a 25-year lifetime warranty on new roof installations. This covers both materials and workmanship, giving you long-term peace of mind.',
+  },
+  {
+    question: 'How soon can you start?',
+    answer: 'We typically can start within 1-2 weeks of signing, depending on weather conditions and our current schedule. For emergency repairs, we offer expedited service.',
+  },
+];
+---
+
+<section class="faq section">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-subtitle">
+        Have questions about roofing? Here are some of the most common things homeowners ask us at Everstead Roofing Co.
+      </p>
+    </div>
+
+    <div class="animate-on-scroll fade-up">
+      <FAQ items={faqItems} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq .section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: #434338;
+    line-height: 1.08;
+  }
+
+  .faq .section-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+</style>
