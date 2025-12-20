@@ -1,4 +1,10 @@
 ---
+interface Props {
+  logo?: string;
+}
+
+const { logo = '/eversteadlogo.svg' } = Astro.props;
+
 // Header component - appears on all pages
 const navLinks = [
   { label: 'HOME', href: '/' },
@@ -13,7 +19,7 @@ const navLinks = [
 <header class="header">
   <div class="container header__inner">
     <a href="/" class="header__logo">
-      <img src="/eversteadlogo.svg" alt="Everstead Roofing - Vancouver WA Roofing Contractor" width="160" height="40">
+      <img src={logo} alt="Everstead Roofing - Vancouver WA Roofing Contractor" width="160" height="40">
     </a>
 
     <nav class="header__nav">
