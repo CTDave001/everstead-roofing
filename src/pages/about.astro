@@ -252,13 +252,13 @@ const missionPoints = [
 
   /* Mission Section */
   .mission {
-    background-color: var(--color-cream);
+    background-color: var(--color-navy);
     padding: var(--space-20) 0;
   }
 
   .mission__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.2fr;
     gap: var(--space-16);
     align-items: center;
   }
@@ -268,34 +268,35 @@ const missionPoints = [
     height: 500px;
     object-fit: cover;
     border-radius: var(--radius-lg);
+    border: 4px solid rgba(255, 255, 255, 0.1);
   }
 
   .mission__title {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--color-navy);
+    color: var(--color-white);
     line-height: 1.1;
     margin-bottom: var(--space-6);
   }
 
   .mission__text {
     font-size: 1.0625rem;
-    color: #5a5a50;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.7;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-10);
   }
 
   .mission__list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--space-6);
   }
 
   .mission__item {
     display: flex;
-    gap: var(--space-3);
+    gap: var(--space-4);
     align-items: flex-start;
   }
 
@@ -306,14 +307,14 @@ const missionPoints = [
   }
 
   .mission__item div {
-    font-size: 1rem;
-    color: #5a5a50;
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.75);
     line-height: 1.6;
   }
 
   .mission__item strong {
-    color: var(--color-navy);
-    font-weight: 600;
+    color: var(--color-white);
+    font-weight: 700;
   }
 
   /* Responsive */
