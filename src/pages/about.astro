@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import aboutHeroImg from '../assets/images/about-hero.jpg';
+import aboutMissionImg from '../assets/images/about-mission.jpg';
+import aboutVisionImg from '../assets/images/about-vision.jpg';
 
 const missionPoints = [
   {
@@ -42,7 +44,7 @@ const missionPoints = [
 
   <!-- Full Width Image -->
   <section class="about-panorama">
-    <img src="/images/about-panorama.jpg" alt="Panoramic view of rooftops in Southwest Washington neighborhood">
+    <Image src={aboutVisionImg} alt="Panoramic view of rooftops in Southwest Washington neighborhood" width={1920} height={350} quality={80} format="webp" />
   </section>
 
   <!-- Three Pillars Section -->
@@ -86,7 +88,7 @@ const missionPoints = [
   <section class="mission section">
     <div class="container mission__inner">
       <div class="mission__image">
-        <img src="/images/about-mission.jpg" alt="New home construction with Everstead Roofing installation">
+        <Image src={aboutMissionImg} alt="New home construction with Everstead Roofing installation" width={600} height={500} quality={80} format="webp" />
       </div>
       <div class="mission__content">
         <h2 class="mission__title">We are on a mission.</h2>
