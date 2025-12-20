@@ -1,0 +1,182 @@
+---
+import { getImage } from 'astro:assets';
+// Placeholder - replace with actual holiday hero image
+// import holidayHeroBg from '../../assets/images/holiday-hero.jpg';
+// const optimizedBg = await getImage({ src: holidayHeroBg, format: 'webp', quality: 80, width: 1920 });
+---
+
+<section class="holiday-hero" style="--hero-bg: url('/images/holiday-hero.jpg')">
+  <div class="container holiday-hero__inner">
+    <div class="holiday-hero__content">
+      <h1 class="holiday-hero__title hero-animate hero-animate--1">Christmas<br>Lights<br>Installation in<br>Vancouver<br>WA</h1>
+      <p class="holiday-hero__text hero-animate hero-animate--2">
+        Transform your home into a <strong>winter wonderland</strong> with professional Christmas light installation by Everstead.
+      </p>
+      <div class="holiday-hero__buttons hero-animate hero-animate--3">
+        <a href="/contact" class="btn btn--primary holiday-hero__btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          Get a Quote Today
+        </a>
+        <a href="tel:+13603429525" class="btn btn--outline-light holiday-hero__btn-secondary">
+          Call Now
+        </a>
+      </div>
+      <p class="holiday-hero__note hero-animate hero-animate--4">
+        Text 4 photos for a same-day estimate. 50% deposit required to reserve.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .holiday-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background-image: var(--hero-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .holiday-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(21, 37, 54, 0.85) 0%,
+      rgba(21, 37, 54, 0.7) 50%,
+      rgba(21, 37, 54, 0.3) 100%
+    );
+    z-index: 1;
+  }
+
+  .holiday-hero__inner {
+    position: relative;
+    z-index: 2;
+    padding-top: calc(var(--header-height) + var(--space-12));
+    padding-bottom: var(--space-12);
+  }
+
+  .holiday-hero__content {
+    max-width: 600px;
+  }
+
+  .holiday-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: var(--font-bold);
+    line-height: 1.1;
+    color: var(--color-white);
+    margin-bottom: var(--space-6);
+  }
+
+  .holiday-hero__text {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-8);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  .holiday-hero__text strong {
+    color: var(--color-white);
+    font-weight: var(--font-semibold);
+  }
+
+  .holiday-hero__buttons {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .holiday-hero__btn-primary {
+    padding: var(--space-4) var(--space-8);
+    font-size: 1rem;
+    gap: var(--space-3);
+    background-color: var(--color-primary);
+  }
+
+  .holiday-hero__btn-secondary {
+    padding: var(--space-4) var(--space-8);
+    font-size: 1rem;
+    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--color-white);
+  }
+
+  .holiday-hero__btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-white);
+  }
+
+  .holiday-hero__note {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+  }
+
+  /* Animations */
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeUp 0.8s ease forwards;
+  }
+
+  .hero-animate--1 { animation-delay: 0.1s; }
+  .hero-animate--2 { animation-delay: 0.25s; }
+  .hero-animate--3 { animation-delay: 0.4s; }
+  .hero-animate--4 { animation-delay: 0.55s; }
+
+  @keyframes heroFadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .holiday-hero {
+      min-height: auto;
+      padding: var(--space-20) 0;
+    }
+
+    .holiday-hero::before {
+      background: linear-gradient(
+        to bottom,
+        rgba(21, 37, 54, 0.9) 0%,
+        rgba(21, 37, 54, 0.8) 100%
+      );
+    }
+
+    .holiday-hero__title {
+      font-size: 2.25rem;
+    }
+
+    .holiday-hero__buttons {
+      flex-direction: column;
+    }
+
+    .holiday-hero__btn-primary,
+    .holiday-hero__btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-animate {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>

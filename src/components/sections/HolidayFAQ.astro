@@ -1,0 +1,72 @@
+---
+import FAQ from '../FAQ.astro';
+
+const faqItems = [
+  {
+    question: 'When should I book my Christmas light installation?',
+    answer: 'We recommend booking by early October to secure your preferred installation date. Our schedule fills up quickly during the holiday season, so earlier booking ensures availability.',
+  },
+  {
+    question: 'Do you provide the lights or do I need to buy them?',
+    answer: 'We provide commercial-grade C9 LED lights as part of our service. These are more durable and brighter than retail lights. If you have specific lights you\'d like us to use, we can discuss that during your consultation.',
+  },
+  {
+    question: 'How much does Christmas light installation cost?',
+    answer: 'Pricing depends on the size of your home and the complexity of the design. Most residential installations range from $400-$1,500. We offer free phone consultations and can provide a quote based on photos of your home.',
+  },
+  {
+    question: 'When do you remove the lights?',
+    answer: 'We typically remove lights in January after the holiday season. Removal is included in our full-service package. We\'ll coordinate a convenient time with you.',
+  },
+  {
+    question: 'Do you offer light storage?',
+    answer: 'Yes! We offer optional year-round storage for your Christmas lights. This keeps them safe and ready for next season, and makes the installation process even smoother.',
+  },
+];
+
+// FAQ Schema for SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<section class="holiday-faq section section--cream">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">Holiday Lights FAQ</h2>
+      <p class="section-subtitle">
+        Common questions about our Christmas light installation services.
+      </p>
+    </div>
+
+    <div class="animate-on-scroll fade-up">
+      <FAQ items={faqItems} />
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<style>
+  .holiday-faq .section-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #434338;
+    line-height: 1.08;
+  }
+
+  .holiday-faq .section-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+</style>

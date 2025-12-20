@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HolidayHero from '../components/sections/HolidayHero.astro';
+import HolidayGallery from '../components/sections/HolidayGallery.astro';
+import HolidayWhatsIncluded from '../components/sections/HolidayWhatsIncluded.astro';
+import HolidayFAQ from '../components/sections/HolidayFAQ.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+---
+
+<BaseLayout
+  title="Christmas Lights Installation"
+  description="Professional Christmas light installation in Vancouver, WA. Commercial-grade LED lights, non-damaging clips, and full-service installation & removal. Get a free quote today!"
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Holiday Lights", url: "/holiday" }
+  ]}
+>
+  <HolidayHero />
+  <HolidayGallery />
+  <HolidayWhatsIncluded />
+  <TestimonialsSection />
+  <HolidayFAQ />
+  <CTASection />
+</BaseLayout>
