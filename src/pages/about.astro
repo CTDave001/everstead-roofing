@@ -21,7 +21,14 @@ const missionPoints = [
 ];
 ---
 
-<BaseLayout title="About Us" description="Learn about Everstead Roofing - a local roofing company serving SW Washington and the greater Portland metro area with over 9 years of experience.">
+<BaseLayout
+  title="About Us"
+  description="Learn about Everstead Roofing - Vancouver WA's trusted local roofing contractor with 9+ years of experience. Free inspections, 25-year warranty, and expert craftsmanship."
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "About Us", url: "/about" }
+  ]}
+>
 
   <!-- Hero Section -->
   <section class="about-hero">

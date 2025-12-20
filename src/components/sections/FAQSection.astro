@@ -23,6 +23,20 @@ const faqItems = [
     answer: 'We typically can start within 1-2 weeks of signing, depending on weather conditions and our current schedule. For emergency repairs, we offer expedited service.',
   },
 ];
+
+// FAQ Schema for SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
 ---
 
 <section class="faq section">
@@ -39,6 +53,8 @@ const faqItems = [
     </div>
   </div>
 </section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
 <style>
   .faq .section-title {

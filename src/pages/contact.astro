@@ -2,7 +2,14 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contact Us" description="Have questions about roofing? Contact Everstead Roofing in Vancouver, WA. Submit your information and we'll get back to you as soon as possible.">
+<BaseLayout
+  title="Contact Us"
+  description="Get a free roofing estimate from Everstead Roofing in Vancouver, WA. Call (360) 342-9525 or submit our contact form. Same-day quotes available."
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Contact Us", url: "/contact" }
+  ]}
+>
 
   <section class="contact">
     <div class="container contact__inner">

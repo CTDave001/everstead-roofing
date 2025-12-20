@@ -3,23 +3,42 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title: string;
   description?: string;
   image?: string;
   type?: 'website' | 'article';
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
   title,
   description = 'Everstead Roofing keeps your home safe, dry, and energy-efficient with premium roofing solutions built for durability. Serving Vancouver, WA.',
   image = '/images/og-image.jpg',
-  type = 'website'
+  type = 'website',
+  breadcrumbs = []
 } = Astro.props;
 
 const siteUrl = 'https://eversteadroofing.com';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const fullTitle = title === 'Roofing Service in Vancouver' ? `${title} | Everstead Roofing Co` : `${title} | Everstead Roofing`;
+
+// Generate breadcrumb schema if breadcrumbs provided
+const breadcrumbSchema = breadcrumbs.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": `${siteUrl}${item.url}`
+  }))
+} : null;
 ---
 
 <!DOCTYPE html>
@@ -123,6 +142,10 @@ const fullTitle = title === 'Roofing Service in Vancouver' ? `${title} | Everste
       "reviewCount": "50"
     }
   })} />
+
+  {breadcrumbSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  )}
 </head>
 <body>
   <Header />
