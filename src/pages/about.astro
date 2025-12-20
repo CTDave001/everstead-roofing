@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import aboutHeroImg from '../assets/images/about-hero.jpg';
 
 const missionPoints = [
   {
@@ -29,7 +31,7 @@ const missionPoints = [
         </p>
       </div>
       <div class="about-hero__image">
-        <img src="/images/about-hero.jpg" alt="Aerial view of residential roof installation in Vancouver WA">
+        <Image src={aboutHeroImg} alt="Aerial view of residential roof installation in Vancouver WA" width={600} height={400} quality={80} format="webp" />
         <div class="about-hero__badge">
           <span class="about-hero__badge-number">9+</span>
           <span class="about-hero__badge-text">Years of<br>Experience</span>
@@ -155,10 +157,11 @@ const missionPoints = [
     bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: #f4f4eb;
+    color: var(--color-navy);
     padding: var(--space-5) var(--space-8);
     border-radius: var(--radius-lg);
+    border: 2px solid var(--color-primary);
     text-align: center;
     min-width: 140px;
   }
