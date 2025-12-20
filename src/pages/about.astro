@@ -26,15 +26,15 @@ const missionPoints = [
   <!-- Hero Section -->
   <section class="about-hero">
     <div class="container about-hero__inner">
-      <div class="about-hero__content">
+      <div class="about-hero__content animate-on-scroll slide-right">
         <h1 class="about-hero__title">Everstead<br>Story</h1>
         <p class="about-hero__text">
           We are a local roofing company servicing SW Washington and the greater Portland metro area. With over 9 years of experience, we bring value to the customer and value the local relationships that we have worked hard to build in the community.
         </p>
       </div>
-      <div class="about-hero__image">
+      <div class="about-hero__image animate-on-scroll slide-left">
         <Image src={aboutHeroImg} alt="Aerial view of residential roof installation in Vancouver WA" width={600} height={600} quality={80} format="webp" />
-        <div class="about-hero__badge">
+        <div class="about-hero__badge animate-on-scroll scale-in">
           <span class="about-hero__badge-number">9+</span>
           <span class="about-hero__badge-text">Years of<br>Experience</span>
         </div>
@@ -49,8 +49,8 @@ const missionPoints = [
       <div class="about-panorama__fade"></div>
     </div>
     <div class="container pillars__wrapper">
-      <div class="pillars__grid">
-        <div class="pillars__card">
+      <div class="pillars__grid stagger-children">
+        <div class="pillars__card animate-on-scroll fade-up">
           <div class="pillars__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -61,7 +61,7 @@ const missionPoints = [
           </div>
           <span class="pillars__label">Our Mission</span>
         </div>
-        <div class="pillars__card">
+        <div class="pillars__card animate-on-scroll fade-up">
           <div class="pillars__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -71,7 +71,7 @@ const missionPoints = [
           </div>
           <span class="pillars__label">Our Vision</span>
         </div>
-        <div class="pillars__card">
+        <div class="pillars__card animate-on-scroll fade-up">
           <div class="pillars__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -87,17 +87,17 @@ const missionPoints = [
   <!-- Mission Details Section -->
   <section class="mission section">
     <div class="container mission__inner">
-      <div class="mission__image">
+      <div class="mission__image animate-on-scroll slide-right">
         <Image src={aboutMissionImg} alt="New home construction with Everstead Roofing installation" width={600} height={500} quality={80} format="webp" />
       </div>
-      <div class="mission__content">
+      <div class="mission__content animate-on-scroll slide-left">
         <h2 class="mission__title">We are on a mission.</h2>
         <p class="mission__text">
           We have been installing and replacing for over 9 years and we are proud to say we are experts in this field. We have a team of skilled & qualified members.
         </p>
-        <ul class="mission__list">
+        <ul class="mission__list stagger-children">
           {missionPoints.map((point) => (
-            <li class="mission__item">
+            <li class="mission__item animate-on-scroll fade-up">
               <svg class="mission__check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
