@@ -42,43 +42,43 @@ const missionPoints = [
     </div>
   </section>
 
-  <!-- Full Width Image -->
-  <section class="about-panorama">
-    <Image src={aboutVisionImg} alt="Panoramic view of rooftops in Southwest Washington neighborhood" width={1920} height={350} quality={80} format="webp" />
-  </section>
-
-  <!-- Three Pillars Section -->
-  <section class="pillars">
-    <div class="container">
+  <!-- Panorama with Pillars -->
+  <section class="about-panorama-section">
+    <div class="about-panorama">
+      <Image src={aboutVisionImg} alt="Panoramic view of rooftops in Southwest Washington neighborhood" width={1920} height={600} quality={80} format="webp" />
+      <div class="about-panorama__fade"></div>
+    </div>
+    <div class="container pillars__wrapper">
       <div class="pillars__grid">
-        <div class="pillars__item">
+        <div class="pillars__card">
           <div class="pillars__icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
-              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-              <line x1="9" y1="9" x2="9.01" y2="9"></line>
-              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="M12 2v4M12 18v4"></path>
             </svg>
           </div>
           <span class="pillars__label">Our Mission</span>
         </div>
-        <div class="pillars__item">
+        <div class="pillars__card">
           <div class="pillars__icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+              <path d="M12 5v-2M12 21v-2M5 12H3M21 12h-2"></path>
             </svg>
           </div>
           <span class="pillars__label">Our Vision</span>
         </div>
-        <div class="pillars__item">
-          <div class="pillars__icon pillars__icon--highlight">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        <div class="pillars__card">
+          <div class="pillars__icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
             </svg>
           </div>
-          <span class="pillars__label">Trusted<br>Services</span>
+          <span class="pillars__label">Trusted Services</span>
         </div>
       </div>
     </div>
@@ -181,42 +181,58 @@ const missionPoints = [
     line-height: 1.3;
   }
 
-  /* Panorama */
-  .about-panorama {
-    width: 100%;
+  /* Panorama with Pillars */
+  .about-panorama-section {
+    position: relative;
     margin-top: var(--space-16);
+  }
+
+  .about-panorama {
+    position: relative;
+    width: 100%;
   }
 
   .about-panorama img {
     width: 100%;
-    height: 350px;
+    height: 500px;
     object-fit: cover;
   }
 
-  /* Pillars */
-  .pillars {
-    background-color: var(--color-navy);
-    padding: var(--space-10) 0;
+  .about-panorama__fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), white);
+    pointer-events: none;
+  }
+
+  .pillars__wrapper {
+    position: relative;
+    margin-top: -120px;
+    padding-bottom: var(--space-12);
   }
 
   .pillars__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8);
+    gap: var(--space-6);
   }
 
-  .pillars__item {
+  .pillars__card {
+    background-color: #e5e5db;
+    border-radius: var(--radius-lg);
+    padding: var(--space-8) var(--space-6);
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    color: var(--color-white);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
 
   .pillars__icon {
-    width: 64px;
-    height: 64px;
-    border: 2px solid var(--color-primary);
-    border-radius: var(--radius-full);
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -224,16 +240,12 @@ const missionPoints = [
     flex-shrink: 0;
   }
 
-  .pillars__icon--highlight {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-  }
-
   .pillars__label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.3;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
   }
 
   /* Mission Section */
@@ -315,7 +327,15 @@ const missionPoints = [
 
     .pillars__grid {
       grid-template-columns: 1fr;
-      gap: var(--space-6);
+      gap: var(--space-4);
+    }
+
+    .pillars__wrapper {
+      margin-top: -80px;
+    }
+
+    .about-panorama img {
+      height: 400px;
     }
 
     .mission__inner {
@@ -345,12 +365,24 @@ const missionPoints = [
       left: 0;
     }
 
-    .about-panorama {
+    .about-panorama-section {
       margin-top: var(--space-12);
     }
 
     .about-panorama img {
-      height: 200px;
+      height: 350px;
+    }
+
+    .pillars__wrapper {
+      margin-top: -60px;
+    }
+
+    .pillars__card {
+      padding: var(--space-6) var(--space-5);
+    }
+
+    .pillars__label {
+      font-size: 1.25rem;
     }
 
     .mission__image img {
