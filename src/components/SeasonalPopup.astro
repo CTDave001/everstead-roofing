@@ -1,0 +1,437 @@
+---
+// Seasonal popup - shows holiday promo (Nov 1 - Dec 25) or free quote (rest of year)
+---
+
+<div class="popup-overlay" id="seasonalPopup">
+  <div class="popup-modal">
+    <button class="popup-close" aria-label="Close popup">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Holiday Version (Nov 1 - Dec 25) -->
+    <div class="popup-content popup-content--holiday" id="holidayContent">
+      <div class="popup-header popup-header--holiday">
+        <img src="/images/holiday-hero.jpg" alt="Beautiful Christmas lights on home" />
+        <div class="popup-header__overlay"></div>
+        <div class="popup-header__badge">
+          <span>Limited Spots</span>
+        </div>
+      </div>
+      <div class="popup-body">
+        <h2 class="popup-title">Light Up Your Home<br/>This Holiday Season</h2>
+        <p class="popup-text">Professional Christmas light installation with premium LED lights, expert setup, and hassle-free removal included.</p>
+        <ul class="popup-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Commercial-grade LED lights
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Full installation & removal
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            No damage to your home
+          </li>
+        </ul>
+        <div class="popup-actions">
+          <a href="/contact" class="btn btn--primary popup-cta">Get Your Free Quote</a>
+          <a href="/holiday" class="popup-link">See Our Work</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Free Quote Version (rest of year) -->
+    <div class="popup-content popup-content--quote" id="quoteContent">
+      <div class="popup-header popup-header--quote">
+        <img src="/images/hero-roof.jpg" alt="Professional roofing work" />
+        <div class="popup-header__overlay"></div>
+        <div class="popup-header__badge popup-header__badge--orange">
+          <span>Free Inspection</span>
+        </div>
+      </div>
+      <div class="popup-body">
+        <h2 class="popup-title">Protect Your Home<br/>With Expert Care</h2>
+        <p class="popup-text">Vancouver's trusted roofing experts. Get a comprehensive roof inspection at no cost.</p>
+        <ul class="popup-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Thorough roof assessment
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Honest recommendations
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            9+ years experience
+          </li>
+        </ul>
+        <div class="popup-actions">
+          <a href="/contact" class="btn btn--primary popup-cta">Schedule Free Inspection</a>
+        </div>
+        <div class="popup-trust">
+          <div class="popup-trust__stars">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <span>5-Star Rated on Google</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'everstead_popup_dismissed';
+  const DAYS_TO_HIDE = 7;
+  const IS_DEV = import.meta.env.DEV;
+
+  function isHolidaySeason(): boolean {
+    // Dev-only: URL params to force popup version
+    // ?popup=holiday or ?popup=quote
+    if (IS_DEV) {
+      const params = new URLSearchParams(window.location.search);
+      const forceVersion = params.get('popup');
+      if (forceVersion === 'holiday') return true;
+      if (forceVersion === 'quote') return false;
+    }
+
+    const now = new Date();
+    const month = now.getMonth(); // 0-indexed (0 = Jan, 10 = Nov, 11 = Dec)
+    const day = now.getDate();
+
+    // Nov 1 (month 10) through Dec 25 (month 11, day 25)
+    if (month === 10) return true; // All of November
+    if (month === 11 && day <= 25) return true; // Dec 1-25
+    return false;
+  }
+
+  function shouldShowPopup(): boolean {
+    // Dev-only: URL param bypasses the wait period
+    if (IS_DEV) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('popup')) return true;
+    }
+
+    const dismissed = localStorage.getItem(STORAGE_KEY);
+    if (!dismissed) return true;
+
+    const dismissedDate = new Date(parseInt(dismissed));
+    const now = new Date();
+    const daysSince = (now.getTime() - dismissedDate.getTime()) / (1000 * 60 * 60 * 24);
+
+    return daysSince >= DAYS_TO_HIDE;
+  }
+
+  function dismissPopup(): void {
+    localStorage.setItem(STORAGE_KEY, Date.now().toString());
+    const popup = document.getElementById('seasonalPopup');
+    popup?.classList.remove('is-visible');
+  }
+
+  function showPopup(): void {
+    const popup = document.getElementById('seasonalPopup');
+    const holidayContent = document.getElementById('holidayContent');
+    const quoteContent = document.getElementById('quoteContent');
+
+    if (!popup || !holidayContent || !quoteContent) return;
+
+    // Show appropriate content based on season
+    if (isHolidaySeason()) {
+      holidayContent.style.display = 'block';
+      quoteContent.style.display = 'none';
+    } else {
+      holidayContent.style.display = 'none';
+      quoteContent.style.display = 'block';
+    }
+
+    popup.classList.add('is-visible');
+  }
+
+  function initPopup(): void {
+    if (!shouldShowPopup()) return;
+
+    let hasShown = false;
+    const scrollThreshold = 0.3; // 30% scroll
+
+    function checkScroll(): void {
+      if (hasShown) return;
+
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+
+      if (scrollPercent >= scrollThreshold) {
+        hasShown = true;
+        showPopup();
+        window.removeEventListener('scroll', checkScroll);
+      }
+    }
+
+    window.addEventListener('scroll', checkScroll);
+
+    // Close handlers
+    const popup = document.getElementById('seasonalPopup');
+    const closeBtn = popup?.querySelector('.popup-close');
+
+    closeBtn?.addEventListener('click', dismissPopup);
+
+    popup?.addEventListener('click', (e) => {
+      if (e.target === popup) {
+        dismissPopup();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && popup?.classList.contains('is-visible')) {
+        dismissPopup();
+      }
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPopup);
+  } else {
+    initPopup();
+  }
+</script>
+
+<style>
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(21, 37, 54, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .popup-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .popup-modal {
+    background: #fff;
+    border-radius: var(--radius-xl);
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.4);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+  }
+
+  .popup-overlay.is-visible .popup-modal {
+    transform: scale(1) translateY(0);
+  }
+
+  .popup-close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    color: var(--color-navy);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .popup-close:hover {
+    background: #fff;
+    transform: scale(1.1);
+  }
+
+  .popup-content {
+    display: none;
+  }
+
+  /* Header with image */
+  .popup-header {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .popup-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .popup-header__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+  }
+
+  .popup-header__badge {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    background: #2d5a27;
+    color: white;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .popup-header__badge--orange {
+    background: var(--color-primary);
+  }
+
+  /* Body content */
+  .popup-body {
+    padding: var(--space-8);
+    text-align: center;
+  }
+
+  .popup-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: var(--color-navy);
+    margin-bottom: var(--space-3);
+    line-height: 1.25;
+  }
+
+  .popup-text {
+    font-size: 0.9375rem;
+    color: #5a5a50;
+    line-height: 1.6;
+    margin-bottom: var(--space-5);
+  }
+
+  /* Feature list */
+  .popup-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .popup-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.9375rem;
+    color: var(--color-navy);
+    font-weight: 500;
+    justify-content: center;
+  }
+
+  .popup-features svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  /* Actions */
+  .popup-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .popup-cta {
+    width: 100%;
+    padding: var(--space-4) var(--space-8);
+    font-size: 1rem;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(198, 93, 7, 0.35);
+  }
+
+  .popup-cta:hover {
+    box-shadow: 0 6px 20px rgba(198, 93, 7, 0.45);
+  }
+
+  .popup-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color 0.2s ease;
+  }
+
+  .popup-link:hover {
+    color: var(--color-navy);
+  }
+
+  /* Trust section */
+  .popup-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid #eee;
+  }
+
+  .popup-trust__stars {
+    display: flex;
+    gap: 2px;
+    color: #f59e0b;
+  }
+
+  .popup-trust span:last-child {
+    font-size: 0.8125rem;
+    color: #5a5a50;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .popup-modal {
+      margin: var(--space-4);
+      max-width: calc(100% - var(--space-8));
+    }
+
+    .popup-header {
+      height: 150px;
+    }
+
+    .popup-body {
+      padding: var(--space-6);
+    }
+
+    .popup-title {
+      font-size: 1.375rem;
+    }
+
+    .popup-features li {
+      font-size: 0.875rem;
+    }
+  }
+</style>
