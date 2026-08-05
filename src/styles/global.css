@@ -37,22 +37,32 @@
   --color-gray-200: #e5e5dc;
   --color-gray-300: #d1d1c8;
 
-  /* Typography - Font Families (exact from eversteadroofing.com) */
-  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Typography - Font Families
+     Two families, each with one job. Plus Jakarta Sans carries all display and
+     heading work; Inter carries body copy. Montserrat and Playfair Display were
+     removed - Playfair was loaded but never used, and Montserrat competed with
+     Jakarta for headings depending on which component rendered them.
+     --font-accent is an alias kept so any stray reference still resolves. */
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-accent: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-accent: var(--font-heading);
 
-  /* Typography - Font Sizes */
+  /* Typography - Font Sizes
+     Fluid from --text-3xl up. The old scale stepped only ~1.25x near the top, so
+     nothing ever read as large; display now reaches 4.2x body. */
   --text-xs: 0.8125rem;   /* 13px */
   --text-sm: 0.9375rem;   /* 15px */
   --text-base: 1.0625rem; /* 17px */
   --text-lg: 1.1875rem;   /* 19px */
   --text-xl: 1.375rem;    /* 22px */
   --text-2xl: 1.625rem;   /* 26px */
-  --text-3xl: 2rem;       /* 32px */
-  --text-4xl: 2.5rem;     /* 40px */
-  --text-5xl: 3.25rem;    /* 52px */
-  --text-6xl: 4rem;       /* 64px */
+  --text-3xl: clamp(1.75rem, 3vw, 2.5rem);      /* 28 -> 40px */
+  --text-4xl: clamp(2rem, 3.6vw, 2.75rem);      /* 32 -> 44px */
+  --text-5xl: clamp(2.25rem, 4.5vw, 3.5rem);    /* 36 -> 56px */
+  --text-6xl: clamp(2.75rem, 6vw, 4.5rem);      /* 44 -> 72px */
+
+  /* Measure - caps line length for prose. The container stays wide for imagery. */
+  --measure: 68ch;
 
   /* Typography - Font Weights */
   --font-normal: 400;
@@ -81,19 +91,23 @@
   --space-20: 5rem;       /* 80px */
   --space-24: 6rem;       /* 96px */
 
-  /* Border Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
+  /* Border Radius
+     Three real values. --md/--xl/--2xl are aliases so existing markup keeps
+     working while it migrates; they collapse onto the three below. */
+  --radius-sm: 6px;     /* inputs, small chips */
+  --radius-lg: 14px;    /* cards, panels */
   --radius-full: 9999px;
+  --radius-md: var(--radius-sm);
+  --radius-xl: var(--radius-lg);
+  --radius-2xl: var(--radius-lg);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  /* Shadows
+     Tinted with --color-navy rather than pure black. Black shadows go muddy grey
+     against the cream background, which is the single cheapest-looking detail. */
+  --shadow-sm: 0 1px 2px rgba(21, 37, 54, 0.06);
+  --shadow-md: 0 4px 16px rgba(21, 37, 54, 0.08);
+  --shadow-lg: 0 16px 40px rgba(21, 37, 54, 0.10);
+  --shadow-xl: 0 24px 56px rgba(21, 37, 54, 0.14);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -152,6 +166,20 @@ a {
   transition: color var(--transition-fast);
 }
 
+/* Keyboard focus. Only the contact inputs had a focus style before, so every
+   link, button, and nav item fell back to the browser default - which is
+   low-contrast against both the cream and the navy. Terracotta reads clearly
+   on both. :focus-visible keeps it off mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -174,8 +202,20 @@ button {
   padding: 0 var(--container-padding);
 }
 
+/* Section rhythm.
+   Every section used to be a flat 80px, which left the page with no pacing -
+   nothing signalled that one moment mattered more than another. Three tiers:
+   support sections go tight, hero/services/main CTA go feature, rest sit here. */
 .section {
-  padding: var(--space-20) 0;
+  padding: clamp(5rem, 9vw, 7.5rem) 0;    /* 80 -> 120px */
+}
+
+.section--tight {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;    /* 48 ->  72px */
+}
+
+.section--feature {
+  padding: clamp(7rem, 13vw, 10rem) 0;    /* 112 -> 160px */
 }
 
 .section--cream {
@@ -185,6 +225,15 @@ button {
 .section--navy {
   background-color: var(--color-navy);
   color: var(--color-white);
+}
+
+/* Caps line length on long-form copy without narrowing the container. */
+.prose {
+  max-width: var(--measure);
+}
+
+.prose--center {
+  margin-inline: auto;
 }
 
 /* Text utilities */
@@ -281,25 +330,15 @@ button {
    RESPONSIVE BREAKPOINTS
    =================================== */
 
-@media (max-width: 1024px) {
-  :root {
-    --text-6xl: 2.75rem;
-    --text-5xl: 2.25rem;
-    --text-4xl: 1.875rem;
-  }
-}
+/* The display sizes used to be fixed and were stepped down by hand at each
+   breakpoint. They are clamp() values now, so redefining them here would
+   override the fluid scale and put us back where we started. Only tokens that
+   are genuinely not fluid get adjusted below. */
 
 @media (max-width: 768px) {
   :root {
-    --text-6xl: 2.25rem;
-    --text-5xl: 1.875rem;
-    --text-4xl: 1.5rem;
     --space-20: 3.5rem;
     --container-padding: var(--space-4);
-  }
-
-  .section {
-    padding: var(--space-16) 0;
   }
 }
 
@@ -401,10 +440,28 @@ button {
 .stagger-children > *:nth-child(6) { transition-delay: 500ms; }
 
 /* Reduce motion for accessibility */
+/* This previously covered only .animate-on-scroll, which left the hero entrance
+   animation, all five keyframe animations, every transition, and smooth
+   scrolling still running for people who asked the OS for less motion. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-on-scroll {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Scroll- and entrance-animated elements start hidden, so they need to be
+     forced visible rather than merely having their animation shortened. */
+  .animate-on-scroll,
+  .hero-animate {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
