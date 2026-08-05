@@ -1,5 +1,7 @@
 ---
 // Seasonal popup - shows holiday promo (Nov 1 - Dec 25) or free quote (rest of year)
+import { Image } from 'astro:assets';
+import heroRoofImg from '../assets/images/hero-roof.png';
 ---
 
 <div class="popup-overlay" id="seasonalPopup">
@@ -47,7 +49,7 @@
     <!-- Free Quote Version (rest of year) -->
     <div class="popup-content popup-content--quote" id="quoteContent">
       <div class="popup-header popup-header--quote">
-        <img src="/images/hero-roof.jpg" alt="Professional roofing work" />
+        <Image src={heroRoofImg} alt="Professional roofing work" width={420} height={180} />
         <div class="popup-header__overlay"></div>
         <div class="popup-header__badge popup-header__badge--orange">
           <span>Free Inspection</span>

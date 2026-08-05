@@ -12,7 +12,9 @@ const navLinks = [
   { label: 'SERVICES', href: '/contact' },
   { label: 'GET QUOTE', href: '/contact' },
   { label: 'CONTACT', href: '/contact' },
-  { label: 'HOLIDAY', href: '/holiday' },
+  // HOLIDAY link is seasonal - re-add in late October for the Christmas lights season.
+  // Astro builds static HTML, so a date check here would evaluate at build time and go
+  // stale until the next deploy. Keep it a manual toggle until we have a rebuild trigger.
 ];
 ---
 
