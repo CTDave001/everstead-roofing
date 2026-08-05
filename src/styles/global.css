@@ -166,6 +166,20 @@ a {
   transition: color var(--transition-fast);
 }
 
+/* Keyboard focus. Only the contact inputs had a focus style before, so every
+   link, button, and nav item fell back to the browser default - which is
+   low-contrast against both the cream and the navy. Terracotta reads clearly
+   on both. :focus-visible keeps it off mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -426,10 +440,28 @@ button {
 .stagger-children > *:nth-child(6) { transition-delay: 500ms; }
 
 /* Reduce motion for accessibility */
+/* This previously covered only .animate-on-scroll, which left the hero entrance
+   animation, all five keyframe animations, every transition, and smooth
+   scrolling still running for people who asked the OS for less motion. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-on-scroll {
-    opacity: 1;
-    transform: none;
-    transition: none;
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Scroll- and entrance-animated elements start hidden, so they need to be
+     forced visible rather than merely having their animation shortened. */
+  .animate-on-scroll,
+  .hero-animate {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
