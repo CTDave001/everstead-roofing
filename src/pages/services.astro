@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { services, serviceIcons } from '../data/services';
+---
+
+<BaseLayout
+  title="Roofing Services"
+  description="Roof inspection, repair, replacement, maintenance, damage restoration, and flashing and venting. Serving Vancouver WA and within 60 miles. Free estimates."
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+  ]}
+>
+  <section class="services-hero">
+    <div class="container">
+      <h1 class="services-hero__title">Roofing services<br>done to last.</h1>
+      <p class="services-hero__text prose">
+        We serve homeowners and landlords within 60 miles of Vancouver, WA &mdash;
+        delivering precise installs, clean sites, and transparent pricing. Every job
+        starts with a free inspection and a written quote.
+      </p>
+      <a href="/contact" class="btn btn--primary">Get a Free Quote</a>
+    </div>
+  </section>
+
+  <nav class="services-jump" aria-label="Jump to a service">
+    <div class="container services-jump__inner">
+      {services.map((service) => (
+        <a href={`#${service.slug}`} class="services-jump__link">{service.title}</a>
+      ))}
+    </div>
+  </nav>
+
+  <section class="section services-list">
+    <div class="container">
+      {services.map((service, i) => (
+        <article class="service" id={service.slug}>
+          <div class="service__aside">
+            <div class="service__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d={serviceIcons[service.icon]} />
+              </svg>
+            </div>
+            <span class="service__index">{String(i + 1).padStart(2, '0')}</span>
+          </div>
+
+          <div class="service__body">
+            <h2 class="service__title">{service.title}</h2>
+            <p class="service__summary">{service.summary}</p>
+            <ul class="service__points">
+              {service.points.map((point) => (
+                <li>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  {point}
+                </li>
+              ))}
+            </ul>
+            <a href="/contact" class="service__cta">Request a quote &rarr;</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .services-hero {
+    background-color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-16)) 0 var(--space-12);
+  }
+
+  .services-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.05;
+    margin-bottom: var(--space-6);
+  }
+
+  .services-hero__text {
+    font-size: 1.1875rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Jump nav - sticks under the header so the list stays navigable. */
+  .services-jump {
+    position: sticky;
+    top: var(--header-height);
+    z-index: 20;
+    background-color: var(--color-cream);
+    border-block: 1px solid rgba(21, 37, 54, 0.08);
+  }
+
+  .services-jump__inner {
+    display: flex;
+    gap: var(--space-6);
+    overflow-x: auto;
+    padding-block: var(--space-4);
+    scrollbar-width: none;
+  }
+
+  .services-jump__inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-jump__link {
+    flex-shrink: 0;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+
+  .services-jump__link:hover {
+    color: var(--color-primary);
+  }
+
+  /* Service rows */
+  .service {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-10);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-top: 1px solid rgba(21, 37, 54, 0.1);
+    scroll-margin-top: calc(var(--header-height) + 80px);
+  }
+
+  .service:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .service__aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .service__icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+    background-color: var(--color-cream);
+    border-radius: var(--radius-lg);
+  }
+
+  .service__index {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+  }
+
+  .service__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
+    margin-bottom: var(--space-3);
+  }
+
+  .service__summary {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: var(--measure);
+    margin-bottom: var(--space-6);
+  }
+
+  .service__points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .service__points li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .service__points svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .service__cta {
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .service__cta:hover {
+    color: var(--color-navy);
+  }
+
+  @media (max-width: 768px) {
+    .services-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-8);
+    }
+
+    .service {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    .service__aside {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .service__icon {
+      width: 52px;
+      height: 52px;
+    }
+  }
+</style>

@@ -1,53 +1,5 @@
 ---
-// Services section with sidebar layout
-const services = [
-  {
-    title: 'Free Inspection',
-    description: 'Schedule a complimentary inspection, and our team will assess your roof\'s condition at your convenience.',
-    icon: 'inspection',
-    href: '/contact',
-  },
-  {
-    title: 'Roof Repair',
-    description: 'Leak fixes, flashing upgrades, venting corrections, and emergency tarping to stop water fast.',
-    icon: 'repair',
-    href: '/contact',
-  },
-  {
-    title: 'Roof Replacement',
-    description: 'Architectural asphalt, metal, and designer shingles—installed with precision and built for decades.',
-    icon: 'replacement',
-    href: '/contact',
-  },
-  {
-    title: 'Maintenance Plan',
-    description: 'Annual inspections, moss treatment, and preventative care to extend the life of your roof.',
-    icon: 'maintenance',
-    href: '/contact',
-  },
-  {
-    title: 'Damage Repairs',
-    description: 'From minor leaks to major damage, we restore your roof\'s integrity using top-tier materials.',
-    icon: 'damage',
-    href: '/contact',
-  },
-  {
-    title: 'Flashing & Venting',
-    description: 'Prevent leaks and extend roof life with professional flashing and venting enhancements.',
-    icon: 'flashing',
-    href: '/contact',
-  },
-];
-
-// Icon paths for cleaner template
-const icons: Record<string, string> = {
-  inspection: 'M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 8v6M8 11h6',
-  repair: 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z',
-  replacement: 'M3 9l9-7 9 7M5 9v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M9 21v-6h6v6',
-  maintenance: 'M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83',
-  damage: 'M19.69 14a6.9 6.9 0 0 0 .31-2V5l-8-3-8 3v7c0 6 8 10 8 10s2.97-1.49 5.38-4',
-  flashing: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
-};
+import { services, serviceIcons as icons } from '../../data/services';
 ---
 
 <section class="services section section--feature section--cream">
@@ -58,18 +10,19 @@ const icons: Record<string, string> = {
         We serve homeowners and landlords within 60 miles of Vancouver, WA—delivering precise installs, clean sites, and transparent pricing.
       </p>
       <a href="/contact" class="btn btn--primary">Get a Free Quote</a>
+      <a href="/services" class="services__all">See all services &rarr;</a>
     </div>
 
     <div class="services__grid stagger-children">
       {services.map((service) => (
-        <a href={service.href} class="service-card animate-on-scroll fade-up">
+        <a href={`/services#${service.slug}`} class="service-card animate-on-scroll fade-up">
           <div class="service-card__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d={icons[service.icon]} />
             </svg>
           </div>
           <h3 class="service-card__title">{service.title}</h3>
-          <p class="service-card__description">{service.description}</p>
+          <p class="service-card__description">{service.summary}</p>
         </a>
       ))}
     </div>
@@ -91,7 +44,8 @@ const icons: Record<string, string> = {
 
   .services__title {
     font-family: var(--font-heading);
-    font-size: 4rem;
+    /* Was a fixed 4rem with two breakpoint overrides under it. */
+    font-size: clamp(2.25rem, 4.5vw, 4rem);
     font-weight: 700;
     color: #434338;
     line-height: 1.08;
@@ -103,6 +57,20 @@ const icons: Record<string, string> = {
     font-size: 1.125rem;
     line-height: 1.7;
     margin-bottom: var(--space-10);
+  }
+
+  .services__all {
+    display: inline-block;
+    margin-left: var(--space-6);
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .services__all:hover {
+    color: var(--color-navy);
   }
 
   .services__grid {
@@ -165,19 +133,11 @@ const icons: Record<string, string> = {
     .services__sidebar {
       position: static;
     }
-
-    .services__title {
-      font-size: 2.75rem;
-    }
   }
 
   @media (max-width: 768px) {
     .services__grid {
       grid-template-columns: 1fr;
-    }
-
-    .services__title {
-      font-size: 2.25rem;
     }
   }
 </style>
