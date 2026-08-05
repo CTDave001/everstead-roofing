@@ -28,7 +28,8 @@ const optimizedBg = await getImage({ src: ctaBg, format: 'webp', quality: 80, wi
     background-image: var(--cta-bg);
     background-size: cover;
     background-position: center;
-    padding: var(--space-20) 0;
+    /* Feature tier - this is the primary conversion moment on the page. */
+    padding: clamp(7rem, 13vw, 10rem) 0;
     position: relative;
     min-height: 500px;
     display: flex;
@@ -49,7 +50,7 @@ const optimizedBg = await getImage({ src: ctaBg, format: 'webp', quality: 80, wi
   }
 
   .cta__title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: var(--font-heading);
     font-size: 4.5rem;
     font-weight: 700;
     color: #152536;
