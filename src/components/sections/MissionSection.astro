@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import aboutMissionImg from '../../assets/images/about-mission.jpg';
+
+const missionPoints = [
+  {
+    title: 'Better Roofs:',
+    description: 'From free inspections, claim assistance, Roof replacements and home upgrades.',
+  },
+  {
+    title: 'Expert Engineers:',
+    description: 'Our experienced, knowledgeable team is here to guide you through every step of the process.',
+  },
+  {
+    title: 'Quality Materials:',
+    description: 'We understand the importance of protecting your family and investment, and we treat with care.',
+  },
+];
+---
+
+<section class="mission section">
+  <div class="container mission__inner">
+    <div class="mission__image animate-on-scroll slide-right">
+      <Image src={aboutMissionImg} alt="New home construction with Everstead Roofing installation" width={600} height={500} quality={80} format="webp" />
+    </div>
+    <div class="mission__content animate-on-scroll slide-left">
+      <h2 class="mission__title">We are on a mission.</h2>
+      <p class="mission__text">
+        We have been installing and replacing for over 9 years and we are proud to say we are experts in this field. We have a team of skilled &amp; qualified members.
+      </p>
+      <ul class="mission__list stagger-children">
+        {missionPoints.map((point) => (
+          <li class="mission__item animate-on-scroll fade-up">
+            <svg class="mission__check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <div>
+              <strong>{point.title}</strong> {point.description}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Padding comes from .section so this sits on the shared rhythm. */
+  .mission {
+    background-color: var(--color-navy);
+  }
+
+  .mission__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .mission__image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    border: 4px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mission__title {
+    font-family: var(--font-heading);
+    /* Was a fixed 3.5rem with three breakpoint overrides under it. */
+    font-size: clamp(1.875rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.1;
+    margin-bottom: var(--space-6);
+  }
+
+  .mission__text {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: var(--space-10);
+    max-width: var(--measure);
+  }
+
+  .mission__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .mission__item {
+    display: flex;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .mission__check {
+    flex-shrink: 0;
+    color: var(--color-primary);
+    margin-top: 4px;
+  }
+
+  .mission__item div {
+    font-size: 1.0625rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+  }
+
+  .mission__item strong {
+    color: var(--color-white);
+    font-weight: 700;
+  }
+
+  @media (max-width: 1024px) {
+    .mission__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mission__image img {
+      height: 350px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .mission__image img {
+      height: 280px;
+    }
+  }
+</style>
