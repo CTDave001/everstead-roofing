@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout
+  title="Roofing Advice"
+  description="Practical roofing guidance for homeowners in Vancouver, WA and southwest Washington, from the team at Everstead Roofing."
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Roofing Advice', url: '/blog' },
+  ]}
+>
+  <section class="blog-hero">
+    <div class="container">
+      <h1 class="blog-hero__title">Roofing advice</h1>
+      <p class="blog-hero__text prose">
+        Practical guidance for homeowners in southwest Washington &mdash; what to look
+        for, what to ask, and when something actually needs attention.
+      </p>
+    </div>
+  </section>
+
+  <section class="section blog-list">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p class="blog-list__empty">No posts yet. Check back soon.</p>
+      ) : (
+        <ul class="blog-list__items">
+          {posts.map((post) => (
+            <li class="post-row">
+              <time class="post-row__date" datetime={post.data.date.toISOString()}>
+                {dateFormat.format(post.data.date)}
+              </time>
+              <div class="post-row__body">
+                <h2 class="post-row__title">
+                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                </h2>
+                <p class="post-row__excerpt">{post.data.excerpt}</p>
+                <a href={`/blog/${post.id}`} class="post-row__more">Read more &rarr;</a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    background-color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-16)) 0 var(--space-10);
+  }
+
+  .blog-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.05;
+    margin-bottom: var(--space-5);
+  }
+
+  .blog-hero__text {
+    font-size: 1.1875rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .blog-list__items {
+    list-style: none;
+  }
+
+  .blog-list__empty {
+    color: var(--color-text-muted);
+  }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: var(--space-8);
+    padding-block: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid rgba(21, 37, 54, 0.1);
+  }
+
+  .post-row:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .post-row__date {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    padding-top: 0.35rem;
+  }
+
+  .post-row__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: var(--space-3);
+  }
+
+  .post-row__title a {
+    color: var(--color-navy);
+    transition: color var(--transition-fast);
+  }
+
+  .post-row__title a:hover {
+    color: var(--color-primary);
+  }
+
+  .post-row__excerpt {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    max-width: var(--measure);
+    margin-bottom: var(--space-4);
+  }
+
+  .post-row__more {
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .post-row__more:hover {
+    color: var(--color-navy);
+  }
+
+  @media (max-width: 768px) {
+    .blog-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-8);
+    }
+
+    .post-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .post-row__date {
+      padding-top: 0;
+    }
+  }
+</style>

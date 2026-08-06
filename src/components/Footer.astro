@@ -16,6 +16,7 @@ const quickLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'Roofing Advice', href: '/blog' },
   { label: 'Contact', href: '/contact' },
   { label: 'Get a Quote', href: '/contact' },
 ];
@@ -63,12 +64,17 @@ const quickLinks = [
             <span class="footer__contact-label">Address:</span>
             <p class="footer__address">4200 SE Columbia Way suite f,<br>Vancouver, WA 98661</p>
           </div>
+          <div class="footer__contact-item">
+            <span class="footer__contact-label">WA Contractor Registration:</span>
+            <p class="footer__license">BTNHOHL796B9</p>
+          </div>
         </div>
         </div>
       </div>
     </div>
 
     <div class="footer__bottom">
+      <p class="footer__entity">Everstead Roofing Co is a registered trade name of BTN Homes LLC, a Washington limited liability company.</p>
       <p class="footer__legal"><a href="/privacy">Privacy Policy</a></p>
       <p class="footer__credit">Website by <a href="https://dbdigitalco.com" target="_blank" rel="noopener">DB Digital Marketing</a></p>
     </div>
@@ -184,6 +190,24 @@ const quickLinks = [
   .footer__bottom {
     margin-top: var(--space-4);
     text-align: center;
+  }
+
+  /* Registration number. Washington L&I tells homeowners to verify contractor
+     registration before hiring, so this is the number customers are told to
+     look for - it belongs somewhere they will actually see it. */
+  .footer__license {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgba(244, 244, 235, 0.9);
+    letter-spacing: 0.03em;
+    margin: 0;
+  }
+
+  .footer__entity {
+    font-size: 0.8125rem;
+    color: rgba(244, 244, 235, 0.65);
+    margin: 0 0 var(--space-3);
+    line-height: 1.5;
   }
 
   .footer__legal {

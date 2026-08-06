@@ -1,90 +1,138 @@
 ---
-import { Image } from 'astro:assets';
-import NewsCard from '../NewsCard.astro';
-import news1 from '../../assets/images/news-1.jpg';
-import news2 from '../../assets/images/news-2.jpg';
-import news3 from '../../assets/images/news-3.jpg';
+import { getCollection } from 'astro:content';
 
-const newsItems = [
-  {
-    title: 'Exploring different roofing materials',
-    excerpt: "We'll ensure that you focus on the opportunities that maximize competitive advantage.",
-    image: news1,
-    date: 'August 10, 2024',
-    href: '/contact',
-  },
-  {
-    title: 'Protecting your home from damage',
-    excerpt: 'Regular roof maintenance is essential for prolonging the life of your roof and preventing costly repairs.',
-    image: news2,
-    date: 'July 1, 2024',
-    href: '/contact',
-  },
-  {
-    title: 'We will make your old roof to new.',
-    excerpt: 'With so many roofing materials available, choosing the right one can be overwhelming.',
-    image: news3,
-    date: 'June 17, 2024',
-    href: '/contact',
-  },
-];
+// Renders the three most recent real posts. Previously this was three
+// hardcoded placeholders dated 2024 whose "read more" links all went to the
+// contact form. If there are no posts, the section does not render at all
+// rather than showing an empty shell.
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
 ---
 
-<section class="news section section--cream">
-  <div class="container">
-    <div class="section-header section-header--center animate-on-scroll fade-up">
-      <h2 class="section-title">Our latest news</h2>
-      <p class="section-subtitle">
-        Our customers are at the heart of our company, and with over 7 years of experience in the industry we understand every articles in details.
-      </p>
-    </div>
+{posts.length > 0 && (
+  <section class="news section section--cream">
+    <div class="container">
+      <div class="section-header section-header--center animate-on-scroll fade-up">
+        <h2 class="section-title">Roofing advice</h2>
+        <p class="section-subtitle">
+          Practical guidance from nine years of working on roofs in southwest Washington.
+        </p>
+      </div>
 
-    <div class="news__grid stagger-children">
-      {newsItems.map((item, index) => (
-        <div class="animate-on-scroll fade-up">
-          <NewsCard
-            title={item.title}
-            excerpt={item.excerpt}
-            image={item.image}
-            date={item.date}
-            href={item.href}
-          />
-        </div>
-      ))}
+      <div class="news__grid stagger-children">
+        {posts.map((post) => (
+          <article class="news-card animate-on-scroll fade-up">
+            <time class="news-card__date" datetime={post.data.date.toISOString()}>
+              {dateFormat.format(post.data.date)}
+            </time>
+            <h3 class="news-card__title">
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h3>
+            <p class="news-card__excerpt">{post.data.excerpt}</p>
+            <a href={`/blog/${post.id}`} class="news-card__more">Read more &rarr;</a>
+          </article>
+        ))}
+      </div>
+
+      <div class="news__footer">
+        <a href="/blog" class="btn btn--outline">See all advice</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
   .news .section-title {
     font-family: var(--font-heading);
-    font-size: 4rem;
+    font-size: clamp(1.875rem, 3.6vw, 2.75rem);
     font-weight: 700;
-    color: #434338;
-    line-height: 1.08;
-  }
-
-  .news .section-subtitle {
-    font-size: 1.125rem;
-    line-height: 1.7;
+    color: var(--color-navy);
   }
 
   .news__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-8);
+    margin-top: var(--space-10);
   }
 
-  /* Responsive */
+  .news-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+
+  .news-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .news-card__date {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+  }
+
+  .news-card__title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .news-card__title a {
+    color: var(--color-navy);
+    transition: color var(--transition-fast);
+  }
+
+  .news-card:hover .news-card__title a {
+    color: var(--color-primary);
+  }
+
+  .news-card__excerpt {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    flex-grow: 1;
+  }
+
+  .news-card__more {
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .news-card__more:hover {
+    color: var(--color-navy);
+  }
+
+  .news__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-10);
+  }
+
   @media (max-width: 1024px) {
     .news__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .news__grid {
       grid-template-columns: 1fr;
+      gap: var(--space-6);
     }
   }
 </style>

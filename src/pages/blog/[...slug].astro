@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Roofing Advice', url: '/blog' },
+    { name: post.data.title, url: `/blog/${post.id}` },
+  ]}
+>
+  <article class="post">
+    <header class="post__header">
+      <div class="container">
+        <a href="/blog" class="post__back">&larr; All posts</a>
+        <h1 class="post__title">{post.data.title}</h1>
+        <time class="post__date" datetime={post.data.date.toISOString()}>
+          {dateFormat.format(post.data.date)}
+        </time>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="post__body">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .post__header {
+    background-color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-12)) 0 var(--space-8);
+  }
+
+  .post__back {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: var(--space-6);
+    transition: color var(--transition-fast);
+  }
+
+  .post__back:hover {
+    color: var(--color-navy);
+  }
+
+  .post__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.875rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.15;
+    max-width: 20ch;
+    margin-bottom: var(--space-4);
+  }
+
+  .post__date {
+    font-size: 0.9375rem;
+    color: var(--color-text-light);
+  }
+
+  .post__body {
+    max-width: var(--measure);
+    padding-block: var(--space-10) clamp(4rem, 8vw, 6rem);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  .post__body :global(h2) {
+    font-family: var(--font-heading);
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.3;
+    margin: var(--space-10) 0 var(--space-4);
+  }
+
+  .post__body :global(h3) {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    margin: var(--space-8) 0 var(--space-3);
+  }
+
+  .post__body :global(p) {
+    margin-bottom: var(--space-5);
+  }
+
+  .post__body :global(ul),
+  .post__body :global(ol) {
+    margin: 0 0 var(--space-5);
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .post__body :global(li)::marker {
+    color: var(--color-primary);
+  }
+
+  .post__body :global(strong) {
+    color: var(--color-navy);
+    font-weight: 700;
+  }
+
+  .post__body :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post__body :global(hr) {
+    border: none;
+    border-top: 1px solid rgba(21, 37, 54, 0.12);
+    margin: var(--space-10) 0;
+  }
+
+  .post__body :global(em) {
+    color: var(--color-text-light);
+  }
+
+  @media (max-width: 768px) {
+    .post__header {
+      padding: calc(var(--header-height) + var(--space-8)) 0 var(--space-6);
+    }
+  }
+</style>
