@@ -1,0 +1,9 @@
+# Netlify / Cloudflare Pages redirect rules.
+#
+# NOTE: this site deploys to Vercel, which does NOT read this file - it is
+# served as a plain static asset. The real 301 for Vercel lives in vercel.json.
+# This file is kept only so the redirect survives a move to Netlify or
+# Cloudflare Pages. The `redirects` block in astro.config.mjs generates a
+# meta-refresh stub, which is the last-resort fallback.
+
+/holiday    /christmas-light-installation-vancouver-wa    301!

@@ -1,26 +1,54 @@
 ---
 import FAQ from '../FAQ.astro';
 
+/**
+ * These render visibly AND as FAQPage structured data, so every answer has to be
+ * something the business will actually stand behind — the two can never diverge.
+ *
+ * Answers are phrased to stand alone, because that is how they get pulled into
+ * featured snippets and AI overviews. Each one is grounded in a claim the site
+ * already makes elsewhere (HolidayWhatsIncluded, HolidayHero, HolidayPricing).
+ */
 const faqItems = [
   {
+    question: 'How much does Christmas light installation cost in Vancouver, WA?',
+    answer: 'Most residential Christmas light installations in the Vancouver, WA area run $400 to $1,500, fully installed. That figure covers the lights, the install, the timer, and January removal. What moves it is roofline length, how many stories and peaks the home has, and whether you want trees or columns wrapped. Text us four photos of your home and we will send a written estimate the same day.',
+  },
+  {
     question: 'When should I book my Christmas light installation?',
-    answer: 'We recommend booking by early October to secure your preferred installation date. Our schedule fills up quickly during the holiday season, so earlier booking ensures availability.',
+    answer: 'September or October. Install dates are assigned in the order deposits come in, and most homeowners do not start calling until the week after Thanksgiving — by which point the best dates are taken. There are only so many dry days on a ladder between October and Christmas, so the calendar is genuinely finite. Booking early is how you choose your date instead of taking what is left.',
   },
   {
     question: 'Do you provide the lights or do I need to buy them?',
-    answer: 'We provide commercial-grade C9 LED lights as part of our service. These are more durable and brighter than retail lights. If you have specific lights you\'d like us to use, we can discuss that during your consultation.',
+    answer: 'We provide commercial-grade C9 LED lights as part of our service. These are noticeably brighter and far more durable than the retail strands sold in big-box stores, and they are rated for outdoor winter use. If you have specific lights you would like us to hang instead, we can talk through that during your consultation.',
   },
   {
-    question: 'How much does Christmas light installation cost?',
-    answer: 'Pricing depends on the size of your home and the complexity of the design. Most residential installations range from $400-$1,500. We offer free phone consultations and can provide a quote based on photos of your home.',
+    question: 'Will the lights damage my roof, shingles, or gutters?',
+    answer: 'No. We hang everything on non-damaging clips designed for the purpose — no holes, no nails, no staples anywhere on your home. This matters to us more than most: we are a roofing contractor first, and we spend the rest of the year repairing roofs that were damaged by exactly the kind of shortcuts a general holiday-lighting crew might take.',
   },
   {
-    question: 'When do you remove the lights?',
-    answer: 'We typically remove lights in January after the holiday season. Removal is included in our full-service package. We\'ll coordinate a convenient time with you.',
+    question: 'Do you install on two-story homes and steep rooflines?',
+    answer: 'Yes. Working safely at height on steep and multi-story rooflines is our normal day job as roofers, not an occasional stretch. Height and access do affect the price, because the work is slower, but they are not a reason we would turn down a home.',
   },
   {
-    question: 'Do you offer light storage?',
-    answer: 'Yes! We offer optional year-round storage for your Christmas lights. This keeps them safe and ready for next season, and makes the installation process even smoother.',
+    question: 'What happens if a bulb or strand fails during the season?',
+    answer: 'We fix it. Our service warranty covers the display for the whole season — if something stops working, call us and we come back out. You should not be on a ladder in December troubleshooting a light strand you paid someone else to hang.',
+  },
+  {
+    question: 'Do I need an outdoor outlet, and do I have to turn the lights on every night?',
+    answer: 'You need one working outdoor outlet. We handle the rest, including outdoor-rated extension cords and a timer, so the display comes on and shuts off on its own each night. Once we leave, there is nothing for you to plug in, unplug, or remember.',
+  },
+  {
+    question: 'When do you take the lights down?',
+    answer: 'In January, after the holiday season, and removal is already included in the price rather than billed as an add-on. We coordinate a time that works for you. Nothing stays on your roof into spring.',
+  },
+  {
+    question: 'Do you offer light storage between seasons?',
+    answer: 'Yes, storage is an optional add-on. We keep your lights safe and organized year-round so nothing ends up tangled in a garage bin or chewed through in an attic. It also makes next season simple — one phone call and we show up with your display ready to go.',
+  },
+  {
+    question: 'What areas do you serve for Christmas light installation?',
+    answer: 'We install throughout Vancouver, WA and the surrounding Clark County communities, including Salmon Creek, Hazel Dell, Felida, Orchards, Cascade Park, Camas, Washougal, Battle Ground, Ridgefield, Brush Prairie, and La Center. If you are not sure whether you are in range, call (360) 342-9525 and we will tell you straight away.',
   },
 ];
 

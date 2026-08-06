@@ -1,0 +1,213 @@
+---
+/**
+ * "What does it cost" is the highest-intent question in this whole cluster and the
+ * one competitors most often dodge. Answering it on the page is both a conversion
+ * lever and the reason this page can rank for cost queries.
+ *
+ * The $400-$1,500 range and the 50% deposit are the only figures asserted here, and
+ * both are already published elsewhere on the site (HolidayFAQ and HolidayHero
+ * respectively). Everything else describes what moves the number rather than
+ * inventing tier prices. If real tier pricing gets confirmed, add it here and keep
+ * the FAQ range in sync — a mismatch between the two is worse than neither.
+ */
+
+const factors = [
+  {
+    title: 'Roofline length',
+    description:
+      'The single biggest driver. A simple ranch line costs far less to run than a home with multiple gables and dormers.',
+  },
+  {
+    title: 'Height and access',
+    description:
+      'Single-story work is quicker and safer than steep or two-story rooflines. Access matters more than square footage.',
+  },
+  {
+    title: 'Peaks and detail work',
+    description:
+      'Every peak, valley, and window outline adds time. Clean horizontal runs are the most cost-effective look per foot.',
+  },
+  {
+    title: 'Trees, columns, and wraps',
+    description:
+      'Wrapping trunks, columns, or railings is priced separately from roofline work because it is slower per foot.',
+  },
+];
+---
+
+<section class="holiday-pricing section" id="pricing">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">What Christmas light installation costs in Vancouver</h2>
+      <p class="section-subtitle">
+        No games, no &ldquo;call for pricing.&rdquo; Here is the honest range and what moves it.
+      </p>
+    </div>
+
+    <div class="holiday-pricing__range animate-on-scroll fade-up">
+      <p class="holiday-pricing__range-label">Most residential installations</p>
+      <p class="holiday-pricing__range-figure">$400 &ndash; $1,500</p>
+      <p class="holiday-pricing__range-note">
+        Fully installed, powered, on a timer, and taken down in January. That is the
+        all-in number for a typical Vancouver-area home &mdash; not a starting price
+        that grows once we show up.
+      </p>
+    </div>
+
+    <div class="holiday-pricing__factors animate-on-scroll fade-up">
+      <h3 class="holiday-pricing__factors-title">What moves the number</h3>
+      <div class="holiday-pricing__grid">
+        {factors.map((factor) => (
+          <div class="cost-factor">
+            <h4 class="cost-factor__title">{factor.title}</h4>
+            <p class="cost-factor__description">{factor.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="holiday-pricing__cta animate-on-scroll fade-up">
+      <p class="holiday-pricing__cta-text">
+        <strong>Want your actual number?</strong> Text us four photos of your home &mdash;
+        one from each corner &mdash; and we will send a written estimate the same day.
+        A 50% deposit reserves your install date.
+      </p>
+      <div class="holiday-pricing__cta-actions">
+        <a href="/contact" class="btn btn--primary">Get My Estimate</a>
+        <a href="tel:+13603429525" class="holiday-pricing__phone">or call (360) 342-9525</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .holiday-pricing {
+    background-color: var(--color-white);
+  }
+
+  .holiday-pricing__range {
+    max-width: 640px;
+    margin: 0 auto var(--space-16);
+    padding: var(--space-10) var(--space-8);
+    text-align: center;
+    background-color: var(--color-cream);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .holiday-pricing__range-label {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-3);
+  }
+
+  .holiday-pricing__range-figure {
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-primary);
+    margin-bottom: var(--space-5);
+  }
+
+  .holiday-pricing__range-note {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+    max-width: 46ch;
+    margin: 0 auto;
+  }
+
+  .holiday-pricing__factors-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .holiday-pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-8);
+    margin-bottom: var(--space-16);
+  }
+
+  .cost-factor {
+    padding-left: var(--space-5);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .cost-factor__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-3);
+  }
+
+  .cost-factor__description {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .holiday-pricing__cta {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    padding: var(--space-10) var(--space-8);
+    background-color: var(--color-navy);
+    border-radius: var(--radius-lg);
+  }
+
+  .holiday-pricing__cta-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--space-8);
+  }
+
+  .holiday-pricing__cta-text strong {
+    color: var(--color-white);
+    font-weight: var(--font-semibold);
+  }
+
+  .holiday-pricing__cta-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .holiday-pricing__phone {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.75);
+    transition: color var(--transition-fast);
+  }
+
+  .holiday-pricing__phone:hover {
+    color: var(--color-white);
+  }
+
+  @media (max-width: 640px) {
+    .holiday-pricing__range {
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .holiday-pricing__cta {
+      padding: var(--space-8) var(--space-5);
+    }
+
+    .holiday-pricing__cta-actions {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+</style>

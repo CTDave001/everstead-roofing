@@ -19,12 +19,12 @@ import heroRoofImg from '../assets/images/hero-roof.png';
         <img src="/images/holiday-hero.jpg" alt="Beautiful Christmas lights on home" />
         <div class="popup-header__overlay"></div>
         <div class="popup-header__badge">
-          <span>Limited Spots</span>
+          <span>Now Booking</span>
         </div>
       </div>
       <div class="popup-body">
         <h2 class="popup-title">Light Up Your Home<br/>This Holiday Season</h2>
-        <p class="popup-text">Professional Christmas light installation with premium LED lights, expert setup, and hassle-free removal included.</p>
+        <p class="popup-text">Professional Christmas light installation in Vancouver, WA &mdash; commercial-grade LEDs, expert setup, and January removal included. Book early and pick your install date.</p>
         <ul class="popup-features">
           <li>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -41,7 +41,7 @@ import heroRoofImg from '../assets/images/hero-roof.png';
         </ul>
         <div class="popup-actions">
           <a href="/contact" class="btn btn--primary popup-cta">Get Your Free Quote</a>
-          <a href="/holiday" class="popup-link">See Our Work</a>
+          <a href="/christmas-light-installation-vancouver-wa" class="popup-link">See Our Work</a>
         </div>
       </div>
     </div>
@@ -106,11 +106,17 @@ import heroRoofImg from '../assets/images/hero-roof.png';
     }
 
     const now = new Date();
-    const month = now.getMonth(); // 0-indexed (0 = Jan, 10 = Nov, 11 = Dec)
+    const month = now.getMonth(); // 0-indexed (0 = Jan, 8 = Sep, 11 = Dec)
     const day = now.getDate();
 
-    // Nov 1 (month 10) through Dec 25 (month 11, day 25)
-    if (month === 10) return true; // All of November
+    // Sep 1 (month 8) through Dec 25 (month 11, day 25).
+    //
+    // Deliberately starts two months before peak search. Most new-customer
+    // bookings land in the second week of November, but the install calendar is
+    // finite and fills from the top — the visitors worth catching are the ones
+    // browsing in September and October, while there are still dates to sell.
+    // A Nov 1 start missed that entire window.
+    if (month >= 8 && month <= 10) return true; // Sep, Oct, Nov
     if (month === 11 && day <= 25) return true; // Dec 1-25
     return false;
   }

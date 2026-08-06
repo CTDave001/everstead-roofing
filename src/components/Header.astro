@@ -13,9 +13,11 @@ const navLinks = [
   { label: 'GET QUOTE', href: '/contact' },
   { label: 'ADVICE', href: '/blog' },
   { label: 'CONTACT', href: '/contact' },
-  // HOLIDAY link is seasonal - re-add in late October for the Christmas lights season.
-  // Astro builds static HTML, so a date check here would evaluate at build time and go
-  // stale until the next deploy. Keep it a manual toggle until we have a rebuild trigger.
+  // Deliberately year-round, not seasonal. The lights page needs sitewide internal
+  // links long before anyone searches for lights, so it is crawled, indexed, and
+  // aged by the time the October demand ramp starts. Hiding it until late October
+  // means launching an unproven URL into peak season.
+  { label: 'CHRISTMAS LIGHTS', href: '/christmas-light-installation-vancouver-wa' },
 ];
 ---
 

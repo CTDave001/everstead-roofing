@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/holiday",
+      "destination": "/christmas-light-installation-vancouver-wa",
+      "permanent": true
+    },
+    {
+      "source": "/holiday/",
+      "destination": "/christmas-light-installation-vancouver-wa",
+      "permanent": true
+    }
+  ]
+}

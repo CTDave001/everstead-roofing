@@ -1,0 +1,171 @@
+---
+/**
+ * The booking calendar is the real scarcity in this business — roughly 90 days of
+ * revenue against a fixed number of install slots. This section exists to make that
+ * scarcity legible in August and September, when a visitor has no natural urgency.
+ *
+ * Every step below is drawn from something the site already states: the photo
+ * estimate and 50% deposit from HolidayHero, the phone consultation, January
+ * removal, and optional storage from HolidayWhatsIncluded and HolidayFAQ.
+ */
+
+const steps = [
+  {
+    number: '01',
+    title: 'Send four photos',
+    description:
+      'Text us one photo from each corner of your home. No appointment, no salesperson in your driveway.',
+  },
+  {
+    number: '02',
+    title: 'Get a same-day estimate',
+    description:
+      'We price the roofline from the photos and send a written number back the same day, usually within a few hours.',
+  },
+  {
+    number: '03',
+    title: 'Reserve your date',
+    description:
+      'A 50% deposit locks your install date. Dates are assigned in the order deposits come in, and the calendar fills from the top.',
+  },
+  {
+    number: '04',
+    title: 'We install',
+    description:
+      'Commercial-grade C9 LEDs on non-damaging clips, outdoor cords, and a timer so it runs itself. No holes, no staples.',
+  },
+  {
+    number: '05',
+    title: 'We take it down in January',
+    description:
+      'Removal is included, not an upsell. We can store your lights year-round so next season is a phone call.',
+  },
+];
+---
+
+<section class="holiday-process section section--cream" id="how-it-works">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">How booking works</h2>
+      <p class="section-subtitle">
+        Five steps, one of which is &ldquo;send a text.&rdquo; The rest is our problem.
+      </p>
+    </div>
+
+    <ol class="holiday-process__steps">
+      {steps.map((step) => (
+        <li class="process-step animate-on-scroll fade-up">
+          <span class="process-step__number" aria-hidden="true">{step.number}</span>
+          <div class="process-step__body">
+            <h3 class="process-step__title">{step.title}</h3>
+            <p class="process-step__description">{step.description}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <aside class="holiday-process__timing animate-on-scroll fade-up">
+      <h3 class="holiday-process__timing-title">When to book</h3>
+      <p class="holiday-process__timing-text">
+        The install season runs October through December, and most people wait until
+        the week after Thanksgiving to start calling. By then the good dates are gone
+        &mdash; not because we are being coy about it, but because there are only so
+        many dry days on a ladder before Christmas.
+      </p>
+      <p class="holiday-process__timing-text">
+        Booking in <strong>September or October</strong> means you choose the date.
+        Booking in December means you take what is left, if anything is.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .holiday-process__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto var(--space-16);
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .process-step {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+
+  .process-step__number {
+    flex-shrink: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    line-height: 1;
+    padding-top: 0.15em;
+    min-width: 2.5rem;
+  }
+
+  .process-step__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-2);
+  }
+
+  .process-step__description {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .holiday-process__timing {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .holiday-process__timing-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-4);
+  }
+
+  .holiday-process__timing-text {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .holiday-process__timing-text + .holiday-process__timing-text {
+    margin-top: var(--space-4);
+  }
+
+  .holiday-process__timing-text strong {
+    color: var(--color-navy);
+    font-weight: var(--font-bold);
+  }
+
+  @media (max-width: 640px) {
+    .process-step {
+      gap: var(--space-4);
+    }
+
+    .process-step__number {
+      font-size: var(--text-lg);
+      min-width: 2rem;
+    }
+
+    .holiday-process__timing {
+      padding: var(--space-6) var(--space-5);
+    }
+  }
+</style>

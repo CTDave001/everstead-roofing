@@ -61,6 +61,79 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? {
     "item": `${siteUrl}${item.url}`
   }))
 } : null;
+
+/**
+ * aggregateRating is emitted only when reviews.profileUrl points at the public
+ * Google profile the rating comes from.
+ *
+ * Google treats review markup that a visitor cannot independently verify as
+ * self-serving, and it is a documented manual-action risk — one that applies to
+ * every page, since this schema block is sitewide. Gating on the source URL means
+ * the markup switches on by itself the moment a real profile is linked, and stays
+ * off until then. See src/data/business.ts.
+ */
+const localBusinessSchema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "RoofingContractor",
+  "name": "Everstead Roofing",
+  "image": `${siteUrl}/eversteadlogo.svg`,
+  "url": siteUrl,
+  "telephone": "+1-360-342-9525",
+  "email": "hello@eversteadroofing.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4200 SE Columbia Way Suite F",
+    "addressLocality": "Vancouver",
+    "addressRegion": "WA",
+    "postalCode": "98661",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 45.6387,
+    "longitude": -122.6615
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  "sameAs": reviews.profileUrl ? [reviews.profileUrl] : [],
+  "priceRange": "$$",
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 45.6387,
+      "longitude": -122.6615
+    },
+    "geoRadius": "50000"
+  },
+  "serviceType": [
+    "Roof Inspection",
+    "Roof Repair",
+    "Roof Replacement",
+    "Roof Maintenance",
+    "Storm Damage Repair",
+    "Gutter Services",
+    "Attic Services",
+    "Skylight Services",
+    "Christmas Light Installation",
+    "Holiday Lighting Installation"
+  ],
+  "slogan": "Building Trust Through Precision, Quality, and Care",
+  "foundingDate": "2016",
+};
+
+if (reviews.profileUrl) {
+  localBusinessSchema.aggregateRating = {
+    "@type": "AggregateRating",
+    "ratingValue": String(reviews.ratingValue),
+    "reviewCount": String(reviews.reviewCount),
+    "url": reviews.profileUrl,
+  };
+}
 ---
 
 <!DOCTYPE html>
@@ -117,53 +190,7 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
   <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "RoofingContractor",
-    "name": "Everstead Roofing",
-    "image": `${siteUrl}/eversteadlogo.svg`,
-    "url": siteUrl,
-    "telephone": "+1-360-342-9525",
-    "email": "hello@eversteadroofing.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "4200 SE Columbia Way Suite F",
-      "addressLocality": "Vancouver",
-      "addressRegion": "WA",
-      "postalCode": "98661",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 45.6387,
-      "longitude": -122.6615
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "08:00",
-      "closes": "18:00"
-    },
-    "sameAs": [],
-    "priceRange": "$$",
-    "areaServed": {
-      "@type": "GeoCircle",
-      "geoMidpoint": {
-        "@type": "GeoCoordinates",
-        "latitude": 45.6387,
-        "longitude": -122.6615
-      },
-      "geoRadius": "50000"
-    },
-    "serviceType": ["Roof Inspection", "Roof Repair", "Roof Replacement", "Roof Maintenance", "Storm Damage Repair", "Gutter Services", "Attic Services", "Skylight Services"],
-    "slogan": "Building Trust Through Precision, Quality, and Care",
-    "foundingDate": "2016",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": String(reviews.ratingValue),
-      "reviewCount": String(reviews.reviewCount)
-    }
-  })} />
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 
   {breadcrumbSchema && (
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

@@ -8,9 +8,15 @@ import { getImage } from 'astro:assets';
 <section class="holiday-hero" style="--hero-bg: url('/images/holiday-hero.jpg')">
   <div class="container holiday-hero__inner">
     <div class="holiday-hero__content">
-      <h1 class="holiday-hero__title hero-animate hero-animate--1">Christmas<br>Lights<br>Installation in<br>Vancouver<br>WA</h1>
+      <!-- Hard <br> line breaks were removed here on purpose: they fragmented the
+           single most important string on the page for anything reading the markup
+           rather than the pixels. The line breaks are now a wrapping decision made
+           in CSS, where they belong. -->
+      <h1 class="holiday-hero__title hero-animate hero-animate--1">Christmas Light Installation in Vancouver, WA</h1>
       <p class="holiday-hero__text hero-animate hero-animate--2">
-        Transform your home into a <strong>winter wonderland</strong> with professional Christmas light installation by Everstead.
+        Commercial-grade LEDs, hung by roofers who will not put a single hole in your
+        home. Installation and January takedown included &mdash; <strong>most homes run
+        $400 to $1,500.</strong>
       </p>
       <div class="holiday-hero__buttons hero-animate hero-animate--3">
         <a href="/contact" class="btn btn--primary holiday-hero__btn-primary">
@@ -76,6 +82,10 @@ import { getImage } from 'astro:assets';
     line-height: 1.1;
     color: var(--color-white);
     margin-bottom: var(--space-6);
+    /* Replaces the old hard <br> tags — keeps the stacked look without breaking
+       the heading into fragments in the markup. */
+    max-width: 12ch;
+    text-wrap: balance;
   }
 
   .holiday-hero__text {

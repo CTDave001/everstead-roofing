@@ -110,7 +110,7 @@ export const services: Service[] = [
       'Removal in January included in the package',
     ],
     icon: 'lights',
-    href: '/holiday',
+    href: '/christmas-light-installation-vancouver-wa',
   },
 ];
 

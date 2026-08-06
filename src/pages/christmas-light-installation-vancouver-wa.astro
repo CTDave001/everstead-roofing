@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HolidayHero from '../components/sections/HolidayHero.astro';
+import HolidayGallery from '../components/sections/HolidayGallery.astro';
+import HolidayWhatsIncluded from '../components/sections/HolidayWhatsIncluded.astro';
+import HolidayPricing from '../components/sections/HolidayPricing.astro';
+import HolidayProcess from '../components/sections/HolidayProcess.astro';
+import HolidayServiceArea from '../components/sections/HolidayServiceArea.astro';
+import HolidayFAQ from '../components/sections/HolidayFAQ.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+
+const siteUrl = 'https://eversteadroofing.com';
+const pageUrl = `${siteUrl}/christmas-light-installation-vancouver-wa`;
+
+/**
+ * Service schema for the lights offering specifically.
+ *
+ * The sitewide RoofingContractor block in BaseLayout describes the business; this
+ * describes the thing being sold on this page, and is what lets Google connect
+ * "christmas light installation" + "Vancouver WA" to a priced, area-served service.
+ *
+ * The $400-$1,500 range here must stay in sync with HolidayPricing and HolidayFAQ.
+ * All three render the same number to a human; a structured-data figure that
+ * contradicts the visible one is a rich-results violation.
+ */
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${pageUrl}#service`,
+  name: 'Christmas Light Installation',
+  serviceType: 'Christmas Light Installation',
+  description:
+    'Professional Christmas light installation for homes in Vancouver, WA and Clark County. Commercial-grade C9 LED lights, non-damaging clips, outdoor cords and timer, plus January removal included.',
+  url: pageUrl,
+  provider: {
+    '@type': 'RoofingContractor',
+    name: 'Everstead Roofing',
+    url: siteUrl,
+    telephone: '+1-360-342-9525',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '4200 SE Columbia Way Suite F',
+      addressLocality: 'Vancouver',
+      addressRegion: 'WA',
+      postalCode: '98661',
+      addressCountry: 'US',
+    },
+  },
+  areaServed: [
+    'Vancouver',
+    'Salmon Creek',
+    'Hazel Dell',
+    'Felida',
+    'Orchards',
+    'Cascade Park',
+    'Camas',
+    'Washougal',
+    'Battle Ground',
+    'Ridgefield',
+    'Brush Prairie',
+    'La Center',
+  ].map((name) => ({
+    '@type': 'City',
+    name,
+    containedInPlace: {
+      '@type': 'AdministrativeArea',
+      name: 'Clark County, Washington',
+    },
+  })),
+  offers: {
+    '@type': 'Offer',
+    url: pageUrl,
+    priceCurrency: 'USD',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      '@id': `${pageUrl}#price`,
+      priceCurrency: 'USD',
+      minPrice: 400,
+      maxPrice: 1500,
+      valueAddedTaxIncluded: false,
+      description:
+        'Typical range for a residential installation, including lights, installation, timer, and January removal.',
+    },
+  },
+};
+---
+
+<BaseLayout
+  title="Christmas Light Installation in Vancouver, WA"
+  description="Christmas light installation in Vancouver, WA and Clark County. Most homes run $400-$1,500 all in - commercial-grade C9 LEDs, non-damaging clips, timer, and January removal included. Book early; install dates fill up."
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Christmas Light Installation", url: "/christmas-light-installation-vancouver-wa" }
+  ]}
+  logo="/eversteadlogoholiday.svg"
+  jsonLd={serviceSchema}
+>
+  <HolidayHero />
+  <HolidayGallery />
+  <HolidayWhatsIncluded />
+  <HolidayPricing />
+  <HolidayProcess />
+  <TestimonialsSection />
+  <HolidayServiceArea />
+  <HolidayFAQ />
+  <CTASection />
+</BaseLayout>

@@ -1,0 +1,108 @@
+---
+/**
+ * Local relevance signals for the lights page, and the staging ground for city
+ * pages later.
+ *
+ * These communities all sit inside the 50km service radius the site already
+ * publishes in its schema.org areaServed, so nothing here claims coverage the
+ * site did not already assert.
+ *
+ * Deliberately plain text, not links. Thin, near-duplicate city pages are the
+ * fastest way to get a low-authority domain ignored. When a community earns a real
+ * page — actual completed jobs, real neighborhood detail, photos from that area —
+ * give that entry an `href` and it becomes a link. Not before.
+ */
+
+interface Community {
+  name: string;
+  href?: string;
+}
+
+const communities: Community[] = [
+  { name: 'Vancouver' },
+  { name: 'Salmon Creek' },
+  { name: 'Hazel Dell' },
+  { name: 'Felida' },
+  { name: 'Orchards' },
+  { name: 'Cascade Park' },
+  { name: 'Camas' },
+  { name: 'Washougal' },
+  { name: 'Battle Ground' },
+  { name: 'Ridgefield' },
+  { name: 'Brush Prairie' },
+  { name: 'La Center' },
+];
+---
+
+<section class="holiday-area section section--tight" id="service-area">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">Where we hang lights</h2>
+      <p class="section-subtitle">
+        Vancouver and the surrounding Clark County communities.
+      </p>
+    </div>
+
+    <ul class="holiday-area__list animate-on-scroll fade-up">
+      {communities.map((community) => (
+        <li class="holiday-area__item">
+          {community.href
+            ? <a href={community.href} class="holiday-area__link">{community.name}</a>
+            : community.name}
+        </li>
+      ))}
+    </ul>
+
+    <p class="holiday-area__note animate-on-scroll fade-up">
+      Not sure if you are in range? Call <a href="tel:+13603429525">(360) 342-9525</a>
+      &mdash; if we cannot get to you, we will tell you straight away rather than
+      waste your time.
+    </p>
+  </div>
+</section>
+
+<style>
+  .holiday-area__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto var(--space-8);
+    max-width: 780px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+  }
+
+  .holiday-area__item {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-navy);
+    background-color: var(--color-cream);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-full);
+    padding: var(--space-2) var(--space-5);
+  }
+
+  .holiday-area__link {
+    color: inherit;
+  }
+
+  .holiday-area__link:hover {
+    color: var(--color-primary);
+  }
+
+  .holiday-area__note {
+    text-align: center;
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-light);
+    max-width: 52ch;
+    margin: 0 auto;
+  }
+
+  .holiday-area__note a {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+  }
+</style>
