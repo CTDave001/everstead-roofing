@@ -3,6 +3,8 @@ title: "What actually happens during a roof inspection"
 description: "What a thorough roof inspection covers, what the report should contain, and how to tell a real inspection from a sales visit."
 date: 2026-07-08
 excerpt: "A real inspection covers more than the shingles. Here's what should be checked, and what your written report ought to contain."
+cover: '../../assets/images/post-inspection.jpg'
+coverAlt: 'The underside of a roof deck seen from inside an attic, with rafters and insulation visible'
 ---
 
 "Free roof inspection" covers a wide range of experiences — from a genuine forty-minute assessment to someone glancing up from the driveway and producing a quote. Knowing what a thorough inspection involves makes the difference obvious.

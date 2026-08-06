@@ -3,6 +3,8 @@ title: "The best Christmas light displays in Clark County"
 description: "A local guide to holiday light displays around Vancouver, WA and Clark County - the big neighborhood displays, the drive-through shows, and how to see them without spending the evening in traffic."
 date: 2026-08-06
 excerpt: "Where to actually go see lights around Vancouver and Clark County, which ones are worth the drive across the river, and how to time your trip so you are not sitting in a queue."
+cover: '../../assets/images/post-clark-county-displays.jpg'
+coverAlt: 'A residential street on a December evening with several houses lit with Christmas lights'
 ---
 
 Every year around the first week of December, someone in a Vancouver Facebook group asks where to take the kids to see Christmas lights, and every year the same handful of answers surface. This is that list, kept in one place.

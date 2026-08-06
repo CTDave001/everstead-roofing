@@ -3,6 +3,8 @@ title: "Repair or replace? How to tell which one your roof needs"
 description: "The honest signals that separate a roof needing a repair from one needing replacement, and the questions to ask any contractor who tells you otherwise."
 date: 2026-07-22
 excerpt: "A leak is not automatically a replacement. Here are the signals that actually distinguish the two, and how to pressure-test the answer you get."
+cover: '../../assets/images/post-repair-replace.jpg'
+coverAlt: 'An aging asphalt shingle roof showing curling edges and patches of lost granules'
 ---
 
 This is the question almost every homeowner opens with, and it's the one where the incentives are least aligned. A replacement is worth considerably more to a contractor than a repair. So it's worth knowing how to read the situation yourself.

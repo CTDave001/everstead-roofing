@@ -25,10 +25,10 @@ const communities: Community[] = [
   { name: 'Felida' },
   { name: 'Orchards' },
   { name: 'Cascade Park' },
-  { name: 'Camas' },
-  { name: 'Washougal' },
-  { name: 'Battle Ground' },
-  { name: 'Ridgefield' },
+  { name: 'Camas', href: '/christmas-lights/camas-wa' },
+  { name: 'Washougal', href: '/christmas-lights/washougal-wa' },
+  { name: 'Battle Ground', href: '/christmas-lights/battle-ground-wa' },
+  { name: 'Ridgefield', href: '/christmas-lights/ridgefield-wa' },
   { name: 'Brush Prairie' },
   { name: 'La Center' },
 ];
@@ -84,12 +84,27 @@ const communities: Community[] = [
     padding: var(--space-2) var(--space-5);
   }
 
+  /* Communities with their own page have to look clickable. Rendering linked and
+     unlinked chips identically leaves the visitor guessing which half of the list
+     does anything. */
+  .holiday-area__item:has(.holiday-area__link) {
+    background-color: var(--color-white);
+    border-color: var(--color-primary);
+    padding: 0;
+  }
+
   .holiday-area__link {
-    color: inherit;
+    display: block;
+    padding: var(--space-2) var(--space-5);
+    color: var(--color-primary);
+  }
+
+  .holiday-area__item:has(.holiday-area__link):hover {
+    background-color: var(--color-primary);
   }
 
   .holiday-area__link:hover {
-    color: var(--color-primary);
+    color: var(--color-white);
   }
 
   .holiday-area__note {

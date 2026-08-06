@@ -3,6 +3,8 @@ title: "How much does Christmas light installation cost in Vancouver, WA?"
 description: "A straight answer on Christmas light installation pricing in Vancouver and Clark County: the typical range, what actually drives the number up, and the quotes worth walking away from."
 date: 2026-08-06
 excerpt: "Most homes around Vancouver land between $400 and $1,500 installed. Here is what decides where in that range you fall, and which cheap quotes end up costing more."
+cover: '../../assets/images/post-christmas-cost.jpg'
+coverAlt: 'A suburban house at dusk with warm white Christmas lights installed along the rooflines and eaves'
 ---
 
 Almost nobody publishes holiday lighting prices. You call, you get a "we'd need to come out and look at it," and three days later a number arrives with no explanation of how it was reached.

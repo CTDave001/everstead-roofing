@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -23,7 +24,20 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
 
 const siteUrl = 'https://eversteadroofing.com';
 
-const articleSchema = {
+// Google requires an `image` on BlogPosting for article rich results, and the
+// same asset serves as the post's og:image. Generated at 1200x630 so the two
+// never disagree.
+const ogImage = post.data.cover
+  ? await getImage({
+      src: post.data.cover,
+      width: 1200,
+      height: 630,
+      fit: 'cover',
+      format: 'jpg',
+    })
+  : null;
+
+const articleSchema: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: post.data.title,
@@ -45,12 +59,17 @@ const articleSchema = {
     '@id': `${siteUrl}/blog/${post.id}`,
   },
 };
+
+if (ogImage) {
+  articleSchema.image = `${siteUrl}${ogImage.src}`;
+}
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
   type="article"
+  image={ogImage?.src}
   jsonLd={articleSchema}
   breadcrumbs={[
     { name: 'Home', url: '/' },
@@ -68,6 +87,22 @@ const articleSchema = {
         </time>
       </div>
     </header>
+
+    {post.data.cover && (
+      <div class="container">
+        <figure class="post__cover">
+          <Image
+            src={post.data.cover}
+            alt={post.data.coverAlt ?? ''}
+            width={1200}
+            height={630}
+            quality={80}
+            format="webp"
+            loading="eager"
+          />
+        </figure>
+      </div>
+    )}
 
     <div class="container">
       <div class="post__body">
@@ -112,6 +147,18 @@ const articleSchema = {
   .post__date {
     font-size: 0.9375rem;
     color: var(--color-text-light);
+  }
+
+  .post__cover {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .post__cover img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   .post__body {

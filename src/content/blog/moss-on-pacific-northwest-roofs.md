@@ -3,6 +3,8 @@ title: "Why moss is the Pacific Northwest's most expensive roof problem"
 description: "Moss holds water against your roof year-round. Here's how it causes damage, and what to do about it in the Vancouver, WA climate."
 date: 2026-08-06
 excerpt: "Moss doesn't just look bad. It holds water against shingles through our long wet season, and that's what actually shortens a roof's life."
+cover: '../../assets/images/post-moss.jpg'
+coverAlt: 'Thick green moss growing along the shaded slope of a residential asphalt shingle roof, lifting the shingle edges'
 ---
 
 If you live around Vancouver or anywhere in southwest Washington, you have seen it: that green fuzz creeping up the north-facing slope of a roof. Most homeowners treat it as a cosmetic issue and put it off. It isn't cosmetic, and putting it off is what makes it expensive.

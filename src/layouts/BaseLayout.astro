@@ -18,8 +18,12 @@ interface Props {
   type?: 'website' | 'article';
   breadcrumbs?: BreadcrumbItem[];
   logo?: string;
-  /** Extra schema.org JSON-LD to emit in <head>, e.g. BlogPosting on a post. */
-  jsonLd?: Record<string, unknown>;
+  /**
+   * Extra schema.org JSON-LD to emit in <head>, e.g. BlogPosting on a post.
+   * Pass an array to emit several — each gets its own script tag, which is what
+   * Google's documentation shows and what its testing tools report most clearly.
+   */
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -196,9 +200,9 @@ if (reviews.profileUrl) {
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   )}
 
-  {jsonLd && (
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  )}
+  {jsonLd && (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((block) => (
+    <script type="application/ld+json" set:html={JSON.stringify(block)} />
+  ))}
 </head>
 <body>
   <Header logo={logo} />
