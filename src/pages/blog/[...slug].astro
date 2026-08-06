@@ -20,12 +20,38 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
   timeZone: 'UTC',
 });
+
+const siteUrl = 'https://eversteadroofing.com';
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: post.data.date.toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: 'Everstead Roofing Co',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Everstead Roofing Co',
+    url: siteUrl,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `${siteUrl}/blog/${post.id}`,
+  },
+};
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
   type="article"
+  jsonLd={articleSchema}
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Roofing Advice', url: '/blog' },

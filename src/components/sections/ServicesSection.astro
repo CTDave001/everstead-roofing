@@ -15,7 +15,7 @@ import { services, serviceIcons as icons } from '../../data/services';
 
     <div class="services__grid stagger-children">
       {services.map((service) => (
-        <a href={`/services#${service.slug}`} class="service-card animate-on-scroll fade-up">
+        <a href={service.href ?? `/services#${service.slug}`} class="service-card animate-on-scroll fade-up">
           <div class="service-card__icon">
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d={icons[service.icon]} />

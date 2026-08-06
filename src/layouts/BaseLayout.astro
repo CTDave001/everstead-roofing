@@ -18,6 +18,8 @@ interface Props {
   type?: 'website' | 'article';
   breadcrumbs?: BreadcrumbItem[];
   logo?: string;
+  /** Extra schema.org JSON-LD to emit in <head>, e.g. BlogPosting on a post. */
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
@@ -26,7 +28,8 @@ const {
   image,
   type = 'website',
   breadcrumbs = [],
-  logo
+  logo,
+  jsonLd
 } = Astro.props;
 
 const siteUrl = 'https://eversteadroofing.com';
@@ -164,6 +167,10 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? {
 
   {breadcrumbSchema && (
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  )}
+
+  {jsonLd && (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   )}
 </head>
 <body>

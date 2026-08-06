@@ -19,6 +19,11 @@ export interface Service {
   summary: string;
   points: string[];
   icon: string;
+  /**
+   * Optional destination override. Services without this link to their own
+   * anchor on /services; set it when the service has a dedicated page.
+   */
+  href?: string;
 }
 
 export const services: Service[] = [
@@ -94,6 +99,19 @@ export const services: Service[] = [
     ],
     icon: 'flashing',
   },
+  {
+    slug: 'christmas-light-installation',
+    title: 'Christmas Light Installation',
+    summary:
+      'Commercial-grade LED lights, professional installation, and removal in January — all included.',
+    points: [
+      'Commercial-grade LED lights supplied',
+      'Non-damaging clips, never staples or nails',
+      'Removal in January included in the package',
+    ],
+    icon: 'lights',
+    href: '/holiday',
+  },
 ];
 
 /** Single-path icon geometry, keyed by the `icon` field above. */
@@ -106,4 +124,6 @@ export const serviceIcons: Record<string, string> = {
     'M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83',
   damage: 'M19.69 14a6.9 6.9 0 0 0 .31-2V5l-8-3-8 3v7c0 6 8 10 8 10s2.97-1.49 5.38-4',
   flashing: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+  lights:
+    'M3 7c2 0 2 3 4 3s2-3 4-3 2 3 4 3 2-3 4-3M5 10v3a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-3M15 10v3a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-3M10 15v3a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-3',
 };

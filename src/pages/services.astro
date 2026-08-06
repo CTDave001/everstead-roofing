@@ -58,7 +58,9 @@ import { services, serviceIcons } from '../data/services';
                 </li>
               ))}
             </ul>
-            <a href="/contact" class="service__cta">Request a quote &rarr;</a>
+            <a href={service.href ?? '/contact'} class="service__cta">
+              {service.href ? 'See the details' : 'Request a quote'} &rarr;
+            </a>
           </div>
         </article>
       ))}
