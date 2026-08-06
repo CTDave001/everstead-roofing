@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { locations } from '../data/locations';
+---
+
+<BaseLayout
+  title="Service Area"
+  description="Everstead Roofing serves Vancouver, Camas, Battle Ground, Ridgefield, Washougal, and everywhere within 60 miles of Vancouver, WA."
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Service Area', url: '/service-area' },
+  ]}
+>
+  <section class="area-hero">
+    <div class="container">
+      <h1 class="area-hero__title">Where we work</h1>
+      <p class="area-hero__text prose">
+        We're based in Vancouver, WA and work throughout Clark County and within
+        60 miles &mdash; which covers most of southwest Washington and the greater
+        Portland metro area. Roofs weather differently across that range, so each
+        of the areas below has its own page.
+      </p>
+    </div>
+  </section>
+
+  <section class="section areas-list">
+    <div class="container">
+      <div class="areas-grid">
+        <article class="area-card area-card--home">
+          <h2 class="area-card__city">Vancouver, WA</h2>
+          <p class="area-card__angle">
+            Our home base. Free inspections, repairs, replacements, and maintenance
+            across the whole city.
+          </p>
+          <a href="/contact" class="area-card__link">Get a free inspection &rarr;</a>
+        </article>
+
+        {locations.map((location) => (
+          <article class="area-card">
+            <h2 class="area-card__city">{location.city}, WA</h2>
+            <p class="area-card__angle">{location.angle}</p>
+            <a href={`/roofing/${location.slug}`} class="area-card__link">
+              Roofing in {location.city} &rarr;
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="areas-list__note">
+        Somewhere not listed? We cover a wider radius than the pages above.
+        <a href="/contact"> Send us your address</a> and we'll tell you straight away.
+      </p>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .area-hero {
+    background-color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-16)) 0 var(--space-10);
+  }
+
+  .area-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.05;
+    margin-bottom: var(--space-5);
+  }
+
+  .area-hero__text {
+    font-size: 1.1875rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .area-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-8);
+    background-color: var(--color-cream);
+    border-radius: var(--radius-lg);
+  }
+
+  .area-card--home {
+    background-color: var(--color-navy);
+  }
+
+  .area-card__city {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
+  }
+
+  .area-card--home .area-card__city {
+    color: var(--color-white);
+  }
+
+  .area-card__angle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    flex-grow: 1;
+  }
+
+  .area-card--home .area-card__angle {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .area-card__link {
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .area-card__link:hover {
+    color: var(--color-navy);
+  }
+
+  .area-card--home .area-card__link:hover {
+    color: var(--color-white);
+  }
+
+  .areas-list__note {
+    margin-top: var(--space-10);
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+  }
+
+  .areas-list__note a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .area-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-8);
+    }
+
+    .areas-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTASection from '../../components/sections/CTASection.astro';
+import TestimonialsSection from '../../components/sections/TestimonialsSection.astro';
+import { locations } from '../../data/locations';
+import { services, serviceIcons } from '../../data/services';
+
+export async function getStaticPaths() {
+  return locations.map((location) => ({
+    params: { city: location.slug },
+    props: { location },
+  }));
+}
+
+const { location } = Astro.props;
+const siteUrl = 'https://eversteadroofing.com';
+
+// Roofing services only. The Christmas lights service has its own page and
+// linking to it from here would muddy this page's topical signal.
+const roofingServices = services.filter((s) => s.slug !== 'christmas-light-installation');
+
+// Service and FAQPage in one @graph so the page emits a single extra block.
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'FAQPage',
+      mainEntity: location.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    },
+    {
+      '@type': 'Service',
+      serviceType: 'Roofing',
+      provider: {
+        '@type': 'RoofingContractor',
+        name: 'Everstead Roofing Co',
+        url: siteUrl,
+        telephone: '+1-360-342-9525',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: location.city,
+        containedInPlace: {
+          '@type': 'AdministrativeArea',
+          name: `${location.county}, Washington`,
+        },
+      },
+      url: `${siteUrl}/roofing/${location.slug}`,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`Roofing Contractor in ${location.city}, WA`}
+  description={`Roof repair, replacement, and free inspections in ${location.city}, WA. ${location.angle}`}
+  jsonLd={serviceSchema}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Service Area', url: '/service-area' },
+    { name: `${location.city}, WA`, url: `/roofing/${location.slug}` },
+  ]}
+>
+  <section class="loc-hero">
+    <div class="container">
+      <p class="loc-hero__eyebrow">{location.county}, Washington</p>
+      <h1 class="loc-hero__title">Roofing in<br>{location.city}, WA</h1>
+      <p class="loc-hero__text prose">{location.intro}</p>
+      <div class="loc-hero__actions">
+        <a href="/contact" class="btn btn--primary">Get a free inspection</a>
+        <a href="tel:+13603429525" class="loc-hero__phone">(360) 342-9525</a>
+      </div>
+      <p class="loc-hero__drive">{location.city} is {location.driveTime}.</p>
+    </div>
+  </section>
+
+  <section class="section conditions">
+    <div class="container">
+      <h2 class="conditions__title">What {location.city} does to a roof</h2>
+      <p class="conditions__lead prose">
+        Roofs do not weather the same way everywhere in Clark County. These are the
+        pressures we actually see on {location.city} homes.
+      </p>
+
+      <div class="conditions__grid">
+        {location.conditions.map((condition, i) => (
+          <article class="condition">
+            <span class="condition__index">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="condition__title">{condition.title}</h3>
+            <p class="condition__body">{condition.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight section--cream">
+    <div class="container">
+      <h2 class="loc-services__title">What we do in {location.city}</h2>
+      <div class="loc-services__grid">
+        {roofingServices.map((service) => (
+          <a href={`/services#${service.slug}`} class="loc-service">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={serviceIcons[service.icon]} />
+            </svg>
+            <span>{service.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight areas">
+    <div class="container">
+      <h2 class="areas__title">Areas we cover around {location.city}</h2>
+      <ul class="areas__list">
+        {location.neighbourhoods.map((n) => <li>{n}</li>)}
+      </ul>
+      <p class="areas__note">
+        Not listed? We work throughout {location.county} and within 60 miles of Vancouver.
+        <a href="/contact"> Ask about your address</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight loc-faq">
+    <div class="container">
+      <h2 class="loc-faq__title">Common questions in {location.city}</h2>
+      <div class="loc-faq__list">
+        {location.faqs.map((faq) => (
+          <details class="loc-faq__item">
+            <summary class="loc-faq__q">{faq.question}</summary>
+            <p class="loc-faq__a">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <TestimonialsSection />
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .loc-hero {
+    background-color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-16)) 0 var(--space-12);
+  }
+
+  .loc-hero__eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .loc-hero__title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.05;
+    margin-bottom: var(--space-6);
+  }
+
+  .loc-hero__text {
+    font-size: 1.1875rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+  }
+
+  .loc-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .loc-hero__phone {
+    font-family: var(--font-heading);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    transition: color var(--transition-fast);
+  }
+
+  .loc-hero__phone:hover {
+    color: var(--color-primary);
+  }
+
+  .loc-hero__drive {
+    font-size: 0.9375rem;
+    color: var(--color-text-light);
+    margin-top: var(--space-5);
+  }
+
+  .conditions__title,
+  .loc-services__title,
+  .areas__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
+    margin-bottom: var(--space-4);
+  }
+
+  .conditions__lead {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-10);
+  }
+
+  .conditions__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .condition {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-5);
+    border-top: 2px solid var(--color-primary);
+  }
+
+  .condition__index {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+  }
+
+  .condition__title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.3;
+  }
+
+  .condition__body {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .loc-services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+  }
+
+  .loc-service {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .loc-service svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .loc-service:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .areas__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: var(--space-6) 0;
+  }
+
+  .areas__list li {
+    padding: var(--space-2) var(--space-5);
+    background-color: var(--color-cream);
+    border-radius: var(--radius-full);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-navy);
+  }
+
+  .areas__note {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+  }
+
+  .areas__note a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .loc-faq__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    line-height: 1.2;
+    margin-bottom: var(--space-8);
+  }
+
+  .loc-faq__list {
+    max-width: var(--measure);
+  }
+
+  .loc-faq__item {
+    border-bottom: 1px solid rgba(21, 37, 54, 0.12);
+    padding: var(--space-5) 0;
+  }
+
+  .loc-faq__q {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    line-height: 1.4;
+  }
+
+  .loc-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .loc-faq__q::after {
+    content: '+';
+    color: var(--color-primary);
+    font-size: 1.375rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .loc-faq__item[open] .loc-faq__q::after {
+    content: '\2212';
+  }
+
+  .loc-faq__a {
+    margin-top: var(--space-4);
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 1024px) {
+    .conditions__grid,
+    .loc-services__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .loc-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-8);
+    }
+  }
+</style>
