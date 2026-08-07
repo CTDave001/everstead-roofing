@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getImage } from 'astro:assets';
 import ogFallbackImg from '../assets/images/hero-roof.png';
-import { reviews } from '../data/business';
+import { reviews, profiles } from '../data/business';
 import '../styles/global.css';
 
 interface BreadcrumbItem {
@@ -103,7 +103,9 @@ const localBusinessSchema: Record<string, unknown> = {
     "opens": "08:00",
     "closes": "18:00"
   },
-  "sameAs": reviews.profileUrl ? [reviews.profileUrl] : [],
+  // Google profile first when set, then every other claimed listing. Filtered so
+  // an unset profileUrl does not emit a null into the array.
+  "sameAs": [reviews.profileUrl, ...profiles].filter(Boolean),
   "priceRange": "$$",
   "areaServed": {
     "@type": "GeoCircle",
