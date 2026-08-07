@@ -1,17 +1,28 @@
 ---
-// Holiday lights gallery section
+import { Image } from 'astro:assets';
+import galleryLarge from '../../assets/images/holiday-hero.jpg';
+import gallerySmall1 from '../../assets/images/holiday-house-2.webp';
+import gallerySmall2 from '../../assets/images/holiday-house-3.webp';
+
+/**
+ * These were plain <img> tags pointing at public/, so they shipped at source
+ * weight — holiday-house-3 alone was 1.8MB for a 1500x1000 image, which is a
+ * near-lossless encode nobody chose deliberately. Astro now resizes and
+ * re-encodes them, and emits width/height so the grid does not shift as they
+ * load.
+ */
 ---
 
 <section class="holiday-gallery">
   <div class="holiday-gallery__images">
     <div class="holiday-gallery__image holiday-gallery__image--large animate-on-scroll fade-up">
-      <img src="/images/holiday-hero.jpg" alt="Stunning Christmas lights display on Vancouver WA home" loading="lazy">
+      <Image src={galleryLarge} alt="Stunning Christmas lights display on Vancouver WA home" widths={[600, 900, 1200]} sizes="(max-width: 768px) 100vw, 66vw" format="webp" quality={78} loading="lazy" />
     </div>
     <div class="holiday-gallery__image holiday-gallery__image--small animate-on-scroll fade-up">
-      <img src="/images/holiday-house-2.webp" alt="Professional Christmas light installation on roofline" loading="lazy">
+      <Image src={gallerySmall1} alt="Professional Christmas light installation on roofline" widths={[400, 600]} sizes="(max-width: 768px) 100vw, 33vw" format="webp" quality={78} loading="lazy" />
     </div>
     <div class="holiday-gallery__image holiday-gallery__image--small animate-on-scroll fade-up">
-      <img src="/images/holiday-house-3.webp" alt="Holiday lights decorating Southwest Washington home" loading="lazy">
+      <Image src={gallerySmall2} alt="Holiday lights decorating Southwest Washington home" widths={[400, 600]} sizes="(max-width: 768px) 100vw, 33vw" format="webp" quality={78} loading="lazy" />
     </div>
   </div>
 </section>

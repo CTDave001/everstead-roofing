@@ -1,12 +1,26 @@
 ---
 import { getImage } from 'astro:assets';
+import holidayHeroBg from '../../assets/images/holiday-hero.jpg';
 import { currentTier } from '../../data/pricing';
-// Placeholder - replace with actual holiday hero image
-// import holidayHeroBg from '../../assets/images/holiday-hero.jpg';
-// const optimizedBg = await getImage({ src: holidayHeroBg, format: 'webp', quality: 80, width: 1920 });
+
+/**
+ * This background is the LCP element of the most commercially important page on
+ * the site. It used to be served straight out of public/, which bypasses Astro's
+ * image pipeline entirely — 485KB of poorly-compressed JPEG, unresized, on a page
+ * a lot of people will open on a phone on cellular in November.
+ *
+ * Same treatment as CTASection: optimised at build time, and the generated URL
+ * fed into a custom property so the CSS keeps working unchanged.
+ */
+const optimizedBg = await getImage({
+  src: holidayHeroBg,
+  format: 'webp',
+  quality: 78,
+  width: 1920,
+});
 ---
 
-<section class="holiday-hero" style="--hero-bg: url('/images/holiday-hero.jpg')">
+<section class="holiday-hero" style={`--hero-bg: url('${optimizedBg.src}')`}>
   <div class="container holiday-hero__inner">
     <div class="holiday-hero__content">
       <!-- Hard <br> line breaks were removed here on purpose: they fragmented the

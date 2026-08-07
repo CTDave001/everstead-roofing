@@ -2,6 +2,7 @@
 // Seasonal popup - shows holiday promo (Nov 1 - Dec 25) or free quote (rest of year)
 import { Image } from 'astro:assets';
 import heroRoofImg from '../assets/images/hero-roof.png';
+import holidayPopupImg from '../assets/images/holiday-hero.jpg';
 ---
 
 <div class="popup-overlay" id="seasonalPopup">
@@ -16,7 +17,7 @@ import heroRoofImg from '../assets/images/hero-roof.png';
     <!-- Holiday Version (Nov 1 - Dec 25) -->
     <div class="popup-content popup-content--holiday" id="holidayContent">
       <div class="popup-header popup-header--holiday">
-        <img src="/images/holiday-hero.jpg" alt="Beautiful Christmas lights on home" />
+        <Image src={holidayPopupImg} alt="Beautiful Christmas lights on home" width={520} height={260} format="webp" quality={78} loading="lazy" />
         <div class="popup-header__overlay"></div>
         <div class="popup-header__badge">
           <span>Now Booking</span>

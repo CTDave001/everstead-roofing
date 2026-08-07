@@ -16,6 +16,8 @@
  * freeze until the next deploy — the same trap documented in Header.astro and
  * pricing.ts. Remove this section from index.astro in January.
  */
+import { Image } from 'astro:assets';
+import bandImg from '../../assets/images/holiday-house-2.webp';
 import { currentTier, materialUpliftPct } from '../../data/pricing';
 ---
 
@@ -53,12 +55,14 @@ import { currentTier, materialUpliftPct } from '../../data/pricing';
     </div>
 
     <div class="holiday-band__media">
-      <img
-        src="/images/holiday-house-2.webp"
+      <Image
+        src={bandImg}
         alt="Home in Vancouver, WA with Christmas lights installed along the rooflines"
+        widths={[400, 640, 800]}
+        sizes="(max-width: 900px) 100vw, 45vw"
+        format="webp"
+        quality={78}
         loading="lazy"
-        width="640"
-        height="480"
       />
     </div>
   </div>

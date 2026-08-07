@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import backgroundImg from '../../assets/images/holiday-house-2.webp';
+
 const features = [
   {
     title: 'C9 LED lights',
@@ -57,7 +60,7 @@ const icons: Record<string, string> = {
 
 <section class="whats-included">
   <div class="whats-included__bg">
-    <img src="/images/holiday-house-2.webp" alt="Beautiful home decorated with Christmas lights in Vancouver WA" loading="lazy">
+    <Image src={backgroundImg} alt="Beautiful home decorated with Christmas lights in Vancouver WA" widths={[800, 1200]} sizes="100vw" format="webp" quality={78} loading="lazy" />
   </div>
   <div class="container">
     <div class="whats-included__content animate-on-scroll fade-up">
