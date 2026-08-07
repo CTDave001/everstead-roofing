@@ -17,10 +17,28 @@ export default defineConfig({
     '/holiday': '/christmas-light-installation-vancouver-wa',
   },
   integrations: [
+    /**
+     * No `lastmod` here, deliberately.
+     *
+     * It used to be `lastmod: new Date()`, which stamped every URL in the sitemap
+     * with the build time — asserting that all 23 pages changed every time
+     * anything deployed. That is false for all but one or two of them, and a
+     * lastmod a crawler can demonstrate is wrong is worse than no lastmod: it
+     * teaches Google to discount the signal for this site entirely. Which matters
+     * precisely when it is needed, e.g. updating the displays guide with confirmed
+     * dates in November and wanting it recrawled quickly.
+     *
+     * Astro's sitemap integration cannot read content-collection dates from here
+     * (config is evaluated before content loads), so per-page truth is not
+     * available without hand-maintaining a map. Omitting it lets Google fall back
+     * on its own change detection, which is accurate. For an urgent recrawl, use
+     * "Request indexing" in Search Console rather than a sitemap hint.
+     *
+     * `priority` is also gone: it was a uniform 0.7 on every URL, which conveys no
+     * relative ranking at all, and Google has said for years that it ignores it.
+     */
     sitemap({
       changefreq: 'weekly',
-      priority: 0.7,
-      lastmod: new Date(),
     }),
   ],
 });

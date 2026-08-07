@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
+import HomeHolidayBand from '../components/sections/HomeHolidayBand.astro';
 import TrustSection from '../components/sections/TrustSection.astro';
 import ServicesSection from '../components/sections/ServicesSection.astro';
 import PromiseSection from '../components/sections/PromiseSection.astro';
@@ -11,9 +12,18 @@ import FAQSection from '../components/sections/FAQSection.astro';
 import SeasonalPopup from '../components/SeasonalPopup.astro';
 ---
 
-<BaseLayout title="Roofing Service in Vancouver">
+{/* Title stays on the roofing term — it is the established year-round target and the
+    homepage should not surrender it for a seasonal one. The description carries the
+    lights mention so the listing still signals it in season. */}
+<BaseLayout
+  title="Roofing Service in Vancouver"
+  description="Roofing repair, replacement, and free inspections in Vancouver, WA — plus Christmas light installation, now booking for the 2026 season. Serving Clark County and southwest Washington."
+>
   <SeasonalPopup />
   <Hero />
+  {/* Lights is the season's priority, so it sits directly under the hero rather
+      than below four roofing sections. Remove in January. */}
+  <HomeHolidayBand />
   <TrustSection />
   <ServicesSection />
   <PromiseSection />

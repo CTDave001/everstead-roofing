@@ -22,19 +22,48 @@ Holiday lighting leads come from three surfaces, and they are not equally winnab
 
 ## The revenue target, and what it actually demands
 
-**Stated goal: $250,000+ from lights installs this season.** Roofing is not being actively marketed; lights is the focus.
+**Stated goal: $250,000+ from lights installs, and 300 residential jobs.** Roofing is not being actively marketed; lights is the focus. Commercial is in scope.
 
-At the published $400–$1,500 range, a realistic average ticket is $800–$900. The arithmetic that follows from that:
+*Revised 6 Aug once the real rate card was supplied. The earlier version of this section assumed the published $400–$1,500 range and an $800–$900 average ticket. Both were wrong, and the correction is favourable.*
+
+**Pricing model:** linear feet × rate, + 8% material, + Washington sales tax stated separately. Rate ladder: **$6.50/ft through 30 Sept, $7.25 in October, $7.95 in November.** Codified in `src/data/pricing.ts`.
+
+| Roofline | Sept $6.50 | Oct $7.25 | Nov $7.95 |
+|---|---|---|---|
+| 120 ft | $842 | $940 | $1,030 |
+| 160 ft | $1,123 | $1,253 | $1,374 |
+| 200 ft | $1,404 | $1,566 | $1,717 |
+| 250 ft | $1,755 | $1,958 | $2,147 |
+| 320 ft | $2,246 | $2,506 | $2,748 |
+
+*Incl. 8% material, pre-tax. Sales tax is not revenue and is excluded throughout.*
+
+Most Clark County homes run 120–250 ft, so a realistic average ticket is **$1,200–$1,800**, not $850. What follows:
 
 | | |
 |---|---|
-| Installs required | ~280–310 |
-| Install window (1 Oct – 20 Dec) | ~80 days, of which perhaps 55–65 are workable after weather |
-| Installs per working day | ~4.7 |
-| Crews required | 2 at full utilisation; realistically 3 |
-| Light inventory purchased ahead of revenue | ~$45,000–$90,000 |
+| Jobs to reach $250k | **~150–180**, not ~300 |
+| Revenue at the stated 300-job target | **~$400,000–$500,000** |
+| Install window (1 Oct – 20 Dec) | ~80 days, perhaps 55–65 workable |
+| Jobs/day at 300 | ~5 — genuinely demanding |
+| Jobs/day at 175 | ~3 — comfortable for 1–2 crews |
 
-**This is not primarily a lead-generation problem.** Marketing can plausibly produce 300 leads. It cannot produce three trained crews, and it cannot finance $60k of C9 inventory ordered in September. The 50% deposit model is what funds the inventory, which makes early bookings a cash-flow mechanism and not just a scheduling convenience.
+**$250k is not the stretch. 300 jobs is.** The revenue target is met at a little over half the stated job count; everything past ~180 jobs is upside, and it is upside bounded by crews and daylight rather than by leads.
+
+### The rate ladder is the marketing asset
+
+Most contractors urge booking early and leave the reason vague. This one has a published, dated, verifiable price increase behind it. That is honest urgency rather than manufactured scarcity, and it is the strongest conversion mechanism on the site.
+
+Two rules follow, and they matter more than any ranking factor:
+
+- **The deadline must be real.** If 30 September passes and the rate does not actually move, the October and November deadlines stop working — customers learn the ladder is theatre, and it cannot be un-learned.
+
+  The site side of this is now automatic. `src/data/pricing.ts` picks the live tier by comparing the build clock against Pacific-time boundaries, and `.github/workflows/scheduled-rebuild.yml` triggers a Vercel rebuild daily at 07:05 UTC (00:05 Pacific) so a static site actually re-evaluates it. Verified across both boundaries, including the UTC-vs-Pacific trap that would otherwise raise the rate seven hours early.
+
+  **Two one-time setup steps are still outstanding, and the automation does nothing until both are done:** create a Vercel deploy hook, and store it as the GitHub secret `VERCEL_DEPLOY_HOOK`. If a deadline passes and the price does not change, that workflow is the first thing to check. Note also that GitHub disables scheduled workflows after 60 days of repository inactivity.
+
+  What is *not* automated is the quoting side. The site will say $7.25 on 1 October whether or not quotes go out at $7.25.
+- **Sell the cheapest tier hardest, now.** It is 6 August. There are eight weeks of $6.50/ft left, and every booking taken at $6.50 with a 50% deposit is inventory financed before it is ordered.
 
 ### The mix matters more than the volume
 
@@ -160,11 +189,11 @@ Shipped in this pass: the lights page rebuilt at a keyword URL with pricing, pro
 
 | When | Focus |
 |---|---|
-| **Aug 6–15** | GBP verified and fully built out. GSC + Bing verified, sitemap submitted, new pages index-requested. NAP audit started. Review asks begin. |
-| **Aug 16–31** | Citations cleaned and built. Chamber/BBB submitted. First city page if a real one can be supported. Reviews continuing. |
-| **Sept 1–15** | Popup now live (window moved to Sept 1 in this pass). Weekly GBP posts begin. Remaining city pages. First rank check — expect long-tail movement only. |
-| **Sept 16–30** | Early-bird booking push. Email/text past roofing customers — the cheapest lights leads available, and they convert far better than cold organic. |
-| **Oct 1–31** | Demand ramps. Paid switched on if using it. Lights photos to GBP as jobs complete. Reviews from lights customers. |
+| **Aug 6–15** | **GBP is the whole week.** Verify it, switch categories, fill Services, link it to the lights page. GSC + Bing verified, sitemap submitted, all 6 new lights URLs index-requested individually. NAP audit. Review asks begin. |
+| **Aug 16–31** | Commercial outbound starts — property managers set budgets now, and the commercial page exists to support that conversation, not replace it. Citations cleaned. Chamber/BBB. Reviews continuing. |
+| **Sept 1–15** | Popup live (window moved to Sept 1). GBP primary category switched to holiday lighting — early, so it settles. Weekly GBP posts begin. First rank check; expect long-tail only. |
+| **Sept 16–30** | **Hard push on the $6.50 deadline.** Email and text every past roofing customer — cheapest leads available and they convert far above cold organic. This is the last two weeks of the lowest tier and it will not come back. |
+| **Oct 1–31** | Rate moves to $7.25 — and it must actually move. Demand ramps. Lights photos to GBP as jobs complete. Reviews from lights customers naming the service. |
 | **Nov 1–20** | **Peak.** Pitch the displays guide to local outlets and community groups. Publish the season's confirmed dates on it. Capacity, not traffic, becomes the constraint. |
 | **Dec** | Take deposits for 2027. Photograph everything — that library is next season's biggest asset. |
 | **Jan** | Removals. Post-mortem: which pages drove calls, which queries landed, what to build in spring while there is time. |

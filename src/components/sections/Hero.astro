@@ -11,7 +11,11 @@ const ratingLabel = reviews.ratingValue.toFixed(1);
 <section class="hero" style={`--hero-bg: url('${optimizedBg.src}')`}>
   <div class="container hero__inner">
     <div class="hero__content">
-      <h1 class="hero__title hero-animate hero-animate--1">Roofing Service<br>in Vancouver.</h1>
+      <!-- The space before <br> is load-bearing. Without it this heading extracts as
+           "Roofing Servicein Vancouver." — browsers collapse the trailing space so the
+           line break looks identical, but anything reading the text rather than the
+           pixels (Google, screen readers) gets two words run together. -->
+      <h1 class="hero__title hero-animate hero-animate--1">Roofing Service <br>in Vancouver.</h1>
       <p class="hero__text hero-animate hero-animate--2">
         Everstead Roofing keeps your home <strong>safe, dry, and energy-efficient</strong> with premium roofing solutions built for durability.
       </p>

@@ -67,7 +67,8 @@ const serviceSchema = {
   <section class="loc-hero">
     <div class="container">
       <p class="loc-hero__eyebrow">{location.county}, Washington</p>
-      <h1 class="loc-hero__title">Roofing in<br>{location.city}, WA</h1>
+      <!-- Space before <br> is deliberate; without it this extracts as "Roofing inCamas, WA". -->
+      <h1 class="loc-hero__title">Roofing in <br>{location.city}, WA</h1>
       <p class="loc-hero__text prose">{location.intro}</p>
       <div class="loc-hero__actions">
         <a href="/contact" class="btn btn--primary">Get a free inspection</a>

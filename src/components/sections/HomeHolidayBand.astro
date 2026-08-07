@@ -1,0 +1,209 @@
+---
+/**
+ * Christmas lighting promotion on the homepage.
+ *
+ * Sits directly under the hero rather than further down, for two reasons. The
+ * homepage is the strongest page on this domain by a wide margin, and a link
+ * placed high in the body passes more internal weight to the lights cluster than
+ * the sitewide nav and footer links already do. And lights is the season's
+ * priority — a visitor arriving in September should not have to scroll past four
+ * roofing sections to discover the thing being actively sold.
+ *
+ * Rate and deadline come from src/data/pricing.ts, so this cannot drift from the
+ * rate card on the lights page.
+ *
+ * Not date-gated. Astro builds static HTML, so a build-time date check would
+ * freeze until the next deploy — the same trap documented in Header.astro and
+ * pricing.ts. Remove this section from index.astro in January.
+ */
+import { currentTier, materialUpliftPct } from '../../data/pricing';
+---
+
+<section class="holiday-band">
+  <div class="container holiday-band__inner">
+    <div class="holiday-band__content">
+      <p class="holiday-band__eyebrow">Now booking &mdash; 2026 season</p>
+      <h2 class="holiday-band__title">Christmas light installation in Vancouver, WA</h2>
+      <p class="holiday-band__text">
+        Commercial-grade C9 LEDs on non-damaging clips, hung by roofers who will not put
+        a hole in your home. Timer included, taken down in January.
+      </p>
+
+      <div class="holiday-band__rate">
+        <p class="holiday-band__rate-figure">
+          ${currentTier.rate.toFixed(2)}<span>/ linear foot</span>
+        </p>
+        <p class="holiday-band__rate-note">
+          Booked by {currentTier.deadline}, plus {materialUpliftPct}% material and WA sales
+          tax shown separately. <strong>The rate rises after that.</strong>
+        </p>
+      </div>
+
+      <div class="holiday-band__actions">
+        <a href="/christmas-light-installation-vancouver-wa" class="btn btn--primary">
+          See the rate card
+        </a>
+        <a
+          href="/commercial-christmas-light-installation-vancouver-wa"
+          class="holiday-band__secondary"
+        >
+          Commercial properties &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div class="holiday-band__media">
+      <img
+        src="/images/holiday-house-2.webp"
+        alt="Home in Vancouver, WA with Christmas lights installed along the rooflines"
+        loading="lazy"
+        width="640"
+        height="480"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .holiday-band {
+    background-color: var(--color-navy);
+    padding: var(--space-16) 0;
+  }
+
+  .holiday-band__inner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .holiday-band__eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-light);
+    margin-bottom: var(--space-4);
+  }
+
+  .holiday-band__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-white);
+    max-width: 18ch;
+    margin-bottom: var(--space-5);
+  }
+
+  .holiday-band__text {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 52ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .holiday-band__rate {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+    background-color: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+  }
+
+  .holiday-band__rate-figure {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary-light);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .holiday-band__rate-figure span {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .holiday-band__rate-note {
+    flex: 1 1 20ch;
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .holiday-band__rate-note strong {
+    color: var(--color-white);
+    font-weight: var(--font-semibold);
+  }
+
+  .holiday-band__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .holiday-band__secondary {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: rgba(255, 255, 255, 0.85);
+    transition: color var(--transition-fast);
+  }
+
+  .holiday-band__secondary:hover {
+    color: var(--color-primary-light);
+  }
+
+  .holiday-band__media img {
+    width: 100%;
+    height: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .holiday-band__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .holiday-band__media {
+      order: -1;
+    }
+
+    .holiday-band__media img {
+      max-height: 260px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .holiday-band {
+      padding: var(--space-12) 0;
+    }
+
+    .holiday-band__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+    }
+
+    .holiday-band__actions .btn {
+      justify-content: center;
+    }
+
+    .holiday-band__secondary {
+      text-align: center;
+    }
+  }
+</style>
