@@ -1,57 +1,68 @@
-# Daily production rebuild.
+# Rebuilds the site on the dates its published figures change.
 #
-# Why this exists: the site is statically built, but the Christmas lighting rate
-# in src/data/pricing.ts is chosen by comparing the build clock against the tier
-# start dates. Nothing rebuilds a static site on its own, so without this the
-# rate would stay frozen at whatever it was on the last deploy — and the site
-# would keep advertising $6.50/ft into October.
+# The site is statically built, but two things are chosen by comparing the build
+# clock against fixed dates: the lighting rate tier in src/data/pricing.ts, and
+# the seasonal opening hours in src/data/business.ts. Nothing rebuilds a static
+# site on its own, so without this the site would keep advertising $6.50/ft into
+# October and Mon-Sat 8-8 into February.
 #
-# 07:05 UTC is 00:05 Pacific Daylight Time. Both 2026 tier boundaries
-# (1 Oct and 1 Nov) are defined at Pacific midnight, so the first run after each
-# boundary picks up the new rate within minutes.
+# This pushes an empty commit, which triggers the existing Vercel Git
+# integration. That deliberately avoids needing a Vercel deploy hook and the
+# secret that goes with it - no external credentials, nothing to rotate, nothing
+# to leak. The cost is a handful of no-op commits a year, which is why it fires
+# only on the dates that actually matter rather than daily.
 #
-# Two caveats worth knowing:
-#   - GitHub's scheduled runs are best-effort and can be delayed under load.
-#     A late run means the rate flips later that morning, not that it never does.
-#   - GitHub disables scheduled workflows in repositories with no activity for
-#     60 days. If the repo goes quiet over the summer, re-enable this before the
-#     season rather than discovering it on 1 October.
+# Dates, and what changes on each (keep in step with the two data files):
+#   1 Oct  - rate 6.50 -> 7.25
+#   1 Nov  - rate 7.25 -> 7.95
+#   15 Jan - hours revert to Mon-Fri 8-6
 #
-# Setup (one time, both require account access):
-#   1. Vercel -> Project Settings -> Git -> Deploy Hooks. Create one against the
-#      production branch and copy the URL.
-#   2. GitHub -> Settings -> Secrets and variables -> Actions -> New repository
-#      secret, named VERCEL_DEPLOY_HOOK, pasting that URL.
+# Each fires on the boundary and again the following day. GitHub's scheduled
+# runs are best-effort and can be delayed or dropped under load, so the second
+# run is the safety net. If the first worked, the second is a harmless no-op
+# deploy.
 #
-# Verify it works without waiting for a boundary: Actions tab -> this workflow
-# -> "Run workflow". A deployment should appear in Vercel within a minute.
+# 07:05 UTC is 00:05 Pacific Daylight Time; 08:05 UTC in January is 00:05 PST.
+# Both data files define their boundaries at Pacific midnight, so the run lands
+# minutes after the switch rather than hours either side of it.
+#
+# KNOWN RISK: GitHub disables scheduled workflows in repositories with no
+# activity for 60 days. From 6 August to 1 October is 56 days. If the repo goes
+# quiet through September, check the Actions tab before the 1st - or just run it
+# manually, which is what workflow_dispatch is for.
+#
+# After each boundary, confirm the site actually changed. The rate is on
+# /christmas-light-installation-vancouver-wa; the hours are in the footer.
 
 name: Scheduled rebuild
 
 on:
   schedule:
-    - cron: '5 7 * * *'
+    - cron: '5 7 1,2 10 *'   # 1-2 October  - rate moves to $7.25
+    - cron: '5 7 1,2 11 *'   # 1-2 November - rate moves to $7.95
+    - cron: '5 8 15,16 1 *'  # 15-16 January - seasonal hours expire
   workflow_dispatch:
+
+# Needed to push. The default token is read-only in repositories configured that
+# way, and a permission error here looks exactly like a missed rebuild.
+permissions:
+  contents: write
 
 jobs:
   rebuild:
     name: Trigger production deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Check the deploy hook is configured
-        # Fail loudly and early. A missing secret would otherwise make curl POST
-        # to an empty string, and a silently skipped rebuild is exactly the
-        # failure this workflow exists to prevent.
-        run: |
-          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
-            echo "::error::VERCEL_DEPLOY_HOOK is not set. The site will not pick up rate-tier changes until it is."
-            exit 1
-          fi
+      - name: Check out the repository
+        uses: actions/checkout@v4
 
-      - name: Poke the Vercel deploy hook
-        # --fail turns a non-2xx response into a non-zero exit, so a revoked or
-        # mistyped hook surfaces as a red run rather than a quiet success.
+      - name: Push an empty commit to trigger a deploy
         run: |
-          curl --fail --silent --show-error --request POST \
-            "${{ secrets.VERCEL_DEPLOY_HOOK }}"
-          echo "Deploy triggered."
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Rebuild: refresh date-dependent rate and hours
+
+          Automated no-op commit. The published lighting rate and seasonal opening
+          hours are resolved at build time, so a deploy is what actually applies
+          them. Triggered by .github/workflows/scheduled-rebuild.yml."
+          git push
