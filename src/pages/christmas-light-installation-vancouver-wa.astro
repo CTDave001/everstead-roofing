@@ -9,6 +9,7 @@ import HolidayServiceArea from '../components/sections/HolidayServiceArea.astro'
 import HolidayFAQ from '../components/sections/HolidayFAQ.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+import { lowestRate, highestRate, currentTier, materialUpliftPct } from '../data/pricing';
 
 const siteUrl = 'https://eversteadroofing.com';
 const pageUrl = `${siteUrl}/christmas-light-installation-vancouver-wa`;
@@ -20,9 +21,13 @@ const pageUrl = `${siteUrl}/christmas-light-installation-vancouver-wa`;
  * describes the thing being sold on this page, and is what lets Google connect
  * "christmas light installation" + "Vancouver WA" to a priced, area-served service.
  *
- * The $400-$1,500 range here must stay in sync with HolidayPricing and HolidayFAQ.
- * All three render the same number to a human; a structured-data figure that
- * contradicts the visible one is a rich-results violation.
+ * Priced as a UnitPriceSpecification in dollars per linear foot (UN/CEFACT code
+ * FOT), not as a flat min/max total. That is what the business actually charges,
+ * and it is the only form that stays true all season — a total range would need
+ * an assumed roofline length, and would go stale at each rate change.
+ *
+ * Figures come from src/data/pricing.ts, the same source the visible rate table
+ * and FAQ render from, so the markup cannot contradict the page.
  */
 const serviceSchema = {
   '@context': 'https://schema.org',
@@ -73,14 +78,21 @@ const serviceSchema = {
     url: pageUrl,
     priceCurrency: 'USD',
     priceSpecification: {
-      '@type': 'PriceSpecification',
+      '@type': 'UnitPriceSpecification',
       '@id': `${pageUrl}#price`,
       priceCurrency: 'USD',
-      minPrice: 400,
-      maxPrice: 1500,
+      price: currentTier.rate,
+      minPrice: lowestRate,
+      maxPrice: highestRate,
       valueAddedTaxIncluded: false,
-      description:
-        'Typical range for a residential installation, including lights, installation, timer, and January removal.',
+      unitCode: 'FOT',
+      unitText: 'linear foot of roofline',
+      referenceQuantity: {
+        '@type': 'QuantitativeValue',
+        value: 1,
+        unitCode: 'FOT',
+      },
+      description: `Per linear foot of roofline, plus a ${materialUpliftPct}% material charge. Washington sales tax is stated separately. Includes lights, installation, timer, and January removal.`,
     },
   },
 };
@@ -88,7 +100,7 @@ const serviceSchema = {
 
 <BaseLayout
   title="Christmas Light Installation in Vancouver, WA"
-  description="Christmas light installation in Vancouver, WA and Clark County. Most homes run $400-$1,500 all in - commercial-grade C9 LEDs, non-damaging clips, timer, and January removal included. Book early; install dates fill up."
+  description={`Christmas light installation in Vancouver, WA and Clark County. $${currentTier.rate.toFixed(2)} per linear foot if you book by ${currentTier.deadline} - commercial-grade C9 LEDs, non-damaging clips, timer, and January removal included. The rate rises in October.`}
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Christmas Light Installation", url: "/christmas-light-installation-vancouver-wa" }
@@ -101,13 +113,74 @@ const serviceSchema = {
   <HolidayWhatsIncluded />
   <HolidayPricing />
   <HolidayProcess />
+
+  {/* Sends commercial enquiries to the page built for them, and gives that page a
+      link from the strongest page in the cluster. Property managers landing on
+      residential copy is a lost $8k account. */}
+  <section class="commercial-band">
+    <div class="container commercial-band__inner">
+      <div>
+        <h2 class="commercial-band__title">Managing a property rather than a home?</h2>
+        <p class="commercial-band__text">
+          Retail centres, HOAs, apartment complexes, dealerships and office parks are
+          quoted per site after a walk-through &mdash; and need scoping earlier than
+          residential.
+        </p>
+      </div>
+      <a href="/commercial-christmas-light-installation-vancouver-wa" class="btn btn--primary commercial-band__cta">
+        Commercial lighting
+      </a>
+    </div>
+  </section>
+
   <TestimonialsSection />
   <HolidayServiceArea />
   <HolidayFAQ />
   <CTASection
-    title="Ready to book your install date?"
-    text="Christmas light installation across Vancouver, WA and Clark County. Commercial-grade LEDs, non-damaging clips, and January takedown included—most homes run $400 to $1,500."
-    subtext="Text 4 photos for a same-day estimate. A 50% deposit reserves your date."
+    title={`Lock $${currentTier.rate.toFixed(2)} per foot`}
+    text={`Christmas light installation across Vancouver, WA and Clark County. Commercial-grade LEDs, non-damaging clips, and January takedown included. Book by ${currentTier.deadline} and the rate is held—it rises after that.`}
+    subtext="Text 4 photos for a same-day estimate. A 50% deposit reserves your date. Plus WA sales tax, shown separately."
     buttonLabel="Get My Lighting Estimate"
   />
 </BaseLayout>
+
+<style>
+  .commercial-band {
+    background-color: var(--color-navy);
+    padding: var(--space-10) 0;
+  }
+
+  .commercial-band__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .commercial-band__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-white);
+    margin-bottom: var(--space-3);
+  }
+
+  .commercial-band__text {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 60ch;
+  }
+
+  .commercial-band__cta {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .commercial-band__cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,516 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+
+/**
+ * Commercial holiday lighting.
+ *
+ * Deliberately a separate page rather than a section on the residential one. The
+ * buyer is different (property or facilities manager, HOA board, owner-operator),
+ * the objections are different (liability, tenant disruption, budget cycle), and
+ * the search terms are different. Folding it into the residential page would
+ * serve neither.
+ *
+ * No commercial rate card here on purpose. The residential $/ft ladder in
+ * src/data/pricing.ts does not transfer — commercial scope varies too much by
+ * site, and publishing a per-foot figure that gets abandoned at the first site
+ * walk is worse than publishing nothing. Add one here if a real commercial rate
+ * card is set; until then this page sells the site walk, which is how the work
+ * is actually won.
+ *
+ * Claims kept to what is verifiable: Washington contractor registration is public
+ * record (and registration requires liability insurance and a bond), and working
+ * at height is the roofing business's normal day job. Nothing here asserts an
+ * insurance limit, a client list, or a multi-year term.
+ */
+
+const siteUrl = 'https://eversteadroofing.com';
+const pageUrl = `${siteUrl}/commercial-christmas-light-installation-vancouver-wa`;
+
+const propertyTypes = [
+  {
+    title: 'Retail centres & shopping plazas',
+    body: 'Consistent lighting across every storefront, installed before the trading season rather than during it.',
+  },
+  {
+    title: 'HOAs & residential communities',
+    body: 'Entrances, common areas, and clubhouses — plus a single point of contact for the board instead of a different contractor each year.',
+  },
+  {
+    title: 'Apartment & condo complexes',
+    body: 'Multi-building displays scheduled so residents are not working around ladders on a Tuesday morning.',
+  },
+  {
+    title: 'Car dealerships',
+    body: 'High-visibility frontage where the display is doing marketing work, not just decoration.',
+  },
+  {
+    title: 'Office parks & business campuses',
+    body: 'Entrances and shared exterior space, installed outside business hours.',
+  },
+  {
+    title: 'Restaurants & hotels',
+    body: 'Facades and entries, with a service response that does not leave a dark patch through your busiest month.',
+  },
+];
+
+const process = [
+  {
+    number: '01',
+    title: 'Site walk',
+    body: 'We walk the property with you, measure the runs, and identify power and access. Commercial scope is too variable to quote off photographs the way a house can be.',
+  },
+  {
+    number: '02',
+    title: 'Written scope and quote',
+    body: 'A documented scope — what gets lit, what it costs, when it goes up, when it comes down. Something you can take to a board or put through procurement.',
+  },
+  {
+    number: '03',
+    title: 'Scheduled around your operation',
+    body: 'Installed outside trading hours, before the season rather than into it. Tenants and customers should never see the ladders.',
+  },
+  {
+    number: '04',
+    title: 'In-season service',
+    body: 'If something fails in December, it gets fixed. A dark section of a retail frontage is your problem for the whole month otherwise.',
+  },
+  {
+    number: '05',
+    title: 'Removal and storage',
+    body: 'Taken down in January and, if you want, stored year-round so next season is a phone call instead of a procurement exercise.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'Are you licensed and insured for commercial work?',
+    answer:
+      'Yes. Everstead Roofing Co is a registered Washington contractor, registration BTNHOHL796B9, which is public record and verifiable through Washington State L&I. Registration requires both liability insurance and a bond. We can provide a certificate of insurance naming your property for your files before work starts — most property managers need it, and it is a reasonable thing to ask any contractor for.',
+  },
+  {
+    question: 'When should a commercial property book?',
+    answer:
+      'Earlier than residential, and for a different reason. Commercial installs are larger, take more days, and have to be finished before your trading season rather than during it. Budgets are also usually set in late summer or early autumn. August through September is the right window to get a scope and a number in front of whoever signs it.',
+  },
+  {
+    question: 'Can you work around our business hours?',
+    answer:
+      'That is the normal arrangement for commercial sites. Retail frontages, restaurants, and dealerships get installed outside trading hours; apartment and office properties get scheduled so residents and staff are not navigating around equipment. Tell us the constraint at the site walk and it goes into the written scope rather than being negotiated on the day.',
+  },
+  {
+    question: 'Will the installation damage the building?',
+    answer:
+      'No. Everything goes up on non-damaging clips — no holes, no nails, no staples into roofing, flashing, or cladding. This matters more on a commercial roof than a house, because commercial roofing systems and their warranties are considerably less forgiving of unauthorised penetrations. We are roofers; we are not going to compromise a roof to hang a light.',
+  },
+  {
+    question: 'How is commercial pricing worked out?',
+    answer:
+      'Per property, after a site walk. Commercial scope varies far too much — frontage length, height, access equipment, power availability, how many buildings, whether work has to happen outside hours — for a per-foot figure to mean anything. You get a written scope and a fixed number before anything is committed. Washington sales tax is stated separately, as it is on all our work.',
+  },
+  {
+    question: 'Can we set this up for multiple seasons?',
+    answer:
+      'It is worth discussing at the site walk. Returning to a property we already have measurements, a design, and stored inventory for is genuinely more efficient than starting fresh, and repeat arrangements can be structured to reflect that. Come to the conversation with how many seasons you want covered.',
+  },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${pageUrl}#service`,
+  name: 'Commercial Christmas Light Installation',
+  serviceType: 'Commercial Holiday Lighting Installation',
+  description:
+    'Commercial Christmas and holiday light installation for retail centres, HOAs, apartment complexes, dealerships, office parks, and hospitality properties in Vancouver, WA and Clark County.',
+  url: pageUrl,
+  provider: {
+    '@type': 'RoofingContractor',
+    name: 'Everstead Roofing Co',
+    url: siteUrl,
+    telephone: '+1-360-342-9525',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '4200 SE Columbia Way Suite F',
+      addressLocality: 'Vancouver',
+      addressRegion: 'WA',
+      postalCode: '98661',
+      addressCountry: 'US',
+    },
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Clark County, Washington',
+  },
+  audience: {
+    '@type': 'BusinessAudience',
+    name: 'Property managers, facilities managers, HOA boards, and business owners',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title="Commercial Christmas Light Installation in Vancouver, WA"
+  description="Commercial holiday lighting for retail centres, HOAs, apartment complexes, and dealerships in Vancouver, WA and Clark County. Registered Washington contractor, non-damaging installation, scheduled around your operation."
+  jsonLd={[serviceSchema, faqSchema]}
+  logo="/eversteadlogoholiday.svg"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Christmas Light Installation', url: '/christmas-light-installation-vancouver-wa' },
+    { name: 'Commercial', url: '/commercial-christmas-light-installation-vancouver-wa' },
+  ]}
+>
+  <section class="com-hero">
+    <div class="container">
+      <p class="com-hero__eyebrow">Vancouver, WA &amp; Clark County</p>
+      <h1 class="com-hero__title">Commercial Christmas Light Installation</h1>
+      <p class="com-hero__text prose">
+        Retail centres, HOAs, apartment complexes, dealerships and office parks. Installed
+        by a registered Washington roofing contractor, on non-damaging clips, scheduled
+        around your operation rather than through it &mdash; and taken down in January.
+      </p>
+      <div class="com-hero__actions">
+        <a href="/contact" class="btn btn--primary">Request a site walk</a>
+        <a href="tel:+13603429525" class="com-hero__phone">(360) 342-9525</a>
+      </div>
+      <p class="com-hero__note">
+        Commercial properties should be scoped in August or September &mdash; installs are
+        larger, and the display has to be finished before your season, not during it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section types">
+    <div class="container">
+      <h2 class="types__title">Properties we light</h2>
+      <div class="types__grid">
+        {propertyTypes.map((type) => (
+          <article class="type">
+            <h3 class="type__title">{type.title}</h3>
+            <p class="type__body">{type.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream why">
+    <div class="container why__inner">
+      <h2 class="why__title">Why a roofing contractor</h2>
+      <p class="why__lead prose">
+        Most holiday lighting crews are seasonal. They assemble in October, work for
+        ten weeks, and disband. That is fine until somebody puts a fastener through
+        a membrane roof.
+      </p>
+      <div class="why__points">
+        <div class="why__point">
+          <h3>Height is our normal work</h3>
+          <p>
+            Working safely on steep and multi-storey roofs is what this business does the
+            other ten months of the year. It is not a seasonal stretch we take on.
+          </p>
+        </div>
+        <div class="why__point">
+          <h3>Nothing penetrates your roof</h3>
+          <p>
+            Non-damaging clips only. Commercial roofing systems and their warranties are
+            far less forgiving of unauthorised penetrations than a residential shingle
+            roof, and we are not going to compromise one to hang a light.
+          </p>
+        </div>
+        <div class="why__point">
+          <h3>Registered and verifiable</h3>
+          <p>
+            Washington contractor registration BTNHOHL796B9 &mdash; public record, checkable
+            through L&amp;I, and requiring liability insurance and a bond to hold. A
+            certificate of insurance naming your property is available before work starts.
+          </p>
+        </div>
+        <div class="why__point">
+          <h3>We are here in February</h3>
+          <p>
+            A local roofing company with a year-round address and phone number, not a
+            crew that dissolves in January. If something needs sorting after the season,
+            there is somebody to call.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process">
+    <div class="container">
+      <h2 class="process__title">How a commercial install runs</h2>
+      <ol class="process__steps">
+        {process.map((step) => (
+          <li class="pstep">
+            <span class="pstep__num" aria-hidden="true">{step.number}</span>
+            <div>
+              <h3 class="pstep__title">{step.title}</h3>
+              <p class="pstep__body">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--tight com-faq">
+    <div class="container">
+      <h2 class="com-faq__title">Commercial questions</h2>
+      <div class="com-faq__list">
+        {faqs.map((faq) => (
+          <details class="com-faq__item">
+            <summary class="com-faq__q">{faq.question}</summary>
+            <p class="com-faq__a">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTASection
+    title="Get a commercial scope and number"
+    text="Site walk, written scope, fixed quote. Retail, HOA, multifamily, hospitality and office properties throughout Vancouver, WA and Clark County."
+    subtext="Book the site walk now — commercial installs need to be finished before your season, not during it."
+    buttonLabel="Request a Site Walk"
+  />
+</BaseLayout>
+
+<style>
+  .com-hero {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-14)) 0 var(--space-14);
+  }
+
+  .com-hero__eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-light);
+    margin-bottom: var(--space-4);
+  }
+
+  .com-hero__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    max-width: 16ch;
+    text-wrap: balance;
+    margin-bottom: var(--space-6);
+  }
+
+  .com-hero__text {
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--space-8);
+  }
+
+  .com-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+  }
+
+  .com-hero__phone {
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    font-size: var(--text-lg);
+    color: var(--color-white);
+  }
+
+  .com-hero__phone:hover {
+    color: var(--color-primary-light);
+  }
+
+  .com-hero__note {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 56ch;
+  }
+
+  .types__title,
+  .why__title,
+  .process__title,
+  .com-faq__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-10);
+    max-width: 20ch;
+  }
+
+  .types__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .type {
+    padding-left: var(--space-5);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .type__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .type__body {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .why__lead {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-12);
+  }
+
+  .why__points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-10);
+  }
+
+  .why__point h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-3);
+  }
+
+  .why__point p {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .process__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .pstep {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+
+  .pstep__num {
+    flex-shrink: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    line-height: 1;
+    padding-top: 0.15em;
+    min-width: 2.5rem;
+  }
+
+  .pstep__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-2);
+  }
+
+  .pstep__body {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .com-faq__list {
+    max-width: var(--measure);
+  }
+
+  .com-faq__item {
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .com-faq__q {
+    cursor: pointer;
+    list-style: none;
+    padding: var(--space-5) var(--space-8) var(--space-5) 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    position: relative;
+  }
+
+  .com-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .com-faq__q::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--text-xl);
+    font-weight: var(--font-normal);
+    color: var(--color-primary);
+  }
+
+  .com-faq__item[open] .com-faq__q::after {
+    content: '\2212';
+  }
+
+  .com-faq__a {
+    padding: 0 var(--space-8) var(--space-6) 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .com-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-10);
+    }
+
+    .com-hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+    }
+
+    .pstep {
+      gap: var(--space-4);
+    }
+  }
+</style>

@@ -45,7 +45,7 @@ export interface Location {
    * the roofing copy would be the doorway pattern this file exists to avoid.
    *
    * Same rule as above: no claims about work completed locally, no invented
-   * pricing beyond the published $400-$1,500 range, and no assertions about
+   * pricing beyond the rate card in src/data/pricing.ts, and no assertions about
    * specific HOA rules, which vary by development and are not ours to state.
    */
   holiday: {

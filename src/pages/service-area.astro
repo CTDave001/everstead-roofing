@@ -31,9 +31,12 @@ import { locations } from '../data/locations';
           <h2 class="area-card__city">Vancouver, WA</h2>
           <p class="area-card__angle">
             Our home base. Free inspections, repairs, replacements, and maintenance
-            across the whole city.
+            across the whole city &mdash; plus Christmas light installation.
           </p>
           <a href="/contact" class="area-card__link">Get a free inspection &rarr;</a>
+          <a href="/christmas-light-installation-vancouver-wa" class="area-card__link area-card__link--lights">
+            Christmas lights in Vancouver &rarr;
+          </a>
         </article>
 
         {locations.map((location) => (
@@ -42,6 +45,11 @@ import { locations } from '../data/locations';
             <p class="area-card__angle">{location.angle}</p>
             <a href={`/roofing/${location.slug}`} class="area-card__link">
               Roofing in {location.city} &rarr;
+            </a>
+            {/* Every city has a lights page too. Linking only the roofing one left the
+                lights cluster without hub links from the page that exists to be a hub. */}
+            <a href={`/christmas-lights/${location.slug}`} class="area-card__link area-card__link--lights">
+              Christmas lights in {location.city} &rarr;
             </a>
           </article>
         ))}
@@ -135,6 +143,18 @@ import { locations } from '../data/locations';
 
   .area-card--home .area-card__link:hover {
     color: var(--color-white);
+  }
+
+  /* Hairline above the second action so the two links read as separate
+     destinations rather than one wrapped onto a second line. */
+  .area-card__link--lights {
+    width: 100%;
+    padding-top: var(--space-3);
+    border-top: 1px solid rgba(21, 37, 54, 0.1);
+  }
+
+  .area-card--home .area-card__link--lights {
+    border-top-color: rgba(255, 255, 255, 0.18);
   }
 
   .areas-list__note {
