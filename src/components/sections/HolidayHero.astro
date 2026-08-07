@@ -12,15 +12,25 @@ import { currentTier } from '../../data/pricing';
  * Same treatment as CTASection: optimised at build time, and the generated URL
  * fed into a custom property so the CSS keeps working unchanged.
  */
-const optimizedBg = await getImage({
-  src: holidayHeroBg,
-  format: 'webp',
-  quality: 78,
-  width: 1920,
-});
+/**
+ * Three widths, not one.
+ *
+ * A CSS background has no srcset, so a single 1920px image is downloaded by
+ * every device including a 390px phone — which is the LCP element on the most
+ * important page of the season, on the connection least able to afford it.
+ * Media queries below pick the right one.
+ *
+ * Ordered narrowest-first with min-width overrides so the phone case is the
+ * default and never has to be undone.
+ */
+const [bgSmall, bgMedium, bgLarge] = await Promise.all(
+  [640, 1280, 1920].map((width) =>
+    getImage({ src: holidayHeroBg, format: 'webp', quality: 78, width })
+  )
+);
 ---
 
-<section class="holiday-hero" style={`--hero-bg: url('${optimizedBg.src}')`}>
+<section class="holiday-hero" style={`--hero-bg-sm: url('${bgSmall.src}'); --hero-bg-md: url('${bgMedium.src}'); --hero-bg-lg: url('${bgLarge.src}')`}>
   <div class="container holiday-hero__inner">
     <div class="holiday-hero__content">
       <!-- Hard <br> line breaks were removed here on purpose: they fragmented the
@@ -58,10 +68,23 @@ const optimizedBg = await getImage({
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background-image: var(--hero-bg);
+    /* Phone-sized by default; larger viewports opt up. */
+    background-image: var(--hero-bg-sm);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+  }
+
+  @media (min-width: 641px) {
+    .holiday-hero {
+      background-image: var(--hero-bg-md);
+    }
+  }
+
+  @media (min-width: 1281px) {
+    .holiday-hero {
+      background-image: var(--hero-bg-lg);
+    }
   }
 
   .holiday-hero::before {

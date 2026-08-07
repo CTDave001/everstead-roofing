@@ -3,7 +3,11 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://eversteadroofing.com/sitemap-index.xml
+# Must use the www hostname the site is actually served from. The apex 307s
+# here, and a sitemap URL that redirects is a wasted round trip on every fetch.
+# This file is static and cannot import, so it is the one place the hostname is
+# repeated — keep it in step with `site` in astro.config.mjs.
+Sitemap: https://www.eversteadroofing.com/sitemap-index.xml
 
 # Crawl-delay for polite bots
 Crawl-delay: 1

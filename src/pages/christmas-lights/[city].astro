@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 const { location } = Astro.props;
 const { holiday } = location;
-const siteUrl = 'https://eversteadroofing.com';
+const siteUrl = Astro.site.origin;
 const pageUrl = `${siteUrl}/christmas-lights/${location.slug}`;
 
 /**

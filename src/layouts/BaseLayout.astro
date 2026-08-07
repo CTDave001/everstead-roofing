@@ -36,7 +36,10 @@ const {
   jsonLd
 } = Astro.props;
 
-const siteUrl = 'https://eversteadroofing.com';
+// Derived from `site` in astro.config.mjs so it can never disagree with the
+// canonical hostname. Throws loudly at build if `site` is unset, which is the
+// correct outcome — silently emitting relative canonicals would be worse.
+const siteUrl = Astro.site.origin;
 
 // Social share image. Generated at build time at the exact 1200x630 the og tags
 // declare, so we never point at a file that has to be maintained by hand.

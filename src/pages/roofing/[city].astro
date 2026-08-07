@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { location } = Astro.props;
-const siteUrl = 'https://eversteadroofing.com';
+const siteUrl = Astro.site.origin;
 
 // Roofing services only. The Christmas lights service has its own page and
 // linking to it from here would muddy this page's topical signal.

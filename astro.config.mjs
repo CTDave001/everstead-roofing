@@ -2,7 +2,22 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://eversteadroofing.com',
+  /**
+   * MUST match the hostname the site is actually served from.
+   *
+   * This was the apex while Vercel serves www, so every canonical, og:url,
+   * sitemap entry and schema URL pointed at a hostname that 307s elsewhere.
+   * Google had to follow a redirect to resolve every canonical on the site, and
+   * a 307 is explicitly temporary — it tells crawlers not to consolidate
+   * signals onto the target. On a domain with no authority to spare, that split
+   * the little there is across two hostnames and wasted crawl budget.
+   *
+   * Everything else derives from here via `Astro.site` rather than repeating the
+   * literal, which is how the six copies of this string drifted in the first
+   * place. If the primary domain ever changes in Vercel, change it here and
+   * nowhere else — except public/robots.txt, which cannot import.
+   */
+  site: 'https://www.eversteadroofing.com',
   /**
    * The Christmas lights page used to live at /holiday, which carried no keyword
    * signal. It moved to /christmas-light-installation-vancouver-wa.

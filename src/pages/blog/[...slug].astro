@@ -22,7 +22,7 @@ const dateFormat = new Intl.DateTimeFormat('en-US', {
   timeZone: 'UTC',
 });
 
-const siteUrl = 'https://eversteadroofing.com';
+const siteUrl = Astro.site.origin;
 
 // Google requires an `image` on BlogPosting for article rich results, and the
 // same asset serves as the post's og:image. Generated at 1200x630 so the two
