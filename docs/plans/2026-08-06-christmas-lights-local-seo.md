@@ -134,11 +134,60 @@ Some holiday lighting operators run a second GBP under a distinct brand. It can 
 Review count and recency are among the strongest map-pack factors, and they take the longest to accumulate. Starting in November is starting too late.
 
 - [ ] **Decide what is true about the current 5.0 / 50 figure.** The site displays it. Structured-data markup for it is now switched off in code until `profileUrl` in `src/data/business.ts` points at a real Google profile — see that file's comment for why. If the number is not backed by a public profile, the visible claim needs revisiting too.
+- [ ] **Recency beats count, and it is not close.** *Revised 6 Aug against Whitespark's 2026 data, which makes review recency the single strongest individual ranking factor.* Reviews under 30 days old carry full weight; between 30 and 180 days they decay progressively; past 180 days they retain only 10–20% of their power. A profile with 80 fresh reviews routinely outranks one sitting on 500 collected two years ago.
+
+  The practical consequence is favourable: a competitor's review count is a depreciating asset, not a moat. It also means any existing reviews that are over six months old are contributing almost nothing right now.
+
+- [ ] **Five or more per month, every month, permanently.** Businesses generating 3–5 monthly rank 40–60% higher than competitors with larger totals but stagnant growth. This is a flow, not a stock — a one-off campaign in October decays into irrelevance by spring.
+- [ ] **Keep the average at 4.3 or above.** Not vanity: it is the hard gate for ChatGPT recommendations, and above Perplexity's 4.10 and Gemini's 3.90.
 - [ ] **Target a steady trickle, not a burst.** Twenty reviews arriving in one week reads as manipulation. Two or three a week from August through November does not.
 - [ ] **Ask roofing customers now.** Reviews on the profile help the profile, whatever service the reviewer bought.
 - [ ] **From October, ask lights customers to name the service and the neighbourhood.** This is the highest-ROI single tactic on the list and almost nobody does it deliberately.
 
   Review text is indexed, and Google surfaces **justifications** — the snippet shown under a map pack result reading *"Their review mentions christmas lights."* A review saying *"Everstead hung our Christmas lights in Felida"* does three jobs at once: it is a ranking signal, a relevance signal for a service the primary category does not cover, and visible social proof rendered inside the map pack itself, where a star rating alone says nothing about what was bought.
+
+---
+
+## AI search visibility
+
+*Added 6 Aug. AI visibility became a formal category in Whitespark's 2026 study for the first time.*
+
+**Do not target a "top 3" here.** AI answers are non-deterministic — the same question asked twice can name different businesses. There is no stable position to hold, unlike the map pack. What is being optimised is the probability of landing in the consideration set.
+
+The selectivity gap is the thing to understand:
+
+| Surface | Share of businesses appearing |
+|---|---|
+| Google local 3-pack | 35.9% |
+| Gemini | 11% |
+| Perplexity | 7.4% |
+| ChatGPT | 1.2% |
+
+### Three surfaces, three different mechanisms
+
+- **Gemini and AI Overviews are the GBP.** Gemini grounds directly in Google Maps at 100% data accuracy, and AI Overviews appear in 68% of local searches. There is no separate workstream — this falls out of Priority 0.
+- **ChatGPT leans on the wider web** (68% local accuracy, so it is not just reading Maps). Bing Places and IndexNow matter here specifically; Google does not support IndexNow, Bing does. Reported entry floor is roughly 25+ Google reviews at 4.3 or better.
+- **Perplexity** wants ≥4.10 stars and web citations.
+
+Star thresholds are hard gates worth tracking: ChatGPT ≥4.30, Perplexity ≥4.10, Gemini ≥3.90.
+
+### The highest-leverage tactic
+
+Citation probability follows a power law. **One local news mention likely outweighs 50 directory listings**, because local news is heavily represented in AI training data.
+
+This is the same action already scheduled for November: pitching `/blog/clark-county-christmas-lights-displays-guide` to The Columbian and other local outlets writing their annual roundups. It is a backlink, a local-news citation, and peak-season referral traffic in one move. Treat it as the single most valuable non-GBP item in this document.
+
+### Already handled on-site
+
+Article and FAQ schema correlate with roughly 28% more AI citations. `FAQPage` is emitted on eight pages, `BlogPosting` on every post, plus `LocalBusiness`, `Service`, and `sameAs`. FAQ answers were written to stand alone precisely because that is what gets extracted.
+
+### Not worth doing
+
+**llms.txt.** As of Q1 2026 no major provider — OpenAI, Google, Anthropic, Meta — has committed to reading it in production. GPTBot fetches it occasionally, which is not the same as acting on it. Hygiene at best; it is not a reason to delay anything above it.
+
+### Timeline
+
+60–90 days for meaningful citation lift, 3–6 months for consistent assistant visibility. Started in August, that lands around November.
 
 ---
 
