@@ -1,5 +1,6 @@
 ---
 import { getImage } from 'astro:assets';
+import { currentTier } from '../../data/pricing';
 // Placeholder - replace with actual holiday hero image
 // import holidayHeroBg from '../../assets/images/holiday-hero.jpg';
 // const optimizedBg = await getImage({ src: holidayHeroBg, format: 'webp', quality: 80, width: 1920 });
@@ -15,8 +16,8 @@ import { getImage } from 'astro:assets';
       <h1 class="holiday-hero__title hero-animate hero-animate--1">Christmas Light Installation in Vancouver, WA</h1>
       <p class="holiday-hero__text hero-animate hero-animate--2">
         Commercial-grade LEDs, hung by roofers who will not put a single hole in your
-        home. Installation and January takedown included &mdash; <strong>most homes run
-        $400 to $1,500.</strong>
+        home. Installation and January takedown included &mdash;
+        <strong>${currentTier.rate.toFixed(2)} per foot if you book by {currentTier.deadline}.</strong>
       </p>
       <div class="holiday-hero__buttons hero-animate hero-animate--3">
         <a href="/contact" class="btn btn--primary holiday-hero__btn-primary">
@@ -30,7 +31,8 @@ import { getImage } from 'astro:assets';
         </a>
       </div>
       <p class="holiday-hero__note hero-animate hero-animate--4">
-        Text 4 photos for a same-day estimate. 50% deposit required to reserve.
+        Text 4 photos for a same-day estimate. 50% deposit reserves your date and holds
+        the rate. Plus WA sales tax, shown separately.
       </p>
     </div>
   </div>

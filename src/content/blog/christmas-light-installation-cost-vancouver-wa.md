@@ -1,8 +1,8 @@
 ---
 title: "How much does Christmas light installation cost in Vancouver, WA?"
-description: "A straight answer on Christmas light installation pricing in Vancouver and Clark County: the typical range, what actually drives the number up, and the quotes worth walking away from."
+description: "A straight answer on Christmas light installation pricing in Vancouver and Clark County: our actual per-foot rate card, what drives the number, and the quotes worth walking away from."
 date: 2026-08-06
-excerpt: "Most homes around Vancouver land between $400 and $1,500 installed. Here is what decides where in that range you fall, and which cheap quotes end up costing more."
+excerpt: "We charge by the linear foot, and we publish the rate. Here is the whole rate card, what it works out to on a real house, and why booking in September genuinely costs less."
 cover: '../../assets/images/post-christmas-cost.jpg'
 coverAlt: 'A suburban house at dusk with warm white Christmas lights installed along the rooflines and eaves'
 ---
@@ -13,15 +13,37 @@ Here is the number, and here is how it is reached.
 
 ## The short answer
 
-**Most residential Christmas light installations around Vancouver run $400 to $1,500, fully installed.**
+We price by the linear foot of roofline:
 
-That should cover the lights themselves, the installation, outdoor-rated cords, a timer, and taking everything back down in January. If a quote you are comparing does not include all five of those, it is not the same product.
+**Linear feet × rate, plus 8% material, plus Washington sales tax stated separately.**
 
-Small single-story homes with a simple roofline sit at the bottom of that range. Large two-story homes with multiple gables, wrapped columns, and a few trees sit at the top, and genuinely elaborate displays can run past it.
+The rate depends on when you book:
+
+| When you book | Rate |
+|---|---|
+| Through September 30 | **$6.50 / ft** |
+| October | $7.25 / ft |
+| November | $7.95 / ft |
+
+That covers the lights themselves, the installation, outdoor-rated cords, a timer, and taking everything back down in January. If a quote you are comparing does not include all five, it is not the same product.
+
+### What that works out to
+
+| Roofline | Sept ($6.50) | Oct ($7.25) | Nov ($7.95) |
+|---|---|---|---|
+| 120 ft | $842 | $940 | $1,030 |
+| 160 ft | $1,123 | $1,253 | $1,374 |
+| 200 ft | $1,404 | $1,566 | $1,717 |
+| 250 ft | $1,755 | $1,958 | $2,147 |
+| 320 ft | $2,246 | $2,506 | $2,748 |
+
+*Includes the 8% material charge. Before Washington sales tax, which we always show as its own line.*
+
+Most Clark County homes fall between 120 and 250 feet of roofline. If you have no idea which you are, that is fine — it is what the photos are for.
 
 ## What actually drives the price
 
-Square footage is not the driver people assume it is. A 3,000 sq ft ranch with one long, clean roofline is cheaper to light than a 1,800 sq ft home with four gables and a dormer. What matters is:
+Square footage is not the driver people assume it is, and neither is bedroom count. A 3,000 sq ft ranch with one long, clean roofline has less lit footage than an 1,800 sq ft home with four gables and a dormer. What matters is:
 
 ### Linear feet of roofline
 
@@ -53,16 +75,20 @@ We repair those roofs the rest of the year. The damage is not hypothetical.
 
 **Retail-strand pricing.** If a quote is dramatically below everyone else's, check what is being hung. Big-box consumer strands are not built for a full season of Pacific Northwest weather, and the failure rate shows up right around the time you most want them working.
 
-## Why booking early is cheaper than it looks
+## Why booking early is literally cheaper
 
-Holiday lighting is one of the few trades where the calendar is a hard physical limit. There are a finite number of dry, workable days between early October and Christmas, and every installer in Clark County is drawing from the same pool of them.
+Most contractors tell you to book early and leave the reason vague. Ours is on the rate card above: **$6.50 a foot through September, $7.95 in November.** On a 200-foot roofline that is a $313 difference for making the same phone call ten weeks sooner.
 
-The practical effect: dates are assigned in the order deposits arrive. By the week after Thanksgiving — which is when most people start calling — what is left is whatever nobody else wanted. Booking in September or October does not usually buy you a discount, but it buys you the date you actually want, which for most people is worth more.
+The reason is not a sales tactic. Holiday lighting is one of the few trades where the calendar is a hard physical limit. There are a finite number of dry, workable days between early October and Christmas, and every installer in Clark County draws from the same pool. Early dates can be scheduled properly and worked efficiently. Late ones mean compressed routing, weather gambles, and overtime, and that costs more to deliver.
+
+There is a second effect that costs nothing to avoid. Dates are assigned in the order deposits arrive. By the week after Thanksgiving — when most people start calling — what is left is whatever nobody else wanted. Booking in September gets you the lowest rate *and* the date you actually want.
+
+We publish the ladder in advance specifically so nobody is surprised by it in November.
 
 ## Getting a real number for your home
 
-You do not need anyone in your driveway to price a roofline. Send four photos, one from each corner of your house, and any competent installer can quote it accurately.
+You do not need anyone in your driveway to price a roofline. Send four photos, one from each corner of your house, and any competent installer can measure it accurately from those.
 
-That is how we do it: text us four photos, get a written estimate back the same day, and a 50% deposit reserves your install date. No appointment, no sales visit.
+That is how we do it: text us four photos, get a written estimate back the same day with the linear footage shown, and a 50% deposit reserves your install date and holds your rate. No appointment, no sales visit.
 
 [See what is included and get an estimate &rarr;](/christmas-light-installation-vancouver-wa)

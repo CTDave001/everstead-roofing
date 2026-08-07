@@ -1,38 +1,31 @@
 ---
 /**
- * "What does it cost" is the highest-intent question in this whole cluster and the
- * one competitors most often dodge. Answering it on the page is both a conversion
- * lever and the reason this page can rank for cost queries.
+ * "What does it cost" is the highest-intent question in this cluster and the one
+ * competitors most often dodge. Publishing the actual rate card is both the
+ * conversion lever and the reason this page can rank for cost queries.
  *
- * The $400-$1,500 range and the 50% deposit are the only figures asserted here, and
- * both are already published elsewhere on the site (HolidayFAQ and HolidayHero
- * respectively). Everything else describes what moves the number rather than
- * inventing tier prices. If real tier pricing gets confirmed, add it here and keep
- * the FAQ range in sync — a mismatch between the two is worse than neither.
+ * Every figure comes from src/data/pricing.ts. Nothing here is hardcoded, so a
+ * rate change is one edit and the schema, FAQ, and blog post move with it.
+ *
+ * The rate ladder is shown as a table rather than described in prose because the
+ * point of it is comparison — a visitor needs to see what waiting costs them.
  */
+import {
+  rateTiers,
+  currentTier,
+  isCurrentTier,
+  materialUpliftPct,
+  exampleRooflines,
+  estimateTotal,
+  formatDollars,
+  taxNote,
+} from '../../data/pricing';
 
-const factors = [
-  {
-    title: 'Roofline length',
-    description:
-      'The single biggest driver. A simple ranch line costs far less to run than a home with multiple gables and dormers.',
-  },
-  {
-    title: 'Height and access',
-    description:
-      'Single-story work is quicker and safer than steep or two-story rooflines. Access matters more than square footage.',
-  },
-  {
-    title: 'Peaks and detail work',
-    description:
-      'Every peak, valley, and window outline adds time. Clean horizontal runs are the most cost-effective look per foot.',
-  },
-  {
-    title: 'Trees, columns, and wraps',
-    description:
-      'Wrapping trunks, columns, or railings is priced separately from roofline work because it is slower per foot.',
-  },
-];
+const laterTier = rateTiers[rateTiers.length - 1];
+// Worked on a mid-sized roofline so the saving is concrete rather than abstract.
+const savingExampleFeet = 200;
+const savingNow = estimateTotal(savingExampleFeet, currentTier.rate);
+const savingLater = estimateTotal(savingExampleFeet, laterTier.rate);
 ---
 
 <section class="holiday-pricing section" id="pricing">
@@ -40,40 +33,90 @@ const factors = [
     <div class="section-header section-header--center animate-on-scroll fade-up">
       <h2 class="section-title">What Christmas light installation costs in Vancouver</h2>
       <p class="section-subtitle">
-        No games, no &ldquo;call for pricing.&rdquo; Here is the honest range and what moves it.
+        No games, no &ldquo;call for pricing.&rdquo; Here is the actual rate card.
       </p>
     </div>
 
-    <div class="holiday-pricing__range animate-on-scroll fade-up">
-      <p class="holiday-pricing__range-label">Most residential installations</p>
-      <p class="holiday-pricing__range-figure">$400 &ndash; $1,500</p>
-      <p class="holiday-pricing__range-note">
-        Fully installed, powered, on a timer, and taken down in January. That is the
-        all-in number for a typical Vancouver-area home &mdash; not a starting price
-        that grows once we show up.
+    <div class="holiday-pricing__formula animate-on-scroll fade-up">
+      <p class="holiday-pricing__formula-line">
+        <span>Linear feet of roofline</span>
+        <span class="holiday-pricing__op">&times;</span>
+        <span>your rate</span>
+        <span class="holiday-pricing__op">+</span>
+        <span>{materialUpliftPct}% material</span>
       </p>
+      <p class="holiday-pricing__formula-note">{taxNote}</p>
     </div>
 
-    <div class="holiday-pricing__factors animate-on-scroll fade-up">
-      <h3 class="holiday-pricing__factors-title">What moves the number</h3>
-      <div class="holiday-pricing__grid">
-        {factors.map((factor) => (
-          <div class="cost-factor">
-            <h4 class="cost-factor__title">{factor.title}</h4>
-            <p class="cost-factor__description">{factor.description}</p>
+    <div class="holiday-pricing__ladder animate-on-scroll fade-up">
+      <h3 class="holiday-pricing__ladder-title">The rate goes up as the season fills</h3>
+      <p class="holiday-pricing__ladder-lead">
+        The calendar has a fixed number of workable days before Christmas, and the
+        early ones are the ones we can schedule properly. The rate reflects that.
+        Book now and you lock the lowest one.
+      </p>
+
+      <div class="holiday-pricing__tiers">
+        {rateTiers.map((tier) => (
+          <div class={`rate-tier${isCurrentTier(tier) ? ' rate-tier--current' : ''}`}>
+            {isCurrentTier(tier) && <span class="rate-tier__badge">Available now</span>}
+            <p class="rate-tier__label">{tier.label}</p>
+            <p class="rate-tier__rate">
+              ${tier.rate.toFixed(2)}<span>/ft</span>
+            </p>
           </div>
         ))}
       </div>
+
+      <p class="holiday-pricing__saving">
+        On a {savingExampleFeet}-foot roofline, booking before {currentTier.deadline} instead
+        of waiting until November is a difference of
+        <strong>{formatDollars(savingLater - savingNow)}</strong> &mdash;
+        {formatDollars(savingNow)} against {formatDollars(savingLater)}.
+      </p>
+    </div>
+
+    <div class="holiday-pricing__table-wrap animate-on-scroll fade-up">
+      <h3 class="holiday-pricing__table-title">What that works out to</h3>
+      <div class="holiday-pricing__scroll">
+        <table class="holiday-pricing__table">
+          <thead>
+            <tr>
+              <th scope="col">Roofline</th>
+              {rateTiers.map((tier) => (
+                <th scope="col">{tier.label}<span>${tier.rate.toFixed(2)}/ft</span></th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {exampleRooflines.map((feet) => (
+              <tr>
+                <th scope="row">{feet} ft</th>
+                {rateTiers.map((tier) => (
+                  <td class={isCurrentTier(tier) ? 'is-current' : ''}>
+                    {formatDollars(estimateTotal(feet, tier.rate))}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="holiday-pricing__table-note">
+        Includes the {materialUpliftPct}% material charge. {taxNote} Most Clark County
+        homes fall between 120 and 250 feet of roofline &mdash; if you are not sure
+        which, that is what the photos are for.
+      </p>
     </div>
 
     <div class="holiday-pricing__cta animate-on-scroll fade-up">
       <p class="holiday-pricing__cta-text">
         <strong>Want your actual number?</strong> Text us four photos of your home &mdash;
-        one from each corner &mdash; and we will send a written estimate the same day.
-        A 50% deposit reserves your install date.
+        one from each corner &mdash; and we will measure the roofline and send a written
+        estimate the same day. A 50% deposit reserves your install date at today&rsquo;s rate.
       </p>
       <div class="holiday-pricing__cta-actions">
-        <a href="/contact" class="btn btn--primary">Get My Estimate</a>
+        <a href="/contact" class="btn btn--primary">Lock ${currentTier.rate.toFixed(2)}/ft</a>
         <a href="tel:+13603429525" class="holiday-pricing__phone">or call (360) 342-9525</a>
       </div>
     </div>
@@ -85,76 +128,211 @@ const factors = [
     background-color: var(--color-white);
   }
 
-  .holiday-pricing__range {
-    max-width: 640px;
+  .holiday-pricing__formula {
+    max-width: 720px;
     margin: 0 auto var(--space-16);
-    padding: var(--space-10) var(--space-8);
+    padding: var(--space-8);
     text-align: center;
     background-color: var(--color-cream);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-gray-200);
   }
 
-  .holiday-pricing__range-label {
+  .holiday-pricing__formula-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
     font-family: var(--font-heading);
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-light);
-    margin-bottom: var(--space-3);
-  }
-
-  .holiday-pricing__range-figure {
-    font-family: var(--font-heading);
-    font-size: var(--text-5xl);
+    font-size: var(--text-lg);
     font-weight: var(--font-bold);
-    line-height: var(--leading-tight);
+    color: var(--color-navy);
+    margin-bottom: var(--space-4);
+  }
+
+  .holiday-pricing__op {
     color: var(--color-primary);
-    margin-bottom: var(--space-5);
   }
 
-  .holiday-pricing__range-note {
-    font-size: var(--text-base);
-    line-height: var(--leading-loose);
-    color: var(--color-text-muted);
-    max-width: 46ch;
-    margin: 0 auto;
+  .holiday-pricing__formula-note {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
   }
 
-  .holiday-pricing__factors-title {
+  .holiday-pricing__ladder {
+    margin-bottom: var(--space-16);
+  }
+
+  .holiday-pricing__ladder-title,
+  .holiday-pricing__table-title {
     font-family: var(--font-heading);
     font-size: var(--text-2xl);
     font-weight: var(--font-bold);
     color: var(--color-navy);
     text-align: center;
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-4);
   }
 
-  .holiday-pricing__grid {
+  .holiday-pricing__ladder-lead {
+    max-width: 56ch;
+    margin: 0 auto var(--space-10);
+    text-align: center;
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .holiday-pricing__tiers {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-8);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-5);
+    max-width: 760px;
+    margin: 0 auto var(--space-8);
+  }
+
+  .rate-tier {
+    position: relative;
+    text-align: center;
+    padding: var(--space-8) var(--space-5) var(--space-6);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
+  }
+
+  .rate-tier--current {
+    border-color: var(--color-primary);
+    border-width: 2px;
+    background-color: var(--color-cream);
+  }
+
+  .rate-tier__badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: var(--space-1) var(--space-4);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  .rate-tier__label {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-2);
+  }
+
+  .rate-tier__rate {
+    font-family: var(--font-heading);
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    line-height: 1;
+  }
+
+  .rate-tier--current .rate-tier__rate {
+    color: var(--color-primary);
+  }
+
+  .rate-tier__rate span {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-light);
+  }
+
+  .holiday-pricing__saving {
+    max-width: 56ch;
+    margin: 0 auto;
+    text-align: center;
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .holiday-pricing__saving strong {
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
+  }
+
+  .holiday-pricing__table-wrap {
     margin-bottom: var(--space-16);
   }
 
-  .cost-factor {
-    padding-left: var(--space-5);
-    border-left: 3px solid var(--color-primary);
+  /* Wide content scrolls inside its own container; the page body must not. */
+  .holiday-pricing__scroll {
+    overflow-x: auto;
+    max-width: 760px;
+    margin: 0 auto var(--space-5);
   }
 
-  .cost-factor__title {
+  .holiday-pricing__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    min-width: 460px;
+  }
+
+  .holiday-pricing__table th,
+  .holiday-pricing__table td {
+    padding: var(--space-4);
+    text-align: right;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .holiday-pricing__table thead th {
     font-family: var(--font-heading);
-    font-size: var(--text-lg);
+    font-size: var(--text-xs);
     font-weight: var(--font-bold);
     color: var(--color-navy);
-    margin-bottom: var(--space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom-width: 2px;
   }
 
-  .cost-factor__description {
+  .holiday-pricing__table thead th span {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: var(--font-normal);
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-text-light);
+    margin-top: var(--space-1);
+  }
+
+  .holiday-pricing__table tbody th {
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+  }
+
+  .holiday-pricing__table td {
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .holiday-pricing__table td.is-current {
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
+    background-color: var(--color-cream);
+  }
+
+  .holiday-pricing__table-note {
+    max-width: 60ch;
+    margin: 0 auto;
+    text-align: center;
     font-size: var(--text-sm);
     line-height: var(--leading-loose);
-    color: var(--color-text-muted);
+    color: var(--color-text-light);
   }
 
   .holiday-pricing__cta {
@@ -197,10 +375,7 @@ const factors = [
   }
 
   @media (max-width: 640px) {
-    .holiday-pricing__range {
-      padding: var(--space-8) var(--space-5);
-    }
-
+    .holiday-pricing__formula,
     .holiday-pricing__cta {
       padding: var(--space-8) var(--space-5);
     }

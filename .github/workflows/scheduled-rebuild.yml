@@ -1,0 +1,57 @@
+# Daily production rebuild.
+#
+# Why this exists: the site is statically built, but the Christmas lighting rate
+# in src/data/pricing.ts is chosen by comparing the build clock against the tier
+# start dates. Nothing rebuilds a static site on its own, so without this the
+# rate would stay frozen at whatever it was on the last deploy — and the site
+# would keep advertising $6.50/ft into October.
+#
+# 07:05 UTC is 00:05 Pacific Daylight Time. Both 2026 tier boundaries
+# (1 Oct and 1 Nov) are defined at Pacific midnight, so the first run after each
+# boundary picks up the new rate within minutes.
+#
+# Two caveats worth knowing:
+#   - GitHub's scheduled runs are best-effort and can be delayed under load.
+#     A late run means the rate flips later that morning, not that it never does.
+#   - GitHub disables scheduled workflows in repositories with no activity for
+#     60 days. If the repo goes quiet over the summer, re-enable this before the
+#     season rather than discovering it on 1 October.
+#
+# Setup (one time, both require account access):
+#   1. Vercel -> Project Settings -> Git -> Deploy Hooks. Create one against the
+#      production branch and copy the URL.
+#   2. GitHub -> Settings -> Secrets and variables -> Actions -> New repository
+#      secret, named VERCEL_DEPLOY_HOOK, pasting that URL.
+#
+# Verify it works without waiting for a boundary: Actions tab -> this workflow
+# -> "Run workflow". A deployment should appear in Vercel within a minute.
+
+name: Scheduled rebuild
+
+on:
+  schedule:
+    - cron: '5 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    name: Trigger production deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the deploy hook is configured
+        # Fail loudly and early. A missing secret would otherwise make curl POST
+        # to an empty string, and a silently skipped rebuild is exactly the
+        # failure this workflow exists to prevent.
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK is not set. The site will not pick up rate-tier changes until it is."
+            exit 1
+          fi
+
+      - name: Poke the Vercel deploy hook
+        # --fail turns a non-2xx response into a non-zero exit, so a revoked or
+        # mistyped hook surfaces as a red run rather than a quiet success.
+        run: |
+          curl --fail --silent --show-error --request POST \
+            "${{ secrets.VERCEL_DEPLOY_HOOK }}"
+          echo "Deploy triggered."

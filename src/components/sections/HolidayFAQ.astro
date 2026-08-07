@@ -1,5 +1,14 @@
 ---
 import FAQ from '../FAQ.astro';
+import {
+  rateTiers,
+  currentTier,
+  materialUpliftPct,
+  estimateTotal,
+  formatDollars,
+} from '../../data/pricing';
+
+const novemberTier = rateTiers[rateTiers.length - 1];
 
 /**
  * These render visibly AND as FAQPage structured data, so every answer has to be
@@ -12,11 +21,15 @@ import FAQ from '../FAQ.astro';
 const faqItems = [
   {
     question: 'How much does Christmas light installation cost in Vancouver, WA?',
-    answer: 'Most residential Christmas light installations in the Vancouver, WA area run $400 to $1,500, fully installed. That figure covers the lights, the install, the timer, and January removal. What moves it is roofline length, how many stories and peaks the home has, and whether you want trees or columns wrapped. Text us four photos of your home and we will send a written estimate the same day.',
+    answer: `We price by the foot: linear feet of roofline times the current rate, plus a ${materialUpliftPct}% material charge, plus Washington sales tax shown separately. The rate is $${currentTier.rate.toFixed(2)} per foot if you book by ${currentTier.deadline}, rising to $${novemberTier.rate.toFixed(2)} by November. A typical 200-foot Clark County roofline works out to about ${formatDollars(estimateTotal(200, currentTier.rate))} before tax at today's rate. That covers the lights, the install, the timer, and January removal. Text us four photos and we will measure the roofline and send a written estimate the same day.`,
+  },
+  {
+    question: 'Why does the price go up later in the season?',
+    answer: `Because the early dates are the ones we can schedule properly. There are a fixed number of workable days on a ladder between October and Christmas, and the closer to Christmas a job lands the more it costs us to fit in — compressed scheduling, weather risk, and overtime. The rate ladder is $${rateTiers[0].rate.toFixed(2)} per foot through ${rateTiers[0].deadline}, $${rateTiers[1].rate.toFixed(2)} in October, and $${rateTiers[2].rate.toFixed(2)} in November. It is published in advance precisely so nobody is surprised by it, and booking early is genuinely cheaper rather than a sales line.`,
   },
   {
     question: 'When should I book my Christmas light installation?',
-    answer: 'September or October. Install dates are assigned in the order deposits come in, and most homeowners do not start calling until the week after Thanksgiving — by which point the best dates are taken. There are only so many dry days on a ladder between October and Christmas, so the calendar is genuinely finite. Booking early is how you choose your date instead of taking what is left.',
+    answer: `Now, if you want the lowest rate. Booking by ${currentTier.deadline} locks $${currentTier.rate.toFixed(2)} per foot; waiting until November means $${novemberTier.rate.toFixed(2)}. Beyond the price, install dates are assigned in the order deposits come in, and most homeowners do not start calling until the week after Thanksgiving — by which point the best dates are taken. There are only so many dry days on a ladder before Christmas, so the calendar is genuinely finite.`,
   },
   {
     question: 'Do you provide the lights or do I need to buy them?',
