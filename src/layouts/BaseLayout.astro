@@ -4,7 +4,30 @@ import Footer from '../components/Footer.astro';
 import { getImage } from 'astro:assets';
 import ogFallbackImg from '../assets/images/hero-roof.png';
 import { reviews, profiles, currentHours } from '../data/business';
+
+/**
+ * Self-hosted fonts.
+ *
+ * These were two <link>s to fonts.googleapis.com: a render-blocking stylesheet
+ * on a third-party origin, which then referenced fonts on a *second* third-party
+ * origin. Four network negotiations (DNS, TLS, CSS, fonts) across two hosts
+ * before the first meaningful paint, all of it in front of the LCP.
+ *
+ * Served from our own origin they are one hop, cached immutably by Astro's
+ * hashed filenames, and immune to a third party being slow. The `wght` subsets
+ * carry the weight axis only — no italic, no optical-size axis — because the
+ * site uses neither. Latin is 47KB + 26KB; other subsets are declared with
+ * unicode-range and never fetched.
+ */
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/plus-jakarta-sans/wght.css';
 import '../styles/global.css';
+
+// Preloaded because fonts are discovered only after the CSS parses, which puts
+// them late in a chain that ends at the LCP. These are the two files every page
+// actually uses.
+import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import jakartaWoff2 from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 
 interface BreadcrumbItem {
   name: string;
@@ -192,10 +215,10 @@ if (reviews.profileUrl) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg">
 
-  <!-- Fonts (exact from eversteadroofing.com) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Fonts are self-hosted and imported above; these preloads pull them out of
+       the CSS-discovery chain so they are not requested after paint begins. -->
+  <link rel="preload" href={interWoff2} as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href={jakartaWoff2} as="font" type="font/woff2" crossorigin>
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />

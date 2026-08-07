@@ -43,8 +43,11 @@
      removed - Playfair was loaded but never used, and Montserrat competed with
      Jakarta for headings depending on which component rendered them.
      --font-accent is an alias kept so any stray reference still resolves. */
-  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* The "Variable" families are the self-hosted fontsource builds loaded in
+     BaseLayout. The plain names stay as the next fallback so anything with the
+     font installed locally, or a stale cached page, still renders correctly. */
+  --font-heading: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-accent: var(--font-heading);
 
   /* Typography - Font Sizes
