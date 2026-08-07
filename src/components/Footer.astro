@@ -1,6 +1,7 @@
 ---
 import { getImage } from 'astro:assets';
 import footerBg from '../assets/images/footer-bg.png';
+import { hoursLabel, hoursNote } from '../data/business';
 
 const optimizedBg = await getImage({ src: footerBg, format: 'webp', quality: 80, width: 1920 });
 
@@ -66,6 +67,15 @@ const quickLinks = [
           <div class="footer__contact-item">
             <span class="footer__contact-label">Address:</span>
             <p class="footer__address">4200 SE Columbia Way suite f,<br>Vancouver, WA 98661</p>
+          </div>
+          <!-- Rendered from the same source as the schema.org openingHoursSpecification,
+               so the visible hours and the marked-up hours cannot drift apart. -->
+          <div class="footer__contact-item">
+            <span class="footer__contact-label">Hours:</span>
+            <p class="footer__hours">
+              {hoursLabel}
+              {hoursNote && <span class="footer__hours-note">{hoursNote}</span>}
+            </p>
           </div>
           <div class="footer__contact-item">
             <span class="footer__contact-label">WA Contractor Registration:</span>
@@ -187,6 +197,20 @@ const quickLinks = [
     color: rgba(244, 244, 235, 0.85);
     line-height: 1.5;
     margin: 0;
+  }
+
+  .footer__hours {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(244, 244, 235, 0.85);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .footer__hours-note {
+    display: block;
+    font-weight: 400;
+    color: rgba(244, 244, 235, 0.65);
   }
 
   /* Bottom credit */

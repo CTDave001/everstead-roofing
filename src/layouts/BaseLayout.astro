@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getImage } from 'astro:assets';
 import ogFallbackImg from '../assets/images/hero-roof.png';
-import { reviews, profiles } from '../data/business';
+import { reviews, profiles, currentHours } from '../data/business';
 import '../styles/global.css';
 
 interface BreadcrumbItem {
@@ -97,11 +97,10 @@ const localBusinessSchema: Record<string, unknown> = {
     "latitude": 45.6387,
     "longitude": -122.6615
   },
+  // Seasonal — see src/data/business.ts. Must match the Google Business Profile.
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "08:00",
-    "closes": "18:00"
+    ...currentHours,
   },
   // Google profile first when set, then every other claimed listing. Filtered so
   // an unset profileUrl does not emit a null into the array.
