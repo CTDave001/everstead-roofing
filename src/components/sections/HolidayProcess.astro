@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import installImg from '../../assets/images/install-in-progress-daylight.jpg';
+
 /**
  * The booking calendar is the real scarcity in this business — roughly 90 days of
  * revenue against a fixed number of install slots. This section exists to make that
@@ -52,6 +55,25 @@ const steps = [
       </p>
     </div>
 
+    {/* Harness, correctly footed ladder, daylight. The DIY post argues that height
+        work is the line where hiring makes sense; this shows what that looks like
+        done properly, next to the steps that describe it. */}
+    <figure class="holiday-process__figure animate-on-scroll fade-up">
+      <Image
+        src={installImg}
+        alt="An installer in a safety harness on a correctly footed ladder, clipping a strand of C9 lights along the eave of a steep two-storey roof in daylight"
+        widths={[600, 900, 1280]}
+        sizes="(max-width: 768px) 100vw, 780px"
+        format="webp"
+        quality={78}
+        loading="lazy"
+      />
+      <figcaption>
+        Installs happen in daylight, on harness, well before the roof is wet and dark.
+        That is most of what you are paying for.
+      </figcaption>
+    </figure>
+
     <ol class="holiday-process__steps">
       {steps.map((step) => (
         <li class="process-step animate-on-scroll fade-up">
@@ -81,6 +103,28 @@ const steps = [
 </section>
 
 <style>
+  .holiday-process__figure {
+    max-width: 780px;
+    margin: 0 auto var(--space-12);
+  }
+
+  .holiday-process__figure img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    display: block;
+  }
+
+  .holiday-process__figure figcaption {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-light);
+    text-align: center;
+    max-width: 56ch;
+    margin-inline: auto;
+  }
+
   .holiday-process__steps {
     list-style: none;
     padding: 0;
