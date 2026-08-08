@@ -1,6 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/sections/CTASection.astro';
+import { getImage } from 'astro:assets';
+import commercialHero from '../assets/images/commercial-lights-hero.jpg';
+
+/**
+ * The page had no imagery at all, which is a weak showing for the highest-ticket
+ * service on the site — a facilities manager deciding whether to put you in front
+ * of a board is buying partly on whether the work looks competent.
+ *
+ * Three widths behind media queries, same as the residential hero: a CSS
+ * background has no srcset, so one encode would be sent to every device.
+ */
+const [heroSm, heroMd, heroLg] = await Promise.all(
+  [640, 1280, 1920].map((width) =>
+    getImage({ src: commercialHero, format: 'webp', quality: 78, width })
+  )
+);
 
 /**
  * Commercial holiday lighting.
@@ -170,7 +186,10 @@ const faqSchema = {
     { name: 'Commercial', url: '/commercial-christmas-light-installation-vancouver-wa' },
   ]}
 >
-  <section class="com-hero">
+  <section
+    class="com-hero"
+    style={`--com-hero-sm: url('${heroSm.src}'); --com-hero-md: url('${heroMd.src}'); --com-hero-lg: url('${heroLg.src}')`}
+  >
     <div class="container">
       <p class="com-hero__eyebrow">Vancouver, WA &amp; Clark County</p>
       <h1 class="com-hero__title">Commercial Christmas Light Installation</h1>
@@ -289,9 +308,51 @@ const faqSchema = {
 
 <style>
   .com-hero {
+    position: relative;
     background-color: var(--color-navy);
+    background-image: var(--com-hero-sm);
+    background-size: cover;
+    background-position: center;
     color: var(--color-white);
     padding: calc(var(--header-height) + var(--space-14)) 0 var(--space-14);
+  }
+
+  @media (min-width: 641px) {
+    .com-hero { background-image: var(--com-hero-md); }
+  }
+
+  @media (min-width: 1281px) {
+    .com-hero { background-image: var(--com-hero-lg); }
+  }
+
+  /* The photograph is dark on the right and bright across the lit roofline, so a
+     flat tint would either wash it out or leave the text unreadable. Gradient
+     keeps the copy side solid and lets the lights show through on the other. */
+  .com-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(21, 37, 54, 0.93) 0%,
+      rgba(21, 37, 54, 0.82) 45%,
+      rgba(21, 37, 54, 0.45) 100%
+    );
+  }
+
+  .com-hero > .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 900px) {
+    .com-hero::before {
+      background: linear-gradient(
+        to bottom,
+        rgba(21, 37, 54, 0.92) 0%,
+        rgba(21, 37, 54, 0.86) 100%
+      );
+    }
   }
 
   .com-hero__eyebrow {

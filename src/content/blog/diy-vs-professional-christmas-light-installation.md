@@ -3,6 +3,8 @@ title: "Hanging your own Christmas lights vs hiring someone: an honest compariso
 description: "When DIY Christmas lights genuinely make more sense, when they do not, and the costs homeowners consistently forget on both sides. Written by a Vancouver, WA roofing contractor."
 date: 2026-08-06
 excerpt: "For some houses, doing it yourself is clearly the right call and we will say so. For others it is a bad trade. Here is how to tell which one you have."
+cover: '../../assets/images/post-diy-vs-pro.jpg'
+coverAlt: 'A homeowner on a step ladder at dusk clipping warm-white lights along the gutter of a single-storey home, half the roofline lit and half still bare'
 ---
 
 We install Christmas lights for a living, so treat this with the appropriate suspicion. But we also spend the other ten months of the year repairing roofs, including roofs damaged by holiday lights, and that gives us a fairly specific view of where DIY goes wrong.
