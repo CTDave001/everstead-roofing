@@ -224,6 +224,37 @@ if (ogImage) {
     color: var(--color-text-light);
   }
 
+  /* In-body images. Markdown emits a bare <img> inside a <p>, so the paragraph
+     needs its own treatment or the image inherits body margins and reads as
+     inline text. Breaks slightly wider than the measure, because these are
+     evidence rather than decoration and deserve the extra width. */
+  .post__body :global(p:has(> img:only-child)) {
+    margin: var(--space-10) 0 var(--space-4);
+  }
+
+  .post__body :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  /* Caption convention: an italic-only paragraph directly after an image. Sets
+     it apart from body copy so a reader does not mistake a caption for the
+     argument. */
+  .post__body :global(p:has(> img) + p) {
+    margin-top: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-light);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-gray-300);
+  }
+
+  .post__body :global(p:has(> img) + p em) {
+    font-style: normal;
+  }
+
   @media (max-width: 768px) {
     .post__header {
       padding: calc(var(--header-height) + var(--space-8)) 0 var(--space-6);
