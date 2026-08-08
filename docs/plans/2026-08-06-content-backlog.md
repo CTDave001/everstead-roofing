@@ -84,6 +84,33 @@ Ladder angles, GFCI, wattage limits, wet-roof rules. Counter-intuitive because i
 
 ---
 
+## Shot list — replace the generated placeholders
+
+Six generated images are live. Each was made to specify exactly what the real photograph needs to contain, so the site can be re-shot this season without redesigning anything. Match the framing and the file replaces cleanly.
+
+**General rules for all of them:** blue hour is roughly 20–35 minutes after sunset, and in December that starts around 4:45pm — it is a short window, so set up early. Shoot on a tripod. Wet ground after rain doubles the light and is worth waiting for. Keep house numbers, plates, faces and any branding out of frame.
+
+| File | Shot | Notes |
+|---|---|---|
+| `lights-two-story-complex.jpg` | Two-storey home, multiple gables, every peak and eave outlined | Blue hour, tripod, long exposure, three-quarter angle from the street, ~35mm. Interior lights on. This is the flagship — pick the most complex roofline of the season. |
+| `lights-wrapped-columns-trees.jpg` | Wrapped porch columns plus a wrapped conifer | Blue hour, ~50mm from the walkway toward the entry. Wrapping must be tight and evenly spaced; sloppy wrapping undoes the point. |
+| `detail-clip-no-holes.jpg` | Macro: bulb in a clip gripping the shingle edge, gutter below | Overcast daylight, ~100mm macro, f/2.8, focus on the clip. **The most important shot on this list** — it is the only proof of the "no holes" claim. Shoot it wet. |
+| `install-in-progress-daylight.jpg` | Installer on a correctly footed ladder, harness on, clipping a strand | Flat overcast daylight, ~50mm from ground level. From behind, face not visible. The ladder angle and harness are the content — get them right. |
+| `post-diy-vs-pro.jpg` | Homeowner on a step ladder, half the roofline lit | Blue hour, single-storey, work visibly in progress. |
+| `commercial-lights-hero.jpg` | Retail plaza, continuous roofline lit, wet lot reflecting | Blue hour, wide (~24mm) from across the parking lot. Needs a real commercial job — likely the last one to replace. |
+
+### Shots not yet generated, and deliberately so
+
+**Roof damage from stapled or nailed lights.** Photograph these on roofing jobs from day one. Wanted:
+
+- A staple or nail driven through a shingle, close up
+- The same area lifted, showing the path water takes
+- Decking or underlayment stained beneath a fastener line
+- A fastener through flashing
+- Wide context shot of a roof with an old fastener line still visible
+
+These cannot be generated. See the imagery policy below.
+
 ## Imagery policy
 
 Generated imagery is fine for **illustration** — blog covers, section backgrounds, mood. It is not fine as **evidence**.
