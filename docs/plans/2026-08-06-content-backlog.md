@@ -99,17 +99,19 @@ Six generated images are live. Each was made to specify exactly what the real ph
 | `post-diy-vs-pro.jpg` | Homeowner on a step ladder, half the roofline lit | Blue hour, single-storey, work visibly in progress. |
 | `commercial-lights-hero.jpg` | Retail plaza, continuous roofline lit, wet lot reflecting | Blue hour, wide (~24mm) from across the parking lot. Needs a real commercial job — likely the last one to replace. |
 
-### Shots not yet generated, and deliberately so
+### Damage references — `src/assets/images/damage/`
 
-**Roof damage from stapled or nailed lights.** Photograph these on roofing jobs from day one. Wanted:
+Three reference images exist to specify what to photograph on roofing jobs. They are **not imported anywhere and are not bundled into the build** — they are a brief, not published assets.
 
-- A staple or nail driven through a shingle, close up
-- The same area lifted, showing the path water takes
-- Decking or underlayment stained beneath a fastener line
-- A fastener through flashing
-- Wide context shot of a roof with an old fastener line still visible
+| File | Shot | Notes |
+|---|---|---|
+| `staple-through-shingle.jpg` | Rusted staple driven through a shingle face, granules worn, hairline cracking, rust bleed | Overcast, close, handheld. Shoot wet. |
+| `lifted-shingle-nail-hole.jpg` | Shingle tab peeled back showing a nail hole punched through the layer beneath, water staining ringing it | The mechanism shot — it shows the path, not just the hole. |
+| `decking-stain-line.jpg` | Attic underside: fastener tips through plywood, each ringed with dark staining, in a line | **The most persuasive of the three.** The argument is that the damage is not on the surface. Direct flash, dusty, ordinary. |
 
-These cannot be generated. See the imagery policy below.
+Still wanted, no reference generated: a fastener through metal flashing, and a wide context shot of a roof with an old fastener line still visible across it.
+
+**When the essay is written, these get replaced by real photographs.** If any generated image is used in the interim it must be captioned as an illustration of the mechanism — never as a specific roof, a specific job, or something we found. See the imagery policy below; that distinction is the entire reason the piece is worth publishing.
 
 ## Imagery policy
 
