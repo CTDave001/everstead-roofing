@@ -1,0 +1,290 @@
+---
+/**
+ * Stage one of the quoting tool: linear feet in, price out.
+ *
+ * Deliberately the dumb version. No map, no tracing, no dependencies — the point
+ * is to find out whether people will engage with a self-serve number at all
+ * before building imagery on top of it. Everything here is progressive
+ * enhancement: without JavaScript the section still renders the rate ladder and
+ * the CTA, which is most of the value.
+ *
+ * Rates come from src/data/pricing.ts and are serialised into the client script,
+ * so the calculator cannot disagree with the rate table, the FAQ, or the schema.
+ *
+ * The output shows every tier at once rather than only the live one. That is the
+ * whole persuasive job: seeing "this same house costs $313 more in November" does
+ * work that a sentence about booking early cannot.
+ */
+import {
+  rateTiers,
+  currentTier,
+  materialUpliftPct,
+  taxNote,
+} from '../../data/pricing';
+
+const DEFAULT_FEET = 180;
+
+// Serialised for the client. Only what the calculator needs.
+const tierData = rateTiers.map((t) => ({
+  label: t.label,
+  rate: t.rate,
+  current: t.label === currentTier.label,
+}));
+---
+
+<section class="calc section section--cream" id="calculator">
+  <div class="container">
+    <div class="section-header section-header--center animate-on-scroll fade-up">
+      <h2 class="section-title">Price your own roofline</h2>
+      <p class="section-subtitle">
+        Move the slider. No form, no email, no waiting for a callback.
+      </p>
+    </div>
+
+    <div class="calc__panel animate-on-scroll fade-up">
+      <div class="calc__input">
+        <label class="calc__label" for="calc-feet">Linear feet of roofline</label>
+        <div class="calc__controls">
+          <input
+            type="range"
+            id="calc-feet"
+            name="calc-feet"
+            min="80"
+            max="400"
+            step="10"
+            value={DEFAULT_FEET}
+            aria-describedby="calc-feet-help"
+          />
+          <output class="calc__feet" id="calc-feet-out" for="calc-feet">{DEFAULT_FEET} ft</output>
+        </div>
+        <p class="calc__help" id="calc-feet-help">
+          Most Clark County homes fall between 120 and 250 feet. Not sure?
+          <a href="/contact">Send four photos</a> and we will measure it for you.
+        </p>
+      </div>
+
+      <div class="calc__results" id="calc-results">
+        {tierData.map((tier) => (
+          <div class={`calc__row${tier.current ? ' calc__row--current' : ''}`} data-rate={tier.rate}>
+            <div class="calc__row-label">
+              <span class="calc__tier">{tier.label}</span>
+              <span class="calc__rate">${tier.rate.toFixed(2)}/ft</span>
+            </div>
+            <span class="calc__price" data-price>&mdash;</span>
+          </div>
+        ))}
+      </div>
+
+      <p class="calc__delta" id="calc-delta" hidden></p>
+
+      <p class="calc__note">
+        Includes the {materialUpliftPct}% material charge. {taxNote} Final price is
+        confirmed from photos &mdash; steep or multi-storey access and tree wrapping
+        are quoted separately.
+      </p>
+
+      <div class="calc__cta">
+        <a href="/contact" class="btn btn--primary">Lock ${currentTier.rate.toFixed(2)}/ft</a>
+        <a href="tel:+13603429525" class="calc__phone">or call (360) 342-9525</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline define:vars={{ tierData, materialUpliftPct, DEFAULT_FEET }}>
+  (() => {
+    const slider = document.getElementById('calc-feet');
+    const feetOut = document.getElementById('calc-feet-out');
+    const results = document.getElementById('calc-results');
+    const delta = document.getElementById('calc-delta');
+    if (!slider || !results) return;
+
+    const rows = Array.from(results.querySelectorAll('[data-rate]'));
+    const money = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    });
+
+    // Same arithmetic as estimateTotal() in src/data/pricing.ts. Kept in step by
+    // hand because that module is TypeScript and this runs in the browser.
+    const total = (feet, rate) => feet * rate * (1 + materialUpliftPct / 100);
+
+    function render(feet) {
+      feetOut.textContent = `${feet} ft`;
+      rows.forEach((row) => {
+        const rate = Number(row.dataset.rate);
+        row.querySelector('[data-price]').textContent = money.format(total(feet, rate));
+      });
+
+      const current = tierData.find((t) => t.current) ?? tierData[0];
+      const last = tierData[tierData.length - 1];
+      const gap = total(feet, last.rate) - total(feet, current.rate);
+      if (gap > 0) {
+        delta.hidden = false;
+        delta.innerHTML =
+          `Waiting until <strong>${last.label}</strong> costs this house ` +
+          `<strong>${money.format(gap)}</strong> more.`;
+      } else {
+        delta.hidden = true;
+      }
+    }
+
+    slider.addEventListener('input', (e) => render(Number(e.target.value)));
+    render(Number(slider.value) || DEFAULT_FEET);
+  })();
+</script>
+
+<style>
+  .calc__panel {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+  }
+
+  .calc__label {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+  }
+
+  .calc__controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .calc__controls input[type='range'] {
+    flex: 1;
+    accent-color: var(--color-primary);
+    height: 2rem;
+  }
+
+  .calc__feet {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    min-width: 5ch;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .calc__help {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-light);
+    margin: var(--space-3) 0 var(--space-8);
+  }
+
+  .calc__help a {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+  }
+
+  .calc__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .calc__row--current {
+    background-color: var(--color-cream);
+    border-left: 3px solid var(--color-primary);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .calc__row-label {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .calc__tier {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+  }
+
+  .calc__rate {
+    font-size: var(--text-xs);
+    color: var(--color-text-light);
+  }
+
+  .calc__price {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .calc__row--current .calc__price {
+    color: var(--color-primary);
+  }
+
+  .calc__delta {
+    margin-top: var(--space-5);
+    text-align: center;
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .calc__delta strong {
+    color: var(--color-navy);
+  }
+
+  .calc__note {
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-light);
+  }
+
+  .calc__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+    margin-top: var(--space-8);
+  }
+
+  .calc__phone {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  .calc__phone:hover {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 640px) {
+    .calc__panel {
+      padding: var(--space-6) var(--space-5);
+    }
+
+    .calc__cta {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .calc__cta .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

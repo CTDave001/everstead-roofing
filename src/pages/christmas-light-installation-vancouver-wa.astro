@@ -4,6 +4,7 @@ import HolidayHero from '../components/sections/HolidayHero.astro';
 import HolidayGallery from '../components/sections/HolidayGallery.astro';
 import HolidayWhatsIncluded from '../components/sections/HolidayWhatsIncluded.astro';
 import HolidayPricing from '../components/sections/HolidayPricing.astro';
+import LightingCalculator from '../components/sections/LightingCalculator.astro';
 import HolidayProcess from '../components/sections/HolidayProcess.astro';
 import HolidayServiceArea from '../components/sections/HolidayServiceArea.astro';
 import HolidayFAQ from '../components/sections/HolidayFAQ.astro';
@@ -112,6 +113,9 @@ const serviceSchema = {
   <HolidayGallery />
   <HolidayWhatsIncluded />
   <HolidayPricing />
+  {/* Directly after the rate table: read the rates, then price your own house.
+      The table makes the case, the calculator makes it personal. */}
+  <LightingCalculator />
   <HolidayProcess />
 
   {/* Sends commercial enquiries to the page built for them, and gives that page a
