@@ -3,6 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import { getImage } from 'astro:assets';
 import permanentHero from '../assets/images/permanent-led-hero.jpg';
+import {
+  permanentRate,
+  permanentFoundingRate,
+  permanentExamples,
+  permanentTotal,
+  formatDollars,
+  taxNote,
+} from '../data/pricing';
 
 /**
  * Permanent architectural LED lighting.
@@ -18,11 +26,11 @@ import permanentHero from '../assets/images/permanent-led-hero.jpg';
  * product and structurally cannot write an honest comparison. That is the gap
  * this page and the comparison content sit in.
  *
- * NO PRICE PUBLISHED HERE, unlike the seasonal page. Market ranges below are
- * citable third-party figures; our own rate is not invented. Permanent systems
- * are measured and spec'd on site as a matter of industry practice, so "quoted
- * after a site visit" is honest rather than evasive. Publish a real number here
- * the moment one exists — it converts far better.
+ * The rate IS published, from src/data/pricing.ts, for the same reason the
+ * seasonal rate card is: every competitor in this category says "call for
+ * pricing" on a five-figure purchase, and being the only one who does not is
+ * worth more than whatever the opacity protects. The figure is all-in and
+ * includes the controller, which most of the market quotes separately.
  *
  * Nothing on this page claims dealer status for any brand, or any completed
  * install. Both would be easy to add later and neither is ours to assert now.
@@ -86,8 +94,11 @@ const quality = [
 const faqs = [
   {
     question: 'What does permanent LED lighting cost?',
-    answer:
-      'Across the industry, professionally installed permanent systems generally run somewhere between $18 and $40 per linear foot depending on the product, with controllers sometimes priced separately. Where a specific home lands within that depends on roofline length, access, the number of transitions, and the system specified. Unlike our seasonal service we do not quote this from photographs — permanent track has to be measured and planned on site, so we do a site visit and give you a fixed written number before anything is committed.',
+    answer: `Our rate is $${permanentRate} per linear foot, installed, and that figure includes the controller. A typical 200-foot Clark County roofline works out to about ${formatDollars(permanentTotal(200))} before Washington sales tax, which we state separately. Most of the industry quotes somewhere between $18 and $40 per foot and then adds a controller at $650 to $850 on top, so compare the all-in number rather than the headline rate. We confirm the final figure at a site visit, because permanent track has to be measured and planned against your actual roofline — but the rate itself does not move.`,
+  },
+  {
+    question: 'Why is the controller included when everyone else charges for it separately?',
+    answer: `Because a per-foot rate that does not include the thing that runs the lights is not really a per-foot rate. A $30 quote plus an $800 controller on a 200-foot home is $6,800, not $6,000, and you find that out late. We would rather publish one number that is the number. It is the same reason January removal is included in our seasonal price rather than invoiced separately in the new year.`,
   },
   {
     question: 'Is it actually visible during the day?',
@@ -143,6 +154,22 @@ const serviceSchema = {
     '@type': 'AdministrativeArea',
     name: 'Clark County, Washington',
   },
+  offers: {
+    '@type': 'Offer',
+    url: pageUrl,
+    priceCurrency: 'USD',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      priceCurrency: 'USD',
+      price: permanentRate,
+      valueAddedTaxIncluded: false,
+      unitCode: 'FOT',
+      unitText: 'linear foot of roofline',
+      referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'FOT' },
+      description:
+        'Per linear foot of roofline, installed, including the controller. Washington sales tax stated separately.',
+    },
+  },
 };
 
 const faqSchema = {
@@ -158,7 +185,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Permanent Christmas Lights & Year-Round LED Lighting in Vancouver, WA"
-  description="Custom permanent LED lighting for Vancouver, WA homes. Warm white year-round, every holiday, controlled from your phone. Independently specified rather than tied to one manufacturer, and installed by roofers who know where fasteners belong."
+  description={`Permanent LED lighting for Vancouver, WA homes at $${permanentRate} per linear foot installed, controller included. Warm white year-round, every holiday, controlled from your phone. Independently specified rather than tied to one manufacturer.`}
   jsonLd={[serviceSchema, faqSchema]}
   breadcrumbs={[
     { name: 'Home', url: '/' },
@@ -227,6 +254,65 @@ const faqSchema = {
     </div>
   </section>
 
+  <section class="section perm-price" id="pricing">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <h2 class="section-title">What it costs</h2>
+        <p class="section-subtitle">
+          Published, like everything else here. Compare the all-in number, not the headline rate.
+        </p>
+      </div>
+
+      <div class="perm-price__headline">
+        <p class="perm-price__figure">${permanentRate}<span>/ linear foot</span></p>
+        <p class="perm-price__note">
+          Installed, <strong>controller included</strong>. {taxNote}
+        </p>
+      </div>
+
+      <div class="perm-price__scroll">
+        <table class="perm-price__table">
+          <thead>
+            <tr>
+              <th scope="col">Roofline</th>
+              <th scope="col">Everstead<span>${permanentRate}/ft all-in</span></th>
+              <th scope="col">Typical quote<span>$30/ft + $750 controller</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {permanentExamples.map((feet) => (
+              <tr>
+                <th scope="row">{feet} ft</th>
+                <td class="is-ours">{formatDollars(permanentTotal(feet))}</td>
+                <td>{formatDollars(feet * 30 + 750)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="perm-price__disclaimer">
+        The comparison column is a worked example against commonly published market
+        rates, not a quote from any named company. Rates across the industry run
+        roughly $18&ndash;$40 per foot, and most add a controller at $650&ndash;$850.
+        Always ask for the all-in figure.
+      </p>
+
+      <div class="perm-price__founding">
+        <h3>Founding customer rate &mdash; ${permanentFoundingRate}/ft</h3>
+        <p>
+          We are new to permanent lighting and we would rather say so than pretend
+          otherwise. For our first installs we will do the work at
+          ${permanentFoundingRate} per foot in exchange for permission to photograph
+          the finished result and an honest review afterwards &mdash; good or bad.
+        </p>
+        <p>
+          Same system, same install, same warranty. You are trading a bit of
+          publicity for a lower rate, and we are buying a portfolio.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="section perm-independent">
     <div class="container perm-independent__inner">
       <h2 class="perm-independent__title">We are not anyone&rsquo;s dealer</h2>
@@ -270,8 +356,8 @@ const faqSchema = {
 
   <CTASection
     title="Book a site visit"
-    text="Permanent LED lighting for homes across Vancouver, WA and Clark County. We measure, design against your trim and roofline, and give you a fixed written number before anything is committed."
-    subtext="No obligation, and we will tell you if seasonal installation is the better fit."
+    text={`Permanent LED lighting across Vancouver, WA and Clark County at $${permanentRate} per linear foot installed, controller included. We measure and design against your trim and roofline, then give you a fixed written number before anything is committed.`}
+    subtext={`Ask about the $${permanentFoundingRate}/ft founding customer rate. No obligation, and we will tell you if seasonal installation is the better fit.`}
     buttonLabel="Book a Site Visit"
   />
 </BaseLayout>
@@ -442,6 +528,135 @@ const faqSchema = {
     font-size: var(--text-base);
     line-height: var(--leading-loose);
     color: var(--color-text-muted);
+  }
+
+  .perm-price__headline {
+    max-width: 620px;
+    margin: 0 auto var(--space-10);
+    padding: var(--space-8);
+    text-align: center;
+    background-color: var(--color-cream);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+  }
+
+  .perm-price__figure {
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    line-height: 1;
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+  }
+
+  .perm-price__figure span {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-light);
+  }
+
+  .perm-price__note {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--leading-loose);
+  }
+
+  .perm-price__note strong {
+    color: var(--color-navy);
+  }
+
+  /* Wide table scrolls inside its own container; the page body must not. */
+  .perm-price__scroll {
+    overflow-x: auto;
+    max-width: 720px;
+    margin: 0 auto var(--space-4);
+  }
+
+  .perm-price__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    min-width: 460px;
+  }
+
+  .perm-price__table th,
+  .perm-price__table td {
+    padding: var(--space-4);
+    text-align: right;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .perm-price__table thead th {
+    font-family: var(--font-heading);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom-width: 2px;
+  }
+
+  .perm-price__table thead th span {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: var(--font-normal);
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--color-text-light);
+    margin-top: var(--space-1);
+  }
+
+  .perm-price__table tbody th {
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+  }
+
+  .perm-price__table td {
+    color: var(--color-text-light);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .perm-price__table td.is-ours {
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
+    background-color: var(--color-cream);
+  }
+
+  .perm-price__disclaimer {
+    max-width: 62ch;
+    margin: 0 auto var(--space-12);
+    text-align: center;
+    font-size: var(--text-xs);
+    line-height: var(--leading-loose);
+    color: var(--color-text-light);
+  }
+
+  .perm-price__founding {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: var(--space-8);
+    background-color: var(--color-navy);
+    border-radius: var(--radius-lg);
+  }
+
+  .perm-price__founding h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-white);
+    margin-bottom: var(--space-4);
+  }
+
+  .perm-price__founding p {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .perm-price__founding p + p {
+    margin-top: var(--space-4);
   }
 
   .perm-independent__inner {

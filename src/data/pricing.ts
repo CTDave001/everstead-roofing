@@ -65,6 +65,49 @@ export const rateTiers: RateTier[] = [
 /** Percentage added to cover materials. Shown as a line item, never buried. */
 export const materialUpliftPct = 8;
 
+/**
+ * Permanent architectural LED lighting — a separate product, priced separately.
+ *
+ * Positioned mid-premium on purpose. In a category where the buyer cannot
+ * evaluate the hardware, price is the main quality signal available to them:
+ * Gemstone sits around $22-25/ft installed and JellyFish around $25-35/ft, so
+ * pricing near the bottom of that band would read as cheaper diodes rather than
+ * as a bargain, and would contradict everything the page argues.
+ *
+ * The rate is ALL-IN and includes the controller. Most of the market quotes a
+ * per-foot figure plus a $650-850 controller, which makes their headline number
+ * look smaller than the invoice. Folding it in is the same decision as including
+ * January removal in the seasonal price, and it is the only version consistent
+ * with publishing a rate card at all. On a 200ft home this lands around $5,800
+ * against roughly $6,750 for a $30/ft-plus-controller quote.
+ *
+ * Margin note: at an all-in cost near $10/ft this is roughly 65% gross. If that
+ * cost figure turns out to be materials-only and labour sits on top, revisit
+ * this number rather than absorbing it — the founding-customer rate below is the
+ * intended discount lever, not the headline.
+ */
+export const permanentRate = 29;
+
+/**
+ * Introductory rate for the first installs, offered in exchange for photography
+ * rights and a review.
+ *
+ * Deliberately a named programme rather than a lower published price. A new
+ * company has no portfolio and no reviews, and reviews are the strongest local
+ * ranking factor there is — so the discount buys the two assets that cannot be
+ * bought any other way. Discounting the headline rate instead would buy neither
+ * and would permanently reset what the service appears to be worth.
+ */
+export const permanentFoundingRate = 24;
+
+/** Roofline lengths used in the permanent lighting worked examples. */
+export const permanentExamples = [120, 160, 200, 250, 320];
+
+/** Permanent install total. No material uplift — the rate is already all-in. */
+export function permanentTotal(linearFeet: number, rate = permanentRate): number {
+  return linearFeet * rate;
+}
+
 /** Roofline lengths used for the worked examples on the pricing table. */
 export const exampleRooflines = [120, 160, 200, 250, 320];
 
