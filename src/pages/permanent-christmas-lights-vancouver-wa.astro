@@ -1,0 +1,537 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import { getImage } from 'astro:assets';
+import permanentHero from '../assets/images/permanent-led-hero.jpg';
+
+/**
+ * Permanent architectural LED lighting.
+ *
+ * A different product from the seasonal C9 service, not an upsell of it: market
+ * rates run $18-40 per linear foot installed against $6.50-7.95 seasonal, it
+ * sells year-round rather than in a ten-week window, and the buyer researches
+ * for weeks before calling.
+ *
+ * Positioning is independent rather than branded, which is deliberate. Trimlight,
+ * JellyFish and Gemstone all sell through franchise and certified-dealer
+ * networks, so every local installer of those is contractually locked to one
+ * product and structurally cannot write an honest comparison. That is the gap
+ * this page and the comparison content sit in.
+ *
+ * NO PRICE PUBLISHED HERE, unlike the seasonal page. Market ranges below are
+ * citable third-party figures; our own rate is not invented. Permanent systems
+ * are measured and spec'd on site as a matter of industry practice, so "quoted
+ * after a site visit" is honest rather than evasive. Publish a real number here
+ * the moment one exists — it converts far better.
+ *
+ * Nothing on this page claims dealer status for any brand, or any completed
+ * install. Both would be easy to add later and neither is ours to assert now.
+ */
+
+const siteUrl = Astro.site.origin;
+const pageUrl = `${siteUrl}/permanent-christmas-lights-vancouver-wa`;
+
+const [heroSm, heroMd, heroLg] = await Promise.all(
+  [640, 1280, 1920].map((width) =>
+    getImage({ src: permanentHero, format: 'webp', quality: 78, width })
+  )
+);
+
+const yearRound = [
+  {
+    title: 'Warm white, most of the year',
+    body: 'Run as plain architectural accent lighting it reads like well-designed exterior trim lighting, not decoration. This is what most owners leave on for nine months.',
+  },
+  {
+    title: 'Every holiday, not just December',
+    body: 'Orange at Halloween, red and green in December, red white and blue in July, green in March. No ladder, no crew, no strands in the garage.',
+  },
+  {
+    title: 'Game days and occasions',
+    body: 'Team colours, birthdays, a colour for a cause. It is a set of scenes in an app rather than a project.',
+  },
+  {
+    title: 'Security and everyday use',
+    body: 'Scheduled on at dusk and off at bedtime, it does real work as exterior lighting on the darkest evenings of the year.',
+  },
+];
+
+const quality = [
+  {
+    title: 'How it looks in daylight',
+    body: 'This is the single thing most people underweight. The track is on your house 365 days a year and you will see it in daylight far more often than you will see it lit. Colour-matched to the trim, tucked tight under the eave, with a slim profile — get this wrong and you have permanently changed how your house looks to save a few dollars a foot.',
+  },
+  {
+    title: 'How it is attached',
+    body: 'Permanent means fastened to your home, and where those fasteners go matters enormously. Track belongs on fascia and trim, never through roofing, flashing, or anywhere water is being shed. We repair roofs the rest of the year, and improperly attached permanent lighting causes exactly the same damage as a stapled seasonal strand, except it stays there.',
+  },
+  {
+    title: 'Diode quality and spacing',
+    body: 'Cheap diodes drift in colour as they age, and they do not drift together — a run that looked uniform in year one goes patchy by year four. Spacing determines whether you read a clean line of light or a row of dots. Neither is visible in a brochure photograph.',
+  },
+  {
+    title: 'Sealing, for this climate',
+    body: 'A system that performs in Arizona is not automatically one that performs here. Channel sealing, drainage, and connector protection matter far more in a climate with seven months of rain than they do in a dry one.',
+  },
+  {
+    title: 'The controller, and what happens if the company disappears',
+    body: 'Ask whether the system depends on a manufacturer cloud service to function. If the answer is yes, ask what your lighting does if that service is switched off. A five-figure installation that can be remotely bricked is a real risk worth understanding before you buy, not after.',
+  },
+  {
+    title: 'Who services it in year five',
+    body: 'Ask who honours the warranty and who comes out if a section fails in 2031 — the installer, the manufacturer, or a territory owner who may have sold on by then. Ask it of us too. It is the right question regardless of who you are talking to.',
+  },
+];
+
+const faqs = [
+  {
+    question: 'What does permanent LED lighting cost?',
+    answer:
+      'Across the industry, professionally installed permanent systems generally run somewhere between $18 and $40 per linear foot depending on the product, with controllers sometimes priced separately. Where a specific home lands within that depends on roofline length, access, the number of transitions, and the system specified. Unlike our seasonal service we do not quote this from photographs — permanent track has to be measured and planned on site, so we do a site visit and give you a fixed written number before anything is committed.',
+  },
+  {
+    question: 'Is it actually visible during the day?',
+    answer:
+      'Yes, and anyone who tells you otherwise is selling. A slim, well-chosen, colour-matched track tucked under the eave is genuinely discreet and most visitors never register it. A bulky or badly matched one is obvious forever. This is why we treat daytime appearance as the first design decision rather than an afterthought, and why we would rather show you the actual profile on your actual trim colour before you commit.',
+  },
+  {
+    question: 'Will it damage my roof or fascia?',
+    answer:
+      'It should not, and how it is attached is the thing to scrutinise. Track belongs on fascia or trim — never driven through roofing material, flashing, or anywhere water is being shed. We are a roofing contractor first, and permanent lighting attached carelessly causes the same water intrusion as a stapled seasonal strand, with the difference that it stays on the house indefinitely. Ask any installer specifically where their fasteners go.',
+  },
+  {
+    question: 'How long does a system last?',
+    answer:
+      'Quality systems are generally specified for well over a decade of normal use, and the LEDs themselves are rarely the first thing to go. Realistically the things that age are connectors, seals, and controllers — which is why sealing quality and serviceability matter more than the headline diode life figure in a brochure.',
+  },
+  {
+    question: 'Are you a dealer for Trimlight, JellyFish or Gemstone?',
+    answer:
+      'No, and that is deliberate. Every certified dealer is contractually limited to selling one manufacturer\'s product, which means the recommendation is decided before they have seen your house. We specify what suits the property, the trim colour, and the budget in front of us. It also means we can tell you honestly when a cheaper system is the right call for a particular home.',
+  },
+  {
+    question: 'Should I get permanent lighting or keep booking seasonal installs?',
+    answer:
+      'It depends on how long you plan to stay and how much you use it. Seasonal installation is the lower commitment and the right answer for plenty of homes — we will say so if it is yours. Permanent starts to make sense when you would use it beyond December, when annual scheduling has become a chore, or when you intend to be in the house long enough for repeated seasonal installs to add up. We are happy to price both.',
+  },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${pageUrl}#service`,
+  name: 'Permanent LED Architectural and Holiday Lighting',
+  serviceType: 'Permanent Outdoor LED Lighting Installation',
+  description:
+    'Custom permanent architectural LED lighting for homes in Vancouver, WA and Clark County. Track-mounted addressable LEDs for year-round accent lighting and every holiday, specified independently rather than tied to a single manufacturer.',
+  url: pageUrl,
+  provider: {
+    '@type': 'RoofingContractor',
+    name: 'Everstead Roofing Co',
+    url: siteUrl,
+    telephone: '+1-360-342-9525',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '4200 SE Columbia Way Suite F',
+      addressLocality: 'Vancouver',
+      addressRegion: 'WA',
+      postalCode: '98661',
+      addressCountry: 'US',
+    },
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Clark County, Washington',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
+---
+
+<BaseLayout
+  title="Permanent Christmas Lights & Year-Round LED Lighting in Vancouver, WA"
+  description="Custom permanent LED lighting for Vancouver, WA homes. Warm white year-round, every holiday, controlled from your phone. Independently specified rather than tied to one manufacturer, and installed by roofers who know where fasteners belong."
+  jsonLd={[serviceSchema, faqSchema]}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Christmas Light Installation', url: '/christmas-light-installation-vancouver-wa' },
+    { name: 'Permanent LED Lighting', url: '/permanent-christmas-lights-vancouver-wa' },
+  ]}
+>
+  <section
+    class="perm-hero"
+    style={`--perm-sm: url('${heroSm.src}'); --perm-md: url('${heroMd.src}'); --perm-lg: url('${heroLg.src}')`}
+  >
+    <div class="container">
+      <p class="perm-hero__eyebrow">Vancouver, WA &amp; Clark County</p>
+      <h1 class="perm-hero__title">Permanent LED lighting, installed once</h1>
+      <p class="perm-hero__text prose">
+        A slim colour-matched track under your eaves with individually addressable
+        LEDs inside it. Warm white for most of the year, any colour you like for the
+        rest, controlled from your phone. No ladder in November, no strands in the
+        garage, no crew booking in January.
+      </p>
+      <div class="perm-hero__actions">
+        <a href="/contact" class="btn btn--primary">Book a site visit</a>
+        <a href="tel:+13603429525" class="perm-hero__phone">(360) 342-9525</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section perm-what">
+    <div class="container perm-what__inner">
+      <h2 class="perm-what__title">It is not really a Christmas product</h2>
+      <p class="perm-what__lead prose">
+        Almost everyone finds these searching for permanent Christmas lights, and
+        then uses them for everything except Christmas. December is a couple of weeks
+        of the year; the system is on your house for the other fifty.
+      </p>
+      <div class="perm-what__grid">
+        {yearRound.map((item) => (
+          <article class="perm-card">
+            <h3 class="perm-card__title">{item.title}</h3>
+            <p class="perm-card__body">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream perm-quality">
+    <div class="container">
+      <h2 class="perm-quality__title">What separates a good installation from an expensive mistake</h2>
+      <p class="perm-quality__lead prose">
+        This is a five-figure decision that stays on your house for a decade or more,
+        and the brochures are close to interchangeable. These are the things that
+        actually differ, in the order they will matter to you.
+      </p>
+      <ol class="perm-quality__list">
+        {quality.map((item, i) => (
+          <li class="perm-quality__item">
+            <span class="perm-quality__index" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="perm-quality__item-title">{item.title}</h3>
+              <p class="perm-quality__item-body">{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section perm-independent">
+    <div class="container perm-independent__inner">
+      <h2 class="perm-independent__title">We are not anyone&rsquo;s dealer</h2>
+      <p class="prose">
+        Most permanent lighting in this market is sold through franchise and
+        certified-dealer networks. Those installers do good work, but each of them is
+        contractually limited to one manufacturer&rsquo;s product &mdash; which means
+        the recommendation is settled before anyone has looked at your house.
+      </p>
+      <p class="prose">
+        We specify what suits the property in front of us: the trim colour, the
+        roofline, the exposure, and the budget. Sometimes that means the more
+        expensive system and we will explain why. Sometimes it means the cheaper one
+        is genuinely the right call, which is a sentence a dealer cannot say.
+      </p>
+      <p class="prose">
+        It also means we have no reason to talk you into permanent lighting at all.
+        If seasonal installation is the better fit for your house and how long you
+        plan to be in it, we would rather book that and keep you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight perm-faq">
+    <div class="container">
+      <h2 class="perm-faq__title">Common questions</h2>
+      <div class="perm-faq__list">
+        {faqs.map((faq) => (
+          <details class="perm-faq__item">
+            <summary class="perm-faq__q">{faq.question}</summary>
+            <p class="perm-faq__a">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+      <p class="perm-faq__cross">
+        Not sure permanent is right yet?
+        <a href="/christmas-light-installation-vancouver-wa">See seasonal installation and the rate card &rarr;</a>
+      </p>
+    </div>
+  </section>
+
+  <CTASection
+    title="Book a site visit"
+    text="Permanent LED lighting for homes across Vancouver, WA and Clark County. We measure, design against your trim and roofline, and give you a fixed written number before anything is committed."
+    subtext="No obligation, and we will tell you if seasonal installation is the better fit."
+    buttonLabel="Book a Site Visit"
+  />
+</BaseLayout>
+
+<style>
+  .perm-hero {
+    position: relative;
+    background-color: var(--color-navy);
+    background-image: var(--perm-sm);
+    background-size: cover;
+    background-position: center;
+    color: var(--color-white);
+    padding: calc(var(--header-height) + var(--space-16)) 0 var(--space-16);
+  }
+
+  @media (min-width: 641px) {
+    .perm-hero { background-image: var(--perm-md); }
+  }
+
+  @media (min-width: 1281px) {
+    .perm-hero { background-image: var(--perm-lg); }
+  }
+
+  .perm-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(21, 37, 54, 0.92) 0%,
+      rgba(21, 37, 54, 0.78) 50%,
+      rgba(21, 37, 54, 0.35) 100%
+    );
+  }
+
+  .perm-hero > .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .perm-hero__eyebrow {
+    font-family: var(--font-heading);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-primary-light);
+    margin-bottom: var(--space-4);
+  }
+
+  .perm-hero__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    max-width: 16ch;
+    text-wrap: balance;
+    margin-bottom: var(--space-6);
+  }
+
+  .perm-hero__text {
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: var(--space-8);
+  }
+
+  .perm-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .perm-hero__phone {
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    font-size: var(--text-lg);
+    color: var(--color-white);
+  }
+
+  .perm-hero__phone:hover {
+    color: var(--color-primary-light);
+  }
+
+  .perm-what__title,
+  .perm-quality__title,
+  .perm-independent__title,
+  .perm-faq__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    max-width: 22ch;
+    margin-bottom: var(--space-4);
+  }
+
+  .perm-what__lead,
+  .perm-quality__lead {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-12);
+  }
+
+  .perm-what__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-8);
+  }
+
+  .perm-card {
+    padding-left: var(--space-5);
+    border-left: 3px solid var(--color-primary);
+  }
+
+  .perm-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-3);
+    line-height: var(--leading-snug);
+  }
+
+  .perm-card__body {
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .perm-quality__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .perm-quality__item {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+
+  .perm-quality__index {
+    flex-shrink: 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--color-primary);
+    line-height: 1;
+    padding-top: 0.15em;
+    min-width: 2.5rem;
+  }
+
+  .perm-quality__item-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    margin-bottom: var(--space-2);
+  }
+
+  .perm-quality__item-body {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .perm-independent__inner {
+    max-width: var(--measure);
+  }
+
+  .perm-independent__inner .prose {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-5);
+  }
+
+  .perm-faq__list {
+    max-width: var(--measure);
+  }
+
+  .perm-faq__item {
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .perm-faq__q {
+    cursor: pointer;
+    list-style: none;
+    padding: var(--space-5) var(--space-8) var(--space-5) 0;
+    font-family: var(--font-heading);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    color: var(--color-navy);
+    position: relative;
+  }
+
+  .perm-faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .perm-faq__q::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: var(--text-xl);
+    font-weight: var(--font-normal);
+    color: var(--color-primary);
+  }
+
+  .perm-faq__item[open] .perm-faq__q::after {
+    content: '\2212';
+  }
+
+  .perm-faq__a {
+    padding: 0 var(--space-8) var(--space-6) 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-loose);
+    color: var(--color-text-muted);
+  }
+
+  .perm-faq__cross {
+    margin-top: var(--space-8);
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  .perm-faq__cross a {
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+  }
+
+  @media (max-width: 640px) {
+    .perm-hero {
+      padding: calc(var(--header-height) + var(--space-10)) 0 var(--space-10);
+    }
+
+    .perm-hero::before {
+      background: linear-gradient(
+        to bottom,
+        rgba(21, 37, 54, 0.9) 0%,
+        rgba(21, 37, 54, 0.84) 100%
+      );
+    }
+
+    .perm-hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+    }
+
+    .perm-quality__item {
+      gap: var(--space-4);
+    }
+  }
+</style>
