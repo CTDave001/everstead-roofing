@@ -68,25 +68,33 @@ export const materialUpliftPct = 8;
 /**
  * Permanent architectural LED lighting — a separate product, priced separately.
  *
- * Positioned mid-premium on purpose. In a category where the buyer cannot
+ * Positioned at the premium end on purpose. In a category where the buyer cannot
  * evaluate the hardware, price is the main quality signal available to them:
- * Gemstone sits around $22-25/ft installed and JellyFish around $25-35/ft, so
- * pricing near the bottom of that band would read as cheaper diodes rather than
- * as a bargain, and would contradict everything the page argues.
+ * Gemstone sits around $22-25/ft installed and JellyFish around $25-35/ft plus a
+ * controller, which at the top end works out near $44/ft all-in. Pricing low
+ * would read as cheaper diodes rather than as a bargain, and would contradict
+ * everything this page argues about independence and build quality.
+ *
+ * This deliberately gives up the "cheapest option" argument. At $29 the page
+ * could claim to undercut a typical quote outright; at $35 it cannot, and should
+ * not try. The comparison is same-tier — our all-in figure against an equivalent
+ * per-foot rate once its controller is added — and the page says plainly that we
+ * are not the cheapest in the market. A premium price defended by a value
+ * argument convinces nobody.
  *
  * The rate is ALL-IN and includes the controller. Most of the market quotes a
- * per-foot figure plus a $650-850 controller, which makes their headline number
- * look smaller than the invoice. Folding it in is the same decision as including
- * January removal in the seasonal price, and it is the only version consistent
- * with publishing a rate card at all. On a 200ft home this lands around $5,800
- * against roughly $6,750 for a $30/ft-plus-controller quote.
+ * per-foot figure plus a $650-850 controller, which makes the headline smaller
+ * than the invoice. Folding it in is the same decision as including January
+ * removal in the seasonal price, and the only version consistent with publishing
+ * a rate card at all.
  *
- * Margin note: at an all-in cost near $10/ft this is roughly 65% gross. If that
- * cost figure turns out to be materials-only and labour sits on top, revisit
- * this number rather than absorbing it — the founding-customer rate below is the
- * intended discount lever, not the headline.
+ * Margin note: at an all-in cost near $10/ft this is roughly 71% gross, and
+ * about 36 installs to reach a $250k target. If that cost figure turns out to be
+ * materials-only with labour on top, true margin is closer to 49% — still
+ * workable, but revisit this number rather than absorbing it. The founding rate
+ * below is the intended discount lever, not the headline.
  */
-export const permanentRate = 29;
+export const permanentRate = 35;
 
 /**
  * Introductory rate for the first installs, offered in exchange for photography
@@ -98,7 +106,7 @@ export const permanentRate = 29;
  * bought any other way. Discounting the headline rate instead would buy neither
  * and would permanently reset what the service appears to be worth.
  */
-export const permanentFoundingRate = 24;
+export const permanentFoundingRate = 30;
 
 /** Roofline lengths used in the permanent lighting worked examples. */
 export const permanentExamples = [120, 160, 200, 250, 320];

@@ -94,11 +94,15 @@ const quality = [
 const faqs = [
   {
     question: 'What does permanent LED lighting cost?',
-    answer: `Our rate is $${permanentRate} per linear foot, installed, and that figure includes the controller. A typical 200-foot Clark County roofline works out to about ${formatDollars(permanentTotal(200))} before Washington sales tax, which we state separately. Most of the industry quotes somewhere between $18 and $40 per foot and then adds a controller at $650 to $850 on top, so compare the all-in number rather than the headline rate. We confirm the final figure at a site visit, because permanent track has to be measured and planned against your actual roofline — but the rate itself does not move.`,
+    answer: `Our rate is $${permanentRate} per linear foot, installed, and that figure includes the controller. A typical 200-foot Clark County roofline works out to about ${formatDollars(permanentTotal(200))} before Washington sales tax, which we state separately. We confirm the final figure at a site visit, because permanent track has to be measured and planned against your actual roofline — but the rate itself does not move.`,
+  },
+  {
+    question: 'Are you the cheapest option?',
+    answer: `No, and we would rather say so than have you find out halfway through a quote. Systems in this market run from roughly $18 to $40 per foot, and there are real products at the lower end that work perfectly well — if budget is the deciding factor we will point you at them. We sit at the upper end because of the components we specify, how the track is attached, and the fact that we are here in February. If those things do not matter to you for this particular house, we are the wrong call and that is a fine outcome.`,
   },
   {
     question: 'Why is the controller included when everyone else charges for it separately?',
-    answer: `Because a per-foot rate that does not include the thing that runs the lights is not really a per-foot rate. A $30 quote plus an $800 controller on a 200-foot home is $6,800, not $6,000, and you find that out late. We would rather publish one number that is the number. It is the same reason January removal is included in our seasonal price rather than invoiced separately in the new year.`,
+    answer: `Because a per-foot rate that does not include the thing that runs the lights is not really a per-foot rate. The same $${permanentRate} per foot elsewhere, plus a typical $800 controller, is ${formatDollars(200 * permanentRate + 800)} on a 200-foot home rather than ${formatDollars(permanentTotal(200))} — and you usually find that out late. We would rather publish one number that is the number. It is the same reason January removal is included in our seasonal price rather than invoiced separately in the new year.`,
   },
   {
     question: 'Is it actually visible during the day?',
@@ -259,7 +263,8 @@ const faqSchema = {
       <div class="section-header section-header--center">
         <h2 class="section-title">What it costs</h2>
         <p class="section-subtitle">
-          Published, like everything else here. Compare the all-in number, not the headline rate.
+          Published, like everything else here. We are not the cheapest option in this
+          market and do not try to be.
         </p>
       </div>
 
@@ -275,8 +280,8 @@ const faqSchema = {
           <thead>
             <tr>
               <th scope="col">Roofline</th>
-              <th scope="col">Everstead<span>${permanentRate}/ft all-in</span></th>
-              <th scope="col">Typical quote<span>$30/ft + $750 controller</span></th>
+              <th scope="col">Everstead<span>${permanentRate}/ft, controller included</span></th>
+              <th scope="col">Same rate elsewhere<span>${permanentRate}/ft + $800 controller</span></th>
             </tr>
           </thead>
           <tbody>
@@ -284,17 +289,19 @@ const faqSchema = {
               <tr>
                 <th scope="row">{feet} ft</th>
                 <td class="is-ours">{formatDollars(permanentTotal(feet))}</td>
-                <td>{formatDollars(feet * 30 + 750)}</td>
+                <td>{formatDollars(feet * permanentRate + 800)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <p class="perm-price__disclaimer">
-        The comparison column is a worked example against commonly published market
-        rates, not a quote from any named company. Rates across the industry run
-        roughly $18&ndash;$40 per foot, and most add a controller at $650&ndash;$850.
-        Always ask for the all-in figure.
+        That second column is not a cheaper competitor being made to look expensive
+        &mdash; it is the <em>same</em> per-foot rate as ours with a typical controller
+        added, which is how most of this industry quotes. Systems in this market run
+        roughly $18&ndash;$40 per foot and controllers commonly add $650&ndash;$850.
+        There are genuinely cheaper systems than ours and we will tell you what they
+        are. The only number worth comparing anywhere is the all-in one.
       </p>
 
       <div class="perm-price__founding">
