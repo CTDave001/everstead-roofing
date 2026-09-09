@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+/**
+ * SMS Terms & Conditions.
+ *
+ * Required for A2P 10DLC campaign approval. The consent checkbox on /contact and
+ * the Meta instant-form disclaimer both link here, and campaign reviewers open it
+ * directly — so it has to stay publicly reachable with no login, and the URL must
+ * not change without updating both of those.
+ *
+ * Content is the approved copy verbatim. It deliberately claims no service level,
+ * price, or guarantee; do not add any. Layout classes are shared with /privacy via
+ * the .policy-* rules in global.css.
+ */
+
+const lastUpdated = 'August 8, 2026';
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'SMS Terms', url: '/sms-terms' },
+];
+---
+
+<BaseLayout
+  title="SMS Terms &amp; Conditions"
+  description="Terms for the Everstead Roofing Co text messaging program: how to opt in, how to opt out, message frequency, and cost."
+  breadcrumbs={breadcrumbs}
+>
+  <section class="policy-hero">
+    <div class="container">
+      <h1 class="policy-hero__title">SMS Terms &amp; Conditions</h1>
+      <p class="policy-hero__date">Last updated: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <section class="section policy">
+    <div class="container">
+      <div class="policy__body">
+        <h2>1. Program description</h2>
+        <p>
+          Everstead Roofing Co, a registered trade name of <strong>BTN Homes LLC</strong>
+          (&ldquo;Everstead Roofing,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;), operates a text
+          messaging program used to respond to homeowners who have requested contact about roofing,
+          repair, maintenance, or Christmas light installation services. Messages include quote and
+          estimate follow-up, requests for photos or property details, appointment scheduling and
+          confirmation, and questions during an active job.
+        </p>
+
+        <h2>2. How to opt in</h2>
+        <p>You may consent to receive text messages from us by:</p>
+        <ul>
+          <li>Checking the SMS consent box on a contact or quote form on eversteadroofing.com;</li>
+          <li>Checking the SMS consent box on one of our lead forms on Facebook or Instagram; or</li>
+          <li>Sending a text message to our published business number.</li>
+        </ul>
+        <p>
+          Consent is not a condition of purchasing any goods or services. You can request a quote by
+          phone, email, or web form without agreeing to receive text messages.
+        </p>
+
+        <h2>3. How to opt out</h2>
+        <p>
+          You can cancel at any time by replying <strong>STOP</strong> to any message from us. We
+          will send one confirmation message and then stop sending texts to that number. You may
+          also ask us to stop by calling <a href="tel:+13603429525">(360) 342-9525</a> or emailing
+          <a href="mailto:hello@eversteadroofing.com">hello@eversteadroofing.com</a>.
+        </p>
+        <p>
+          Opting out of text messages does not cancel any scheduled work, and does not stop us from
+          contacting you by phone or email about a job in progress.
+        </p>
+
+        <h2>4. Help</h2>
+        <p>
+          Reply <strong>HELP</strong> to any message to receive our business name and contact
+          information, or reach us directly at <a href="tel:+13603429525">(360) 342-9525</a> or
+          <a href="mailto:hello@eversteadroofing.com">hello@eversteadroofing.com</a>.
+        </p>
+
+        <h2>5. Message frequency</h2>
+        <p>
+          Message frequency varies. Our messages are conversational and are sent in response to your
+          inquiry or in connection with scheduled work, so the number of messages depends on your
+          conversation with us.
+        </p>
+
+        <h2>6. Cost</h2>
+        <p>
+          Message and data rates may apply. We do not charge for text messages, but your mobile
+          carrier&rsquo;s standard messaging and data rates apply to messages you send and receive.
+          Contact your carrier for details about your plan.
+        </p>
+
+        <h2>7. Carriers</h2>
+        <p>
+          Carriers are not liable for delayed or undelivered messages. Delivery is subject to
+          effective transmission by your mobile carrier and is not guaranteed.
+        </p>
+
+        <h2>8. Supported devices</h2>
+        <p>
+          Text messaging requires a mobile device with SMS capability and an active plan with a
+          participating carrier. Not all carriers or devices support all message types.
+        </p>
+
+        <h2>9. Privacy</h2>
+        <p>
+          Information you provide, including your phone number, is handled as described in our
+          <a href="/privacy">Privacy Policy</a>. We do not sell, rent, or share your phone number or
+          SMS consent with third parties for their own marketing purposes.
+        </p>
+
+        <h2>10. Changes</h2>
+        <p>
+          We may update these SMS Terms from time to time. The date at the top of this page reflects
+          the most recent revision. Continued participation in the messaging program after an update
+          constitutes acceptance of the revised terms.
+        </p>
+
+        <h2>11. Contact</h2>
+        <p>
+          Everstead Roofing Co<br />
+          A registered trade name of BTN Homes LLC<br />
+          4200 SE Columbia Way, Suite F<br />
+          Vancouver, WA 98661<br />
+          <a href="tel:+13603429525">(360) 342-9525</a><br />
+          <a href="mailto:hello@eversteadroofing.com">hello@eversteadroofing.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

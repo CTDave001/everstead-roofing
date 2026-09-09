@@ -55,6 +55,38 @@ const requestOptions = services.map((s) => s.title);
         <!-- Cloudflare Turnstile -->
         <div class="cf-turnstile" data-sitekey="0x4AAAAAACOihWkSH5os4VWN" data-theme="dark"></div>
 
+        <!--
+          A2P 10DLC consent. Four properties are load-bearing for campaign vetting
+          and none of them are cosmetic:
+            1. never `checked` by default - a pre-ticked box is not consent
+            2. never `required` - the form must submit without it, or consent
+               becomes a condition of service, which the wording explicitly denies
+            3. its own checkbox - not bundled with terms or an email opt-in
+            4. both links must resolve; reviewers click them
+          The wording is the approved copy. Changing it means bumping
+          CONSENT_TEXT_VERSION below so stored records stay attributable.
+        -->
+        <div class="contact__consent">
+          <label class="contact__consent-label" for="sms_consent">
+            <input
+              type="checkbox"
+              id="sms_consent"
+              name="sms_consent"
+              value="yes"
+              class="contact__consent-box"
+            />
+            <span class="contact__consent-text">
+              I agree to receive text messages from Everstead Roofing Co at the phone
+              number provided, including messages about my quote, inspection, and
+              scheduled service. Consent is not a condition of purchase. Message
+              frequency varies. Message and data rates may apply. Reply STOP to opt out
+              or HELP for help. See our
+              <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a> and
+              <a href="/sms-terms" target="_blank" rel="noopener">SMS Terms</a>.
+            </span>
+          </label>
+        </div>
+
         <button type="submit" class="contact__submit">Book A Call</button>
       </form>
 
@@ -97,6 +129,34 @@ const requestOptions = services.map((s) => s.title);
     color: #5a5a50;
     line-height: 1.7;
     max-width: 480px;
+  }
+
+  .contact__consent {
+    margin: var(--space-4) 0 var(--space-5);
+  }
+
+  .contact__consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+  }
+
+  .contact__consent-box {
+    flex: 0 0 auto;
+    margin-top: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+
+  .contact__consent-text {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .contact__consent-text a {
+    text-decoration: underline;
   }
 
   .contact__form-wrapper {
@@ -256,6 +316,10 @@ const requestOptions = services.map((s) => s.title);
     const successMessage = document.getElementById('form-success');
     if (!form) return;
 
+    // Bump whenever the consent wording changes, so a stored record can be tied
+    // back to the exact text that was displayed.
+    const CONSENT_TEXT_VERSION = '2026-09-08';
+
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
@@ -296,6 +360,26 @@ const requestOptions = services.map((s) => s.title);
           data.custom_fields[key] = value;
         }
       });
+
+      // Consent record.
+      //
+      // Set explicitly rather than left to the FormData loop above: an unchecked
+      // checkbox is omitted from FormData entirely, so relying on that loop would
+      // store a missing field rather than an explicit false - and "the field wasn't
+      // there" is not evidence of anything.
+      //
+      // "We had a checkbox" is a weak defence. "Here is the exact wording this
+      // person saw, on this URL, at this time" is not.
+      //
+      // NOTE: the timestamp below is CLIENT side and is named accordingly. The
+      // handoff asks for a server-side stamp, which has to come from the form
+      // endpoint's own receipt time - a browser clock is trivially wrong or spoofed
+      // and should not be treated as the authoritative record.
+      const consentBox = form.querySelector('#sms_consent');
+      data.custom_fields.sms_consent = consentBox ? consentBox.checked : false;
+      data.custom_fields.consent_text_version = CONSENT_TEXT_VERSION;
+      data.custom_fields.consent_page_url = window.location.href;
+      data.custom_fields.consent_timestamp_client = new Date().toISOString();
 
       try {
         const response = await fetch(FORMVAULT_URL, {
