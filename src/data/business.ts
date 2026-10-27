@@ -83,7 +83,7 @@ export const hoursNote = inSeason ? 'Sundays by appointment' : '';
  *
  * Add the real URLs as each listing is claimed. NAP on every one of them must
  * match the footer exactly: Everstead Roofing Co, 4200 SE Columbia Way Suite F,
- * Vancouver, WA 98661, (360) 342-9525. A listing with a stale address is worse
+ * Vancouver, WA 98661, (360) 558-3350. A listing with a stale address is worse
  * than no listing, because it actively contradicts the others.
  *
  * Priority order for home services, by measured impact: Yelp, Bing Places, Apple
