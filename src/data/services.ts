@@ -58,7 +58,7 @@ export const services: Service[] = [
       'Architectural asphalt, metal, and designer shingles—installed with precision and built for decades.',
     points: [
       'Asphalt, architectural, metal, slate, tile, and flat systems',
-      '25-year warranty covering both materials and workmanship',
+      'Material and workmanship warranty terms included in your written quote',
       'Typically starting within one to two weeks of signing',
     ],
     icon: 'replacement',

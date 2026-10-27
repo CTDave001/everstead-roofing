@@ -1,4 +1,6 @@
 ---
+import { estimateHref } from '../data/contact';
+const quoteHref = estimateHref(Astro.url.pathname);
 interface Props {
   logo?: string;
 }
@@ -10,9 +12,7 @@ const navLinks = [
   { label: 'HOME', href: '/' },
   { label: 'ABOUT', href: '/about' },
   { label: 'SERVICES', href: '/services' },
-  { label: 'GET QUOTE', href: '/contact' },
   { label: 'ADVICE', href: '/blog' },
-  { label: 'CONTACT', href: '/contact' },
   // Deliberately year-round, not seasonal. The lights page needs sitewide internal
   // links long before anyone searches for lights, so it is crawled, indexed, and
   // aged by the time the October demand ramp starts. Hiding it until late October
@@ -43,7 +43,7 @@ const navLinks = [
         <span class="header__phone-number">(360) 558-3350</span>
       </a>
 
-      <a href="/contact" class="btn btn--primary header__cta">Book Your Install Today</a>
+      <a href={quoteHref} class="btn btn--primary header__cta">Get a Free Estimate</a>
     </div>
 
     <!-- Always visible on small screens. Roofing gets a real share of "leaking
@@ -55,7 +55,7 @@ const navLinks = [
       </svg>
     </a>
 
-    <button class="header__mobile-toggle" aria-label="Toggle menu" data-mobile-toggle>
+    <button class="header__mobile-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-navigation" data-mobile-toggle>
       <span></span>
       <span></span>
       <span></span>
@@ -63,7 +63,7 @@ const navLinks = [
   </div>
 
   <!-- Mobile Menu -->
-  <nav class="header__mobile-nav" data-mobile-nav>
+  <nav class="header__mobile-nav" data-mobile-nav id="mobile-navigation">
     {navLinks.map((link) => (
       <a href={link.href} class="header__mobile-link">{link.label}</a>
     ))}
@@ -73,7 +73,7 @@ const navLinks = [
       </svg>
       (360) 558-3350
     </a>
-    <a href="/contact" class="btn btn--primary header__mobile-cta">Book Your Install Today</a>
+    <a href={quoteHref} class="btn btn--primary header__mobile-cta">Get a Free Estimate</a>
   </nav>
 </header>
 
@@ -86,6 +86,15 @@ const navLinks = [
     const isOpen = nav?.classList.toggle('is-open');
     header?.classList.toggle('menu-open', isOpen);
     toggle?.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && nav?.classList.contains('is-open')) {
+      nav.classList.remove('is-open');
+      header?.classList.remove('menu-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      if (toggle instanceof HTMLElement) toggle.focus();
+    }
   });
 
   // Close menu when clicking a link
@@ -115,11 +124,11 @@ const navLinks = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-8);
+    gap: var(--space-4);
   }
 
   .header__logo img {
-    height: 80px;
+    height: 60px;
     width: auto;
   }
 
@@ -134,7 +143,7 @@ const navLinks = [
     font-weight: var(--font-bold);
     color: #f4f4eb;
     letter-spacing: 0.5px;
-    padding: 0 var(--space-6);
+    padding: 0 var(--space-3);
     height: var(--header-height);
     display: flex;
     align-items: center;
@@ -176,7 +185,7 @@ const navLinks = [
     font-family: var(--font-heading);
     font-size: 1.0625rem;
     font-weight: 700;
-    color: var(--color-navy);
+    color: var(--color-white);
     white-space: nowrap;
     transition: color var(--transition-fast);
   }
@@ -232,7 +241,8 @@ const navLinks = [
     font-family: var(--font-heading);
     font-size: 1.0625rem;
     font-weight: 700;
-    color: var(--color-navy);
+    color: var(--color-white);
+    border-color: rgba(255,255,255,.4);
   }
 
   .header__mobile-call svg {
@@ -266,7 +276,9 @@ const navLinks = [
     left: 0;
     right: 0;
     background-color: var(--color-navy);
-    padding: var(--space-6);
+    padding: var(--space-4);
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
     flex-direction: column;
     gap: var(--space-2);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -315,7 +327,7 @@ const navLinks = [
   }
 
   /* Responsive */
-  @media (max-width: 1024px) {
+  @media (max-width: 1199px) {
     .header__nav {
       display: none;
     }

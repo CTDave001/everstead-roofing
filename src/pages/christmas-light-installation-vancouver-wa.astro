@@ -10,7 +10,7 @@ import HolidayServiceArea from '../components/sections/HolidayServiceArea.astro'
 import HolidayFAQ from '../components/sections/HolidayFAQ.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
-import { lowestRate, highestRate, currentTier, materialUpliftPct } from '../data/pricing';
+import { lowestRate, highestRate, currentTier } from '../data/pricing';
 
 const siteUrl = Astro.site.origin;
 const pageUrl = `${siteUrl}/christmas-light-installation-vancouver-wa`;
@@ -93,7 +93,7 @@ const serviceSchema = {
         value: 1,
         unitCode: 'FOT',
       },
-      description: `Per linear foot of roofline, plus a ${materialUpliftPct}% material charge. Washington sales tax is stated separately. Includes lights, installation, timer, and January removal.`,
+      description: `Per linear foot of roofline, materials included. Washington sales tax is stated separately. Includes lights, installation, timer, and January removal.`,
     },
   },
 };
@@ -101,7 +101,7 @@ const serviceSchema = {
 
 <BaseLayout
   title="Christmas Light Installation in Vancouver, WA"
-  description={`Christmas light installation in Vancouver, WA and Clark County. $${currentTier.rate.toFixed(2)} per linear foot if you book by ${currentTier.deadline} - commercial-grade C9 LEDs, non-damaging clips, timer, and January removal included. The rate rises in October.`}
+  description={`Christmas light installation in Vancouver, WA and Clark County. $${currentTier.rate.toFixed(2)} per linear foot, materials included, plus sales tax - commercial-grade C9 LEDs, non-damaging clips, timer, and January removal included. No separate material surcharge.`}
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Christmas Light Installation", url: "/christmas-light-installation-vancouver-wa" }
@@ -141,8 +141,8 @@ const serviceSchema = {
   <HolidayServiceArea />
   <HolidayFAQ />
   <CTASection
-    title={`Lock $${currentTier.rate.toFixed(2)} per foot`}
-    text={`Christmas light installation across Vancouver, WA and Clark County. Commercial-grade LEDs, non-damaging clips, and January takedown included. Book by ${currentTier.deadline} and the rate is held—it rises after that.`}
+    title={`Full-service roofline lighting: $${currentTier.rate.toFixed(2)}/ft`}
+    text={`Christmas light installation across Vancouver, WA and Clark County. Commercial-grade LEDs, non-damaging clips, and January takedown included. Materials included, with no separate material surcharge.`}
     subtext="Text 4 photos for a same-day estimate. A 50% deposit reserves your date. Plus WA sales tax, shown separately."
     buttonLabel="Get My Lighting Estimate"
   />

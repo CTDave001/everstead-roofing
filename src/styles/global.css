@@ -18,7 +18,7 @@
 
 :root {
   /* Colors - Primary (exact from eversteadroofing.com) */
-  --color-primary: #c56125;
+  --color-primary: #a6501e;
   --color-primary-dark: #a85220;
   --color-primary-light: #d4783f;
 
@@ -260,7 +260,9 @@ button {
   border: 2px solid transparent;
   cursor: pointer;
   transition: all var(--transition-base);
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 100%;
+  text-align: center;
 }
 
 .btn--primary {
@@ -595,3 +597,18 @@ button {
       padding: var(--space-4);
     }
   }
+
+/* Intrinsic sizing keeps content inside narrow phones and zoomed layouts. */
+:where(main,section,article,nav,.container) { min-width: 0; }
+:where(.container) > * { min-width: 0; }
+:where(h1,h2,h3,p,a,li,summary) { overflow-wrap: break-word; }
+:where(img,video,iframe) { max-width:100%; }
+:where(input,select,textarea) { min-width:0; max-width:100%; }
+:where(a,button,input,select,textarea):focus-visible { outline:3px solid #b55b24; outline-offset:4px; }
+.skip-link { position:fixed;top:-100px;left:1rem;z-index:2000;background:#fff;color:#152536;padding:1rem; }
+.skip-link:focus { top:1rem; }
+@media(max-width:767px){body{padding-bottom:calc(85px + env(safe-area-inset-bottom));} :where(h1,h2.section-title){font-size:clamp(1.9rem,7vw,3rem);} }
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.animate-on-scroll,.hero-animate{opacity:1!important;transform:none!important}}
+/* Trust copy and calls to action remain visible without animation or JavaScript. */
+.animate-on-scroll, .hero-animate { opacity:1 !important; transform:none !important; animation:none !important; }
+.btn { max-width:100%; white-space:normal; text-align:center; }

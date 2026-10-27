@@ -18,7 +18,7 @@
  */
 import { Image } from 'astro:assets';
 import bandImg from '../../assets/images/holiday-house-2.webp';
-import { currentTier, materialUpliftPct } from '../../data/pricing';
+import { currentTier } from '../../data/pricing';
 ---
 
 <section class="holiday-band">
@@ -36,8 +36,7 @@ import { currentTier, materialUpliftPct } from '../../data/pricing';
           ${currentTier.rate.toFixed(2)}<span>/ linear foot</span>
         </p>
         <p class="holiday-band__rate-note">
-          Booked by {currentTier.deadline}, plus {materialUpliftPct}% material and WA sales
-          tax shown separately. <strong>The rate rises after that.</strong>
+          Materials included. Plus Washington sales tax. No separate material surcharge.
         </p>
       </div>
 

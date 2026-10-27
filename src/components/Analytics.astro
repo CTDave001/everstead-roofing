@@ -1,0 +1,31 @@
+---
+const measurementId = 'G-XPEHHWBSSW';
+// Production only: preview builds and local tests never contaminate the live property.
+---
+<script is:inline define:vars={{ measurementId }}>
+(() => {
+  if (location.hostname !== 'www.eversteadroofing.com' && location.hostname !== 'eversteadroofing.com') return;
+  if (navigator.doNotTrack === '1') return;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ window.dataLayer.push(arguments); }
+  const tag=document.createElement('script'); tag.async=true;
+  tag.src='https://www.googletagmanager.com/gtag/js?id='+measurementId;
+  document.head.appendChild(tag);
+  gtag('js',new Date());
+  // Query strings may contain customer information; never send them to Analytics.
+  const cleanLocation=location.origin+location.pathname;
+  const cleanReferrer=(()=>{try { const u=new URL(document.referrer);return u.origin+u.pathname; }catch{return '';}})();
+  gtag('config',measurementId,{page_location:cleanLocation,page_referrer:cleanReferrer,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:true});
+  function event(name,location){gtag('event',name,{page_location:cleanLocation,cta_location:location,transport_type:'beacon'});}
+  document.addEventListener('click',(e)=>{
+    const a=e.target instanceof Element ? e.target.closest('a[href]') : null;
+    if(!a) return;
+    const href=a.getAttribute('href') || '';
+    const placement=a.dataset.ctaLocation || (a.closest('header')?'header':a.closest('footer')?'footer':a.closest('section')?.id || a.closest('section')?.classList[0] || 'page_content');
+    if(href.startsWith('tel:')) event('click_to_call',placement);
+    else if(href.startsWith('sms:')) event('click_to_text',placement);
+    else if(href.startsWith('/contact')) event('estimate_form_open',placement);
+  });
+  window.addEventListener('everstead:lead-success',()=>event('generate_lead','estimate_form'));
+})();
+</script>

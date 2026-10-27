@@ -90,7 +90,7 @@ export const hoursNote = inSeason ? 'Sundays by appointment' : '';
  * Business Connect, Facebook, then Angi, Houzz, HomeAdvisor and BBB.
  */
 export const profiles: string[] = [
-  // 'https://www.yelp.com/biz/...',
+  'https://www.thumbtack.com/wa/vancouver/roofing/everstead-roofing-co/service/564295394128535561',
   // 'https://www.facebook.com/...',
   // 'https://www.bbb.org/us/wa/vancouver/profile/...',
 ];

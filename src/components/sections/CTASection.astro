@@ -1,4 +1,6 @@
 ---
+import { estimateHref } from '../../data/contact';
+const quoteHref = estimateHref(Astro.url.pathname);
 import { getImage } from 'astro:assets';
 import ctaBg from '../../assets/images/cta_bg.png';
 
@@ -18,7 +20,7 @@ interface Props {
 const {
   title = 'Ready for a roof done right?',
   text = 'Serving Vancouver, WA and a 60-mile radius. Transparent pricing, meticulous installs, and spotless cleanup—every time.',
-  subtext = 'Text 4 photos for a same-day quote. $350 referral bonus.',
+  subtext = 'Text photos for a free written estimate. Ask us about the scope, timing, and warranty before booking.',
   buttonLabel = 'Get Your Free Estimate Today',
 } = Astro.props;
 
@@ -32,16 +34,18 @@ const optimizedBg = await getImage({ src: ctaBg, format: 'webp', quality: 80, wi
       <p class="cta__text">{text}</p>
       <p class="cta__subtext">{subtext}</p>
     </div>
-    <a href="/contact" class="cta__button animate-on-scroll scale-in">
+    <a href={quoteHref} class="cta__button animate-on-scroll scale-in">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
       </svg>
       {buttonLabel}
     </a>
+    <a href="sms:+13605583350" class="cta__text-link">Prefer to text? Send photos to (360) 558-3350</a>
   </div>
 </section>
 
 <style>
+.cta__text-link { color:#fff; text-decoration:underline; background:#152536; padding:.75rem; border-radius:.4rem; }
   .cta {
     background-image: var(--cta-bg);
     background-size: cover;
@@ -59,6 +63,7 @@ const optimizedBg = await getImage({ src: ctaBg, format: 'webp', quality: 80, wi
     z-index: 1;
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: var(--space-10);
   }

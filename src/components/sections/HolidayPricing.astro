@@ -1,128 +1,26 @@
 ---
-/**
- * "What does it cost" is the highest-intent question in this cluster and the one
- * competitors most often dodge. Publishing the actual rate card is both the
- * conversion lever and the reason this page can rank for cost queries.
- *
- * Every figure comes from src/data/pricing.ts. Nothing here is hardcoded, so a
- * rate change is one edit and the schema, FAQ, and blog post move with it.
- *
- * The rate ladder is shown as a table rather than described in prose because the
- * point of it is comparison — a visitor needs to see what waiting costs them.
- */
-import {
-  rateTiers,
-  currentTier,
-  isCurrentTier,
-  materialUpliftPct,
-  exampleRooflines,
-  estimateTotal,
-  formatDollars,
-  taxNote,
-} from '../../data/pricing';
-
-const laterTier = rateTiers[rateTiers.length - 1];
-// Worked on a mid-sized roofline so the saving is concrete rather than abstract.
-const savingExampleFeet = 200;
-const savingNow = estimateTotal(savingExampleFeet, currentTier.rate);
-const savingLater = estimateTotal(savingExampleFeet, laterTier.rate);
+import {currentTier,exampleRooflines,estimateTotal,formatDollars,taxNote} from '../../data/pricing';
 ---
-
 <section class="holiday-pricing section" id="pricing">
-  <div class="container">
-    <div class="section-header section-header--center animate-on-scroll fade-up">
-      <h2 class="section-title">What Christmas light installation costs in Vancouver</h2>
-      <p class="section-subtitle">
-        No games, no &ldquo;call for pricing.&rdquo; Here is the actual rate card.
-      </p>
-    </div>
-
-    <div class="holiday-pricing__formula animate-on-scroll fade-up">
-      <p class="holiday-pricing__formula-line">
-        <span>Linear feet of roofline</span>
-        <span class="holiday-pricing__op">&times;</span>
-        <span>your rate</span>
-        <span class="holiday-pricing__op">+</span>
-        <span>{materialUpliftPct}% material</span>
-      </p>
-      <p class="holiday-pricing__formula-note">{taxNote}</p>
-    </div>
-
-    <div class="holiday-pricing__ladder animate-on-scroll fade-up">
-      <h3 class="holiday-pricing__ladder-title">The rate goes up as the season fills</h3>
-      <p class="holiday-pricing__ladder-lead">
-        The calendar has a fixed number of workable days before Christmas, and the
-        early ones are the ones we can schedule properly. The rate reflects that.
-        Book now and you lock the lowest one.
-      </p>
-
-      <div class="holiday-pricing__tiers">
-        {rateTiers.map((tier) => (
-          <div class={`rate-tier${isCurrentTier(tier) ? ' rate-tier--current' : ''}`}>
-            {isCurrentTier(tier) && <span class="rate-tier__badge">Available now</span>}
-            <p class="rate-tier__label">{tier.label}</p>
-            <p class="rate-tier__rate">
-              ${tier.rate.toFixed(2)}<span>/ft</span>
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <p class="holiday-pricing__saving">
-        On a {savingExampleFeet}-foot roofline, booking before {currentTier.deadline} instead
-        of waiting until November is a difference of
-        <strong>{formatDollars(savingLater - savingNow)}</strong> &mdash;
-        {formatDollars(savingNow)} against {formatDollars(savingLater)}.
-      </p>
-    </div>
-
-    <div class="holiday-pricing__table-wrap animate-on-scroll fade-up">
-      <h3 class="holiday-pricing__table-title">What that works out to</h3>
-      <div class="holiday-pricing__scroll">
-        <table class="holiday-pricing__table">
-          <thead>
-            <tr>
-              <th scope="col">Roofline</th>
-              {rateTiers.map((tier) => (
-                <th scope="col">{tier.label}<span>${tier.rate.toFixed(2)}/ft</span></th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {exampleRooflines.map((feet) => (
-              <tr>
-                <th scope="row">{feet} ft</th>
-                {rateTiers.map((tier) => (
-                  <td class={isCurrentTier(tier) ? 'is-current' : ''}>
-                    {formatDollars(estimateTotal(feet, tier.rate))}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="holiday-pricing__table-note">
-        Includes the {materialUpliftPct}% material charge. {taxNote} Most Clark County
-        homes fall between 120 and 250 feet of roofline &mdash; if you are not sure
-        which, that is what the photos are for.
-      </p>
-    </div>
-
-    <div class="holiday-pricing__cta animate-on-scroll fade-up">
-      <p class="holiday-pricing__cta-text">
-        <strong>Want your actual number?</strong> Text us four photos of your home &mdash;
-        one from each corner &mdash; and we will measure the roofline and send a written
-        estimate the same day. A 50% deposit reserves your install date at today&rsquo;s rate.
-      </p>
-      <div class="holiday-pricing__cta-actions">
-        <a href="/contact" class="btn btn--primary">Lock ${currentTier.rate.toFixed(2)}/ft</a>
-        <a href="tel:+13605583350" class="holiday-pricing__phone">or call (360) 558-3350</a>
-      </div>
-    </div>
+ <div class="container">
+  <div class="section-header section-header--center">
+   <h2 class="section-title">One clear roofline price: ${currentTier.rate.toFixed(2)}/ft</h2>
+   <p class="section-subtitle">Lights, materials, installation, outdoor cords, timer, and January removal included. {taxNote}</p>
   </div>
+  <div class="holiday-pricing__table-wrap">
+   <h3 class="holiday-pricing__table-title">What that works out to</h3>
+   <div class="holiday-pricing__scroll"><table class="holiday-pricing__table">
+    <thead><tr><th scope="col">Roofline length</th><th scope="col">Full-service price, before tax</th></tr></thead>
+    <tbody>{exampleRooflines.map(feet => <tr><th scope="row">{feet} ft</th><td>{formatDollars(estimateTotal(feet))}</td></tr>)}</tbody>
+   </table></div>
+   <p class="holiday-pricing__table-note">For roofline lighting. Tree wrapping, storage, and any access equipment needed are scoped separately and agreed in your written quote before you book. No extra work is added without your approval.</p>
+  </div>
+  <div class="holiday-pricing__cta">
+   <p class="holiday-pricing__cta-text">Text four photos of your home, one from each corner. We will confirm the footage, access, and written price. A 50% deposit reserves your installation date after you approve the quote.</p>
+   <div class="holiday-pricing__cta-actions"><a href="sms:+13605583350" class="btn btn--primary">Text Photos for an Estimate</a><a href="/contact?service=Christmas%20Light%20Installation" class="holiday-pricing__phone">Request an estimate online</a></div>
+  </div>
+ </div>
 </section>
-
 <style>
   .holiday-pricing {
     background-color: var(--color-white);

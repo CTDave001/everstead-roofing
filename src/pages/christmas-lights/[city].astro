@@ -6,7 +6,6 @@ import {
   currentTier,
   lowestRate,
   highestRate,
-  materialUpliftPct,
   estimateTotal,
   formatDollars,
   taxNote,
@@ -74,7 +73,7 @@ const serviceSchema = {
       unitCode: 'FOT',
       unitText: 'linear foot of roofline',
       referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'FOT' },
-      description: `Per linear foot of roofline, plus a ${materialUpliftPct}% material charge. Washington sales tax stated separately.`,
+      description: `Per linear foot of roofline, materials included. Washington sales tax stated separately.`,
     },
   },
 };
@@ -95,7 +94,7 @@ const faqSchema = {
 
 <BaseLayout
   title={`Christmas Light Installation in ${location.city}, WA`}
-  description={`Professional Christmas light installation in ${location.city}, WA. ${holiday.angle} $${currentTier.rate.toFixed(2)} per linear foot if you book by ${currentTier.deadline}; installation and January removal included.`}
+  description={`Professional Christmas light installation in ${location.city}, WA. ${holiday.angle} $${currentTier.rate.toFixed(2)} per linear foot, materials included, plus sales tax; installation and January removal included.`}
   jsonLd={[serviceSchema, faqSchema]}
   logo="/eversteadlogoholiday.svg"
   breadcrumbs={[
@@ -152,8 +151,7 @@ const faqSchema = {
         <li>Optional year-round storage</li>
       </ul>
       <p class="lights-included__note">
-        <strong>${currentTier.rate.toFixed(2)} per linear foot</strong> booked by {currentTier.deadline},
-        plus {materialUpliftPct}% material. A 200-foot roofline is about
+        <strong>${currentTier.rate.toFixed(2)} per linear foot, materials included.</strong> A 200-foot roofline is
         {formatDollars(estimateTotal(200, currentTier.rate))}. {taxNote}
         <a href="/christmas-light-installation-vancouver-wa">See the full rate card &rarr;</a>
       </p>
@@ -189,7 +187,7 @@ const faqSchema = {
 
   <CTASection
     title={`Book your ${location.city} install`}
-    text={`Christmas light installation in ${location.city} and throughout ${location.county}. Commercial-grade LEDs, non-damaging clips, and January takedown included. $${currentTier.rate.toFixed(2)} per foot booked by ${currentTier.deadline}—the rate rises after that.`}
+    text={`Christmas light installation in ${location.city} and throughout ${location.county}. Commercial-grade LEDs, non-damaging clips, and January takedown included. $${currentTier.rate.toFixed(2)} per foot, materials included, plus sales tax.`}
     subtext="Text 4 photos for a same-day estimate. A 50% deposit reserves your date and holds the rate. Plus WA sales tax, shown separately."
     buttonLabel="Get My Lighting Estimate"
   />

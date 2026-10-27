@@ -80,7 +80,7 @@ const quickLinks = [
           </div>
           <div class="footer__contact-item">
             <span class="footer__contact-label">WA Contractor Registration:</span>
-            <p class="footer__license">BTNHOHL796B9</p>
+            <a class="footer__license" href="https://secure.lni.wa.gov/verify/" target="_blank" rel="noopener">BTNHOHL796B9 — Verify with WA L&amp;I</a>
           </div>
         </div>
         </div>
@@ -90,6 +90,7 @@ const quickLinks = [
     <div class="footer__bottom">
       <p class="footer__entity">Everstead Roofing Co is a registered trade name of BTN Homes LLC, a Washington limited liability company.</p>
       <p class="footer__legal"><a href="/privacy">Privacy Policy</a> &middot; <a href="/sms-terms">SMS Terms</a></p>
+      <p class="footer__entity">Lighting scenes are illustrative unless identified as completed customer installations.</p>
       <p class="footer__credit">Website by <a href="https://dbdigitalco.com" target="_blank" rel="noopener">DB Digital Marketing</a></p>
     </div>
   </div>
@@ -120,13 +121,13 @@ const quickLinks = [
   }
 
   .footer__right {
-    width: 600px;
-    margin-right: 80px;
+    width: min(100%, 760px);
+    min-width: 0;
   }
 
   .footer__tagline {
     font-size: 1rem;
-    color: #152536;
+    color: #f4f4eb;
     line-height: 1.6;
   }
 
@@ -139,8 +140,8 @@ const quickLinks = [
 
   .footer__links {
     display: grid;
-    grid-template-columns: 180px 180px 280px;
-    gap: var(--space-12);
+    grid-template-columns: 1fr 1fr 1.4fr;
+    gap: var(--space-6);
   }
 
   .footer__col-title {

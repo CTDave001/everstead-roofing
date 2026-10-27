@@ -18,8 +18,8 @@
 import {
   rateTiers,
   currentTier,
-  materialUpliftPct,
   taxNote,
+  formatDollars,
 } from '../../data/pricing';
 
 const DEFAULT_FEET = 180;
@@ -59,7 +59,7 @@ const tierData = rateTiers.map((t) => ({
         </div>
         <p class="calc__help" id="calc-feet-help">
           Most Clark County homes fall between 120 and 250 feet. Not sure?
-          <a href="/contact">Send four photos</a> and we will measure it for you.
+          <a href="sms:+13605583350">Text four photos</a> and we will measure it for you.
         </p>
       </div>
 
@@ -70,7 +70,7 @@ const tierData = rateTiers.map((t) => ({
               <span class="calc__tier">{tier.label}</span>
               <span class="calc__rate">${tier.rate.toFixed(2)}/ft</span>
             </div>
-            <span class="calc__price" data-price>&mdash;</span>
+            <span class="calc__price" data-price>{formatDollars(DEFAULT_FEET * currentTier.rate)}</span>
           </div>
         ))}
       </div>
@@ -78,20 +78,18 @@ const tierData = rateTiers.map((t) => ({
       <p class="calc__delta" id="calc-delta" hidden></p>
 
       <p class="calc__note">
-        Includes the {materialUpliftPct}% material charge. {taxNote} Final price is
-        confirmed from photos &mdash; steep or multi-storey access and tree wrapping
-        are quoted separately.
+        Lights, materials, installation, timer, and January removal included. {taxNote} Tree wrapping, storage, or access equipment are scoped separately in your written quote.
       </p>
 
       <div class="calc__cta">
-        <a href="/contact" class="btn btn--primary">Lock ${currentTier.rate.toFixed(2)}/ft</a>
+        <a href="/contact?service=Christmas%20Light%20Installation" class="btn btn--primary">Get My Written Estimate</a>
         <a href="tel:+13605583350" class="calc__phone">or call (360) 558-3350</a>
       </div>
     </div>
   </div>
 </section>
 
-<script is:inline define:vars={{ tierData, materialUpliftPct, DEFAULT_FEET }}>
+<script is:inline define:vars={{ tierData, DEFAULT_FEET }}>
   (() => {
     const slider = document.getElementById('calc-feet');
     const feetOut = document.getElementById('calc-feet-out');
@@ -108,7 +106,7 @@ const tierData = rateTiers.map((t) => ({
 
     // Same arithmetic as estimateTotal() in src/data/pricing.ts. Kept in step by
     // hand because that module is TypeScript and this runs in the browser.
-    const total = (feet, rate) => feet * rate * (1 + materialUpliftPct / 100);
+    const total = (feet, rate) => feet * rate;
 
     function render(feet) {
       feetOut.textContent = `${feet} ft`;

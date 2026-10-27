@@ -1,14 +1,11 @@
 ---
 import FAQ from '../FAQ.astro';
 import {
-  rateTiers,
   currentTier,
-  materialUpliftPct,
   estimateTotal,
   formatDollars,
 } from '../../data/pricing';
 
-const novemberTier = rateTiers[rateTiers.length - 1];
 
 /**
  * These render visibly AND as FAQPage structured data, so every answer has to be
@@ -21,15 +18,15 @@ const novemberTier = rateTiers[rateTiers.length - 1];
 const faqItems = [
   {
     question: 'How much does Christmas light installation cost in Vancouver, WA?',
-    answer: `We price by the foot: linear feet of roofline times the current rate, plus a ${materialUpliftPct}% material charge, plus Washington sales tax shown separately. The rate is $${currentTier.rate.toFixed(2)} per foot if you book by ${currentTier.deadline}, rising to $${novemberTier.rate.toFixed(2)} by November. A typical 200-foot Clark County roofline works out to about ${formatDollars(estimateTotal(200, currentTier.rate))} before tax at today's rate. That covers the lights, the install, the timer, and January removal. Text us four photos and we will measure the roofline and send a written estimate the same day.`,
+    answer: `Our roofline lighting price is $${currentTier.rate.toFixed(2)} per linear foot plus Washington sales tax. Lights, materials, installation, outdoor cords, timer, and January removal are included, with no separate material surcharge. A 200-foot roofline is ${formatDollars(estimateTotal(200))} before tax. Tree wrapping, storage, and any access equipment are scoped separately in your written quote. Text four photos for a written estimate before you book.`,
   },
   {
-    question: 'Why does the price go up later in the season?',
-    answer: `Because the early dates are the ones we can schedule properly. There are a fixed number of workable days on a ladder between October and Christmas, and the closer to Christmas a job lands the more it costs us to fit in — compressed scheduling, weather risk, and overtime. The rate ladder is $${rateTiers[0].rate.toFixed(2)} per foot through ${rateTiers[0].deadline}, $${rateTiers[1].rate.toFixed(2)} in October, and $${rateTiers[2].rate.toFixed(2)} in November. It is published in advance precisely so nobody is surprised by it, and booking early is genuinely cheaper rather than a sales line.`,
+    question: 'Is there an extra material charge?',
+    answer: 'No. The advertised $8.75 per foot includes the roofline lighting materials and full installation service, including January removal. Washington sales tax is added separately. Optional work is itemized for approval in your written quote.',
   },
   {
     question: 'When should I book my Christmas light installation?',
-    answer: `Now, if you want the lowest rate. Booking by ${currentTier.deadline} locks $${currentTier.rate.toFixed(2)} per foot; waiting until November means $${novemberTier.rate.toFixed(2)}. Beyond the price, install dates are assigned in the order deposits come in, and most homeowners do not start calling until the week after Thanksgiving — by which point the best dates are taken. There are only so many dry days on a ladder before Christmas, so the calendar is genuinely finite.`,
+    answer: 'Contact us when you know you want a display so we can discuss available dates. We confirm the scope and price in writing; a 50% deposit then reserves your installation date. Availability is confirmed before you pay.',
   },
   {
     question: 'Do you provide the lights or do I need to buy them?',
@@ -41,7 +38,7 @@ const faqItems = [
   },
   {
     question: 'Do you install on two-story homes and steep rooflines?',
-    answer: 'Yes. Working safely at height on steep and multi-story rooflines is our normal day job as roofers, not an occasional stretch. Height and access do affect the price, because the work is slower, but they are not a reason we would turn down a home.',
+    answer: 'Yes. Working safely at height on steep and multi-story rooflines is our normal day job as roofers, not an occasional stretch. We confirm access from your photos. If specialist access equipment is needed, it is separately scoped and approved in your written quote before you book.',
   },
   {
     question: 'What happens if a bulb or strand fails during the season?',

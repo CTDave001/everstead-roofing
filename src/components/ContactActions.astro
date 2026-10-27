@@ -1,0 +1,10 @@
+---
+import { estimateHref } from '../data/contact';
+const quoteHref = estimateHref(Astro.url.pathname);
+---
+<aside class="contact-actions" aria-label="Quick contact">
+ <a href="tel:+13605583350" data-cta-location="mobile_bar">Call Us</a>
+ <a href="sms:+13605583350" data-cta-location="mobile_bar">Text Photos</a>
+ <a href={quoteHref} data-cta-location="mobile_bar">Free Estimate</a>
+</aside>
+<style>.contact-actions{display:none}@media(max-width:767px){.contact-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:900;background:#152536;padding:.65rem .5rem calc(.65rem + env(safe-area-inset-bottom));gap:.4rem;box-shadow:0 -2px 12px #0002}.contact-actions a{color:#fff;text-align:center;padding:.75rem .2rem;border:1px solid #ffffff66;border-radius:.4rem;font-weight:700;font-size:.85rem}.contact-actions a:last-child{background:#a6501e;border-color:#a6501e}}</style>

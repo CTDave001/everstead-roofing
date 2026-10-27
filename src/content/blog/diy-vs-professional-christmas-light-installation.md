@@ -69,7 +69,7 @@ This is also the single most useful question to ask a company you are considerin
 
 We publish our rates, so you can do the arithmetic honestly rather than guessing.
 
-Our rate is **$6.50 per linear foot** booked before 30 September, plus 8% material, plus sales tax stated separately. A 160-foot roofline works out to about **$1,123** — installed, powered, on a timer, taken down in January, and covered by a service warranty if a strand fails in December.
+Our rate is **$8.75 per linear foot, materials included**, plus Washington sales tax. A 160-foot roofline is **$1,400 before tax** — installed, powered, on a timer, taken down in January, and covered by a service warranty if a strand fails during the season. No separate material surcharge.
 
 Doing that same run yourself will cost you less in year one on materials alone. That is true and we are not going to pretend otherwise. The question is what the rest of the trade is worth to you: two weekends in November, one more in January, the ladder work, the storage problem, and replacing the strands sooner because retail product does not survive many Pacific Northwest winters.
 
